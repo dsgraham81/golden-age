@@ -32,4 +32,10 @@ public class Utils {
 		Assets.batch.end();
 	}
 	
+	
+	public static float clamp(float value, float min, float max)
+	{
+		return Math.max(Math.min(value, max), min);
+	}
+	
 }

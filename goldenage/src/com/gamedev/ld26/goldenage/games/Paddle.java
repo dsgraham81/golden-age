@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.core.Assets;
+import com.gamedev.ld26.goldenage.utils.Config;
+import com.gamedev.ld26.goldenage.utils.Utils;
 
 public class Paddle {
 
@@ -21,6 +23,12 @@ public class Paddle {
 	 */
 	public void move(float amount) {
 		rect.x += amount;
+	}
+	
+	public void setPosition(float x, float y)
+	{
+		rect.x = Utils.clamp(x, 0, Config.window_width - rect.width);
+		rect.y = Utils.clamp(y, 0, Config.window_height - rect.height);
 	}
 	
 	public void render() {

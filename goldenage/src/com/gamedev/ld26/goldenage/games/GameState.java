@@ -1,10 +1,9 @@
 package com.gamedev.ld26.goldenage.games;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.Rectangle;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.core.Assets;
-import com.gamedev.ld26.goldenage.utils.Config;
+
 
 public abstract class GameState {
 
@@ -22,16 +21,18 @@ public abstract class GameState {
 	}
 	
 	protected void updatePlayer(float delta) {
-		final float scale = _game.input.getCurrMouse().x - _game.input.getPrevMouse().x;
-		final float speed = 1.f;
-		final float amount = speed * scale;
-		_player.move(amount);
+//		final float scale = _game.input.getCurrMouse().x - _game.input.getPrevMouse().x;
+//		final float speed = 1.f;
+//		final float amount = speed * scale;
+//		_player.move(amount);
+//		
+//		// Undo move if we've gone too far
+//		final Rectangle rect = _player.getRect();
+//		if (rect.x < 0 || (rect.x + rect.width) > Config.window_width) {
+//			_player.move(-amount);
+//		}
 		
-		// Undo move if we've gone too far
-		final Rectangle rect = _player.getRect();
-		if (rect.x < 0 || (rect.x + rect.width) > Config.window_width) {
-			_player.move(-amount);
-		}
+		_player.setPosition(_game.input.getCurrMouse().x, 0);
 	}
 	
 	protected abstract void updateScreen(float delta);

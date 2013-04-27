@@ -14,5 +14,6 @@ public class Main {
 		cfg.resizable = Config.resizable;
 		
 		new LwjglApplication(new GoldenAgeGame(), cfg);
+		
 	}
 }
