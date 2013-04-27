@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.core.Assets;
-import com.gamedev.ld26.goldenage.games.pong.Paddle;
 import com.gamedev.ld26.goldenage.utils.Config;
 
 public abstract class GameState {
