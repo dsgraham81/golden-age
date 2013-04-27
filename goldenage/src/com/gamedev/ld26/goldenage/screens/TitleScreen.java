@@ -1,12 +1,12 @@
 package com.gamedev.ld26.goldenage.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.gamedev.ld26.goldenage.Globals;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.core.Assets;
 import com.gamedev.ld26.goldenage.utils.Config;
@@ -27,10 +27,24 @@ public class TitleScreen implements Screen {
 	public void update() {
 		if (game.input.isKeyDown(Keys.ESCAPE)) {
 			Gdx.app.exit();
-		} else if (Gdx.input.isButtonPressed(Buttons.LEFT)) {
-			game.setScreen(game.play);
+		} else {
+			handleScreen();
 		}
 		accum += Gdx.graphics.getDeltaTime();
+	}
+	
+	protected void handleScreen() {	
+		if (game.input.isKeyDown(Keys.NUM_1)) {
+			game.setGame(Globals.Games.pong);
+		} else if (game.input.isKeyDown(Keys.NUM_2)) {
+			game.setGame(Globals.Games.breakout);
+		} else if (game.input.isKeyDown(Keys.NUM_3)) {
+			game.setGame(Globals.Games.spaceinvaders);
+		} else if (game.input.isKeyDown(Keys.NUM_4)) {
+			game.setGame(Globals.Games.centipede);
+		} else if (game.input.isKeyDown(Keys.NUM_5)) {
+			game.setGame(Globals.Games.g1942);
+		} 
 	}
 	
 	@Override

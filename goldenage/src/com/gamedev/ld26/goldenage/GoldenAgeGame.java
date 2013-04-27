@@ -9,6 +9,7 @@ import com.gamedev.ld26.goldenage.screens.TitleScreen;
 
 public class GoldenAgeGame extends Game {
 
+	
 	public Input input;
 	
 	public TitleScreen title;
@@ -25,6 +26,12 @@ public class GoldenAgeGame extends Game {
 		title = new TitleScreen(this);
 		play = new PlayScreen(this);
 		setScreen(title);
+	}
+	
+	public void setGame(Globals.Games title)
+	{
+		play.transitionGame(title);
+		setScreen(play);
 	}
 
 	@Override

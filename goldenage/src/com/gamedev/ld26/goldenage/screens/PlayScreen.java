@@ -6,8 +6,11 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.gamedev.ld26.goldenage.Globals;
+import com.gamedev.ld26.goldenage.Globals.Games;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.games.GameState;
+import com.gamedev.ld26.goldenage.games.breakout.BreakoutState;
 import com.gamedev.ld26.goldenage.games.pong.PongState;
 import com.gamedev.ld26.goldenage.utils.Config;
 import com.gamedev.ld26.goldenage.utils.Utils;
@@ -23,7 +26,23 @@ public class PlayScreen implements Screen {
 		super();
 		this.game = game;
 		camera.setToOrtho(false, Config.window_width, Config.window_height);
-		_gameScreen = new PongState(game);
+	}
+	
+	public void transitionGame(Globals.Games title)	{
+		switch (title) {
+			case pong:
+				_gameScreen = new PongState(game);
+				break;
+			case breakout:
+				_gameScreen = new BreakoutState(game);
+				break;
+			case spaceinvaders:
+				break;
+			case centipede:
+				break;
+			case g1942:
+				break;
+		}
 	}
 	
 	public void update() {
@@ -38,6 +57,8 @@ public class PlayScreen implements Screen {
 	
 	@Override
 	public void render(float delta) {
+		if (_gameScreen == null) return;
+			
 		update();
 		
 		Gdx.gl20.glClearColor(0, 0, 0, 1);
