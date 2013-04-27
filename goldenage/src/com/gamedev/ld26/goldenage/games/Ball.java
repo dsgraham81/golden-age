@@ -2,6 +2,7 @@ package com.gamedev.ld26.goldenage.games;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.core.Assets;
 import com.gamedev.ld26.goldenage.utils.Config;
@@ -9,56 +10,67 @@ import com.gamedev.ld26.goldenage.utils.Utils;
 
 public class Ball extends GameObject {
 
+	private static final float max_speed = 750.f;
+	
 	private Circle _circle;
 	private Color _color;
-	private Vector2 _vel;
-	private float _speed = 500.f;
-	private float _maxSpeed = 750.f;
+	private Vector2 _dir;
+	private float _speed;
 	
 	public Ball(Vector2 pos, float radius, Color color) {
 		super(pos,  new Vector2(radius, radius), color);
 		
 		_circle = new Circle(pos.x, pos.y, radius);
 		_color = color;
-		float x = Assets.random.nextFloat() * _speed - _speed / 2;
-		float y = Assets.random.nextFloat() * _speed - _speed / 2;
-		_vel = new Vector2(x, y);
+		float x = Assets.random.nextFloat() * 2.f - 1.f;
+		float y = Assets.random.nextFloat() * 2.f - 1.f;
+		_dir = new Vector2(x, y).nor();
+		_speed = 500.f;
 	}
 	
 	public void update(float delta) {
-		_circle.x += _vel.x * delta;
-		_circle.y += _vel.y * delta;
+		_circle.x += _dir.x * _speed * delta;
+		_circle.y += _dir.y * _speed * delta;
 		
-		// TODO : updated to allow for arbitrary angles, not just 45's
-		// Keep inside window boundary
-		if ((_circle.x - _circle.radius) < 0) {
-			_circle.x = _circle.radius;
-			_vel.x *= -1.5;
-		}
-		if ((_circle.x + _circle.radius) > Config.window_width) {
-			_circle.x = Config.window_width - _circle.radius;
-			_vel.x *= -1.5;
-		}
-		if ((_circle.y - _circle.radius) < 0) {
-			_circle.y = _circle.radius;
-			_vel.y *= -1.5;
-		}
-		if ((_circle.y + _circle.radius) > Config.window_height) {
-			_circle.y = Config.window_height - _circle.radius;
-			_vel.y *= -1.5;
-		}
-		
-		_vel.x = Utils.clamp(_vel.x, -_maxSpeed, _maxSpeed);
-		_vel.y = Utils.clamp(_vel.y, -_maxSpeed, _maxSpeed);
+		keepInsideRect(Config.pong_window_bounds);
+		clampSpeed();
 		
 		_rect.x = _circle.x;
 		_rect.y = _circle.y;
 	}
-	
+
+	public void clampSpeed() {
+		_speed = Utils.clamp(_speed, -max_speed, max_speed);
+	}
+
 	public void render() {
 		Assets.shapes.setColor(_color);
 		Assets.shapes.circle(_circle.x, _circle.y, _circle.radius);
 	}
 	
 	public Circle getCircle() { return _circle; }
+	public Color getColor() { return _color; }
+	public Vector2 getDir() { return _dir; }
+	public float getSpeed() { return _speed; }
+	public void setSpeed(float s) { _speed = s; clampSpeed(); }
+
+	private void keepInsideRect(Rectangle bounds) {
+		if ((_circle.x - _circle.radius) < bounds.x) {
+			_circle.x = bounds.x + _circle.radius;
+			_dir.x = -_dir.x;
+		}
+		if ((_circle.x + _circle.radius) > (bounds.x + bounds.width)) {
+			_circle.x = (bounds.x + bounds.width) - _circle.radius;
+			_dir.x = -_dir.x;
+		}
+		if ((_circle.y - _circle.radius) < bounds.y) {
+			_circle.y = bounds.y + _circle.radius;
+			_dir.y = -_dir.y;
+		}
+		if ((_circle.y + _circle.radius) > (bounds.y + bounds.height)) {
+			_circle.y = (bounds.y + bounds.height) - _circle.radius;
+			_dir.y = -_dir.y;
+		}
+	}
+	
 }
