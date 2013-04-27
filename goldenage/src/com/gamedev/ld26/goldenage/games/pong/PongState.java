@@ -10,44 +10,29 @@ import com.gamedev.ld26.goldenage.core.Assets;
 import com.gamedev.ld26.goldenage.games.GameState;
 import com.gamedev.ld26.goldenage.utils.Config;
 
-public class PongState implements GameState {
+public class PongState extends GameState {
 
-	private final GoldenAgeGame game;
-	
-	private Paddle player;
 	private Paddle cpu;
 	private Circle ball;
 	
+	static Vector2 size = new Vector2(80, 20);
+		
 	public PongState(GoldenAgeGame game) {
-		this.game = game;
-		final Vector2 size = new Vector2(80, 20);
-		player = new Paddle(new Vector2(Config.window_width / 2, 0), size, Color.WHITE);
+		super(game, new Paddle(new Vector2(Config.window_width / 2, 0), size, Color.WHITE));
+		
 		cpu = new Paddle(new Vector2(Config.window_width / 2, Config.window_height - size.y), size, Color.WHITE);
 		ball = new Circle(Config.window_width / 2, Config.window_height / 2, 10);
 	}
 	
 	@Override
-	public void update(float delta) {
-		final float scale = game.input.getCurrMouse().x - game.input.getPrevMouse().x;
-		final float speed = 1.f;
-		final float amount = speed * scale;
-		player.move(amount);
-		
-		// Undo move if we've gone too far
-		final Rectangle rect = player.getRect();
-		if (rect.x < 0 || (rect.x + rect.width) > Config.window_width) {
-			player.move(-amount);
-		}
+	protected void updateScreen(float delta) {
+	
 	}
-
+		
 	@Override
-	public void render(float delta) {
-		Assets.shapes.begin(ShapeType.Filled);
-		player.render();
+	protected void renderScreen(float delta) {
 		cpu.render();
 		Assets.shapes.circle(ball.x, ball.y, ball.radius);
 		Assets.shapes.setColor(Color.WHITE);
-		Assets.shapes.end();
-	}
-	
+	}	
 }
