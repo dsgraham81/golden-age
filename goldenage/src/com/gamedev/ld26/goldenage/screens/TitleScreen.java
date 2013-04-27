@@ -30,6 +30,7 @@ public class TitleScreen implements Screen {
 		} else {
 			handleScreen();
 		}
+		
 		accum += Gdx.graphics.getDeltaTime();
 	}
 	
