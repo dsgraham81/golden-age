@@ -21,10 +21,10 @@ public class PongState extends GameState {
 	static Vector2 size = new Vector2(Config.pong_paddle_size_x, Config.pong_paddle_size_y);
 		
 	public PongState(GoldenAgeGame game, GameState previous) {
-		super(game, previous, new Paddle(new Vector2(Config.window_width / 2, 0), size, Color.WHITE));
-		
-		cpu = new Paddle(new Vector2(Config.window_half_width, Config.window_height - size.y), size, Color.WHITE);
-		ball = new Ball(new Vector2(Config.window_half_width, Config.window_half_height), 10, Color.WHITE);
+		super(game, previous);
+		_player = new Paddle(new Vector2(Config.window_width / 2, 0), size, Color.WHITE, this);
+		cpu = new Paddle(new Vector2(Config.window_half_width, Config.window_height - size.y), size, Color.WHITE, this);
+		ball = new Ball(new Vector2(Config.window_half_width, Config.window_half_height), 10, Color.WHITE, this);
 	}
 	
 	@Override

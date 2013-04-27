@@ -17,8 +17,8 @@ public class Ball extends GameObject {
 	private Vector2 _dir;
 	private float _speed;
 	
-	public Ball(Vector2 pos, float radius, Color color) {
-		super(pos,  new Vector2(radius, radius), color);
+	public Ball(Vector2 pos, float radius, Color color, GameState gs) {
+		super(pos,  new Vector2(radius, radius), color, gs);
 		
 		_circle = new Circle(pos.x, pos.y, radius);
 		_color = color;
@@ -26,6 +26,11 @@ public class Ball extends GameObject {
 		float y = Assets.random.nextFloat() * 2.f - 1.f;
 		_dir = new Vector2(x, y).nor();
 		_speed = 500.f;
+	}
+	
+	public void setVelocity(Vector2 newVel)
+	{
+		_dir = newVel;
 	}
 	
 	public void update(float delta) {
