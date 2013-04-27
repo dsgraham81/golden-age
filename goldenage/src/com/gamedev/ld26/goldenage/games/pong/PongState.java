@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.core.Assets;
 import com.gamedev.ld26.goldenage.games.GameState;
+import com.gamedev.ld26.goldenage.games.Paddle;
 import com.gamedev.ld26.goldenage.utils.Config;
 
 public class PongState extends GameState {
