@@ -5,7 +5,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Input extends InputAdapter {
 	
-	private final Vector2 mouse = new Vector2(0,0);
+	private final Vector2 prevMouse= new Vector2(0,0);
+	private final Vector2 currMouse = new Vector2(0,0);
 	private final boolean[] keys = new boolean[256];
 	
 	public Input() {
@@ -26,6 +27,9 @@ public class Input extends InputAdapter {
 	public boolean isKeyUp(int keycode) {
 		return !keys[keycode];
 	}
+	
+	public Vector2 getCurrMouse() { return currMouse; }
+	public Vector2 getPrevMouse() { return prevMouse; }
 	
 	@Override
 	public boolean keyDown(int keycode) {
@@ -56,7 +60,8 @@ public class Input extends InputAdapter {
 
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
-		mouse.set(screenX, screenY);
+		prevMouse.set(currMouse);
+		currMouse.set(screenX, screenY);
 		return false;
 	}
 
