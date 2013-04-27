@@ -2,6 +2,9 @@ package com.gamedev.ld26.goldenage.games.pong;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.core.Assets;
@@ -15,18 +18,19 @@ public class PongState extends GameState {
 	private Paddle cpu;
 	private Ball ball;
 	
-	static Vector2 size = new Vector2(80, 20);
+	static Vector2 size = new Vector2(Config.pong_paddle_size_x, Config.pong_paddle_size_y);
 		
 	public PongState(GoldenAgeGame game, GameState previous) {
 		super(game, previous, new Paddle(new Vector2(Config.window_width / 2, 0), size, Color.WHITE));
 		
-		cpu = new Paddle(new Vector2(Config.window_width / 2, Config.window_height - size.y), size, Color.WHITE);
-		ball = new Ball(new Vector2(Config.window_width / 2, Config.window_height / 2), 10, Color.WHITE);
+		cpu = new Paddle(new Vector2(Config.window_half_width, Config.window_height - size.y), size, Color.WHITE);
+		ball = new Ball(new Vector2(Config.window_half_width, Config.window_half_height), 10, Color.WHITE);
 	}
 	
 	@Override
 	protected void updateScreen(float delta) {
 		ball.update(Gdx.graphics.getDeltaTime());
+		handleCollisions();
 	}
 
 	@Override
@@ -35,4 +39,25 @@ public class PongState extends GameState {
 		ball.render();
 		Assets.shapes.setColor(Color.WHITE);
 	}	
+	
+	private void handleCollisions() {
+		final Rectangle playerRect = _player.getRect();
+		final Rectangle cpuRect = cpu.getRect();
+		final Circle ballCircle = ball.getCircle();
+		Vector2 ballDir = ball.getDir();
+		
+		// Intersection tests - ball/paddle
+		if (Intersector.overlaps(ballCircle, playerRect)) {
+			ballCircle.y = playerRect.y + playerRect.height + ballCircle.radius;
+			ballDir.y *= -1;
+			ball.setSpeed(ball.getSpeed() + 50.f);
+		}
+		
+		if (Intersector.overlaps(ball.getCircle(), cpuRect)) {
+			ballCircle.y = cpuRect.y - ballCircle.radius;
+			ballDir.y *= -1;
+			ball.setSpeed(ball.getSpeed() + 50.f);
+		}
+	}
+	
 }

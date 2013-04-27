@@ -56,7 +56,7 @@ public class TitleScreen implements Screen {
 		
 		Assets.batch.setProjectionMatrix(camera.combined);
 		Assets.batch.begin();
-		Assets.batch.draw(Assets.background, Config.window_width / 2 - Assets.background.getWidth() / 2, 0);
+		Assets.batch.draw(Assets.background, Config.window_half_width - Assets.background.getWidth() / 2, 0);
 		Assets.batch.end();
 		
 		final String testString1 = "Ludem ipsum dare: sit amit, ld48 !26?";
