@@ -8,14 +8,12 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Intersector;
 
 public class Assets {
 	
 	public static Random random;
 	public static SpriteBatch batch;
 	public static ShapeRenderer shapes;
-	public static Intersector intersector;
 	
 	public static Texture sheet;
 	public static Texture background;
@@ -28,7 +26,6 @@ public class Assets {
 		random = new Random();
 		batch  = new SpriteBatch();
 		shapes = new ShapeRenderer();
-		intersector = new Intersector();
 		
 		sheet  = new Texture(Gdx.files.internal("data/spritesheet.png"));
 		sheet.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
