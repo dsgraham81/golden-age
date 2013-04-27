@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
+import com.gamedev.ld26.goldenage.games.GameState;
 import com.gamedev.ld26.goldenage.games.pong.PongState;
 import com.gamedev.ld26.goldenage.utils.Config;
 import com.gamedev.ld26.goldenage.utils.Utils;
@@ -15,14 +16,14 @@ public class PlayScreen implements Screen {
 
 	private final OrthographicCamera camera = new OrthographicCamera();
 	private final GoldenAgeGame game;
-	private PongState pong;
+	private GameState _gameScreen;
 	private float accum = 0.f;
 	
 	public PlayScreen(GoldenAgeGame game) {
 		super();
 		this.game = game;
 		camera.setToOrtho(false, Config.window_width, Config.window_height);
-		pong = new PongState(game);
+		_gameScreen = new PongState(game);
 	}
 	
 	public void update() {
@@ -32,7 +33,7 @@ public class PlayScreen implements Screen {
 		
 		final float delta = Gdx.graphics.getDeltaTime();
 		accum += delta;
-		pong.update(delta);
+		_gameScreen.update(delta);
 	}
 	
 	@Override
@@ -42,7 +43,7 @@ public class PlayScreen implements Screen {
 		Gdx.gl20.glClearColor(0, 0, 0, 1);
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		pong.render(Gdx.graphics.getDeltaTime());
+		_gameScreen.render(Gdx.graphics.getDeltaTime());
 		
 		final int w = 16, h = 16;
 		final float speed = 8.f;
