@@ -35,7 +35,7 @@ public abstract class GameState {
 	}
 	
 	protected boolean transitionScreen(float delta) {
-		return true;				
+		return false;				
 	}
 	
 	protected void dispose() {		
