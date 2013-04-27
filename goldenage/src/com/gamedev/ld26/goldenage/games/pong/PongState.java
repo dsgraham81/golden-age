@@ -18,7 +18,7 @@ public class PongState extends GameState {
 	static Vector2 size = new Vector2(80, 20);
 		
 	public PongState(GoldenAgeGame game, GameState previous) {
-		super(game, new Paddle(new Vector2(Config.window_width / 2, 0), size, Color.WHITE));
+		super(game, previous, new Paddle(new Vector2(Config.window_width / 2, 0), size, Color.WHITE));
 		
 		cpu = new Paddle(new Vector2(Config.window_width / 2, Config.window_height - size.y), size, Color.WHITE);
 		ball = new Ball(new Vector2(Config.window_width / 2, Config.window_height / 2), 10, Color.WHITE);

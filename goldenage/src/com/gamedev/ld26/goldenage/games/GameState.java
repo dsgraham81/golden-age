@@ -9,15 +9,36 @@ public abstract class GameState {
 
 	protected final GoldenAgeGame _game;	
 	protected final Paddle _player;
+	private GameState _previousGame;
 	
-	protected GameState(GoldenAgeGame game, Paddle player) {
+	protected GameState(GoldenAgeGame game, GameState previous, Paddle player) {
 		_game = game;
 		_player = player;
+		_previousGame = previous;
 	}
 		
 	public void update(float delta) {
 		updatePlayer(delta);
-		updateScreen(delta);		
+		
+		if (_previousGame != null) {
+			if (!transitionScreen(delta)) {
+				_previousGame.dispose();
+				_previousGame = null;
+			}
+		} else {		
+			updateScreen(delta);
+		}
+	}
+	
+	public boolean isTransitioning() {
+		return (_previousGame != null);
+	}
+	
+	protected boolean transitionScreen(float delta) {
+		return true;				
+	}
+	
+	protected void dispose() {		
 	}
 	
 	protected void updatePlayer(float delta) {		
