@@ -7,11 +7,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.gamedev.ld26.goldenage.Globals;
-import com.gamedev.ld26.goldenage.Globals.Games;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.games.GameState;
+import com.gamedev.ld26.goldenage.games.G1942.G1942State;
 import com.gamedev.ld26.goldenage.games.breakout.BreakoutState;
+import com.gamedev.ld26.goldenage.games.centipede.CentipedeState;
 import com.gamedev.ld26.goldenage.games.pong.PongState;
+import com.gamedev.ld26.goldenage.games.spaceinvaders.SpaceInvadersState;
 import com.gamedev.ld26.goldenage.utils.Config;
 import com.gamedev.ld26.goldenage.utils.Utils;
 
@@ -31,16 +33,19 @@ public class PlayScreen implements Screen {
 	public void transitionGame(Globals.Games title)	{
 		switch (title) {
 			case pong:
-				_gameScreen = new PongState(game);
+				_gameScreen = new PongState(game, _gameScreen);
 				break;
 			case breakout:
-				_gameScreen = new BreakoutState(game);
+				_gameScreen = new BreakoutState(game, _gameScreen);
 				break;
 			case spaceinvaders:
+				_gameScreen = new SpaceInvadersState(game, _gameScreen);
 				break;
 			case centipede:
+				_gameScreen = new CentipedeState(game, _gameScreen);
 				break;
 			case g1942:
+				_gameScreen = new G1942State(game, _gameScreen);
 				break;
 		}
 	}
