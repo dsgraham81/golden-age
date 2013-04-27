@@ -7,7 +7,7 @@ import com.gamedev.ld26.goldenage.core.Assets;
 import com.gamedev.ld26.goldenage.utils.Config;
 import com.gamedev.ld26.goldenage.utils.Utils;
 
-public class Ball {
+public class Ball extends GameObject {
 
 	private Circle _circle;
 	private Color _color;
@@ -16,6 +16,8 @@ public class Ball {
 	private float _maxSpeed = 750.f;
 	
 	public Ball(Vector2 pos, float radius, Color color) {
+		super(pos,  new Vector2(radius, radius), color);
+		
 		_circle = new Circle(pos.x, pos.y, radius);
 		_color = color;
 		float x = Assets.random.nextFloat() * _speed - _speed / 2;
@@ -48,6 +50,9 @@ public class Ball {
 		
 		_vel.x = Utils.clamp(_vel.x, -_maxSpeed, _maxSpeed);
 		_vel.y = Utils.clamp(_vel.y, -_maxSpeed, _maxSpeed);
+		
+		_rect.x = _circle.x;
+		_rect.y = _circle.y;
 	}
 	
 	public void render() {
@@ -56,6 +61,4 @@ public class Ball {
 	}
 	
 	public Circle getCircle() { return _circle; }
-	public Color getColor() { return _color; }
-	
 }

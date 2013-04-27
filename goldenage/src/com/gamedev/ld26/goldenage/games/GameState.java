@@ -20,18 +20,7 @@ public abstract class GameState {
 		updateScreen(delta);		
 	}
 	
-	protected void updatePlayer(float delta) {
-//		final float scale = _game.input.getCurrMouse().x - _game.input.getPrevMouse().x;
-//		final float speed = 1.f;
-//		final float amount = speed * scale;
-//		_player.move(amount);
-//		
-//		// Undo move if we've gone too far
-//		final Rectangle rect = _player.getRect();
-//		if (rect.x < 0 || (rect.x + rect.width) > Config.window_width) {
-//			_player.move(-amount);
-//		}
-		
+	protected void updatePlayer(float delta) {		
 		_player.setPosition(_game.input.getCurrMouse().x, 0);
 	}
 	
