@@ -12,7 +12,7 @@ public class BreakoutState extends GameState {
 	static final Vector2 size = new Vector2(80, 80);
 	
 	public BreakoutState(GoldenAgeGame game, GameState previous) {
-		super(game, new Paddle(new Vector2(Config.window_width / 2, 0), size, Color.WHITE));
+		super(game, previous, new Paddle(new Vector2(Config.window_width / 2, 0), size, Color.WHITE));
 		// TODO Auto-generated constructor stub
 	}
 
