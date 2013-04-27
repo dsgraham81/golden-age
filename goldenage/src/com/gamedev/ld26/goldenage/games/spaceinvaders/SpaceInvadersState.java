@@ -1,4 +1,4 @@
-package com.gamedev.ld26.goldenage.games.breakout;
+package com.gamedev.ld26.goldenage.games.spaceinvaders;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
@@ -7,11 +7,11 @@ import com.gamedev.ld26.goldenage.games.GameState;
 import com.gamedev.ld26.goldenage.games.Paddle;
 import com.gamedev.ld26.goldenage.utils.Config;
 
-public class BreakoutState extends GameState {
+public class SpaceInvadersState extends GameState {
 
 	static final Vector2 size = new Vector2(80, 80);
 	
-	public BreakoutState(GoldenAgeGame game, GameState previous) {
+	public SpaceInvadersState(GoldenAgeGame game, GameState previous) {
 		super(game, new Paddle(new Vector2(Config.window_width / 2, 0), size, Color.WHITE));
 		// TODO Auto-generated constructor stub
 	}
