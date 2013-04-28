@@ -64,6 +64,14 @@ public class PlayScreen implements Screen {
 			{
 				transitionGame(Globals.Games.spaceinvaders);
 			}
+			else if (_gameScreen.getClass() == SpaceInvadersState.class)
+			{
+				transitionGame(Globals.Games.centipede);
+			}
+			else if (_gameScreen.getClass() == CentipedeState.class)
+			{
+				transitionGame(Globals.Games.g1942);
+			}
 		}
 	}
 	

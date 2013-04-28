@@ -3,6 +3,7 @@ package com.gamedev.ld26.goldenage.core;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
@@ -20,6 +21,7 @@ public class Assets {
 	public static Texture background;
 	
 	public static Sound beep;
+	public static Music pongMusic;
 	
 	public static TextureRegion[][] letters;
 	public static TextureRegion[][] digits;
@@ -37,6 +39,7 @@ public class Assets {
 		background.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);	
 		
 		beep = Gdx.audio.newSound(Gdx.files.internal("data/audio/beep.wav"));
+		pongMusic = Gdx.audio.newMusic(Gdx.files.internal("data/audio/aces_high.mp3"));
 		
 		letters = splitAndGet(sheet, 8, 8, 0, 30, 26, 1);
 		digits  = splitAndGet(sheet, 8, 8, 0, 31, 10, 1);
