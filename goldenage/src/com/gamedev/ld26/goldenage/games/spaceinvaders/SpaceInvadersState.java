@@ -16,7 +16,6 @@ import com.gamedev.ld26.goldenage.games.GameState;
 import com.gamedev.ld26.goldenage.games.Player;
 import com.gamedev.ld26.goldenage.games.PlayerTransition;
 import com.gamedev.ld26.goldenage.games.Transition;
-import com.gamedev.ld26.goldenage.games.breakout.Block;
 
 public class SpaceInvadersState extends GameState implements TimerListener {
 

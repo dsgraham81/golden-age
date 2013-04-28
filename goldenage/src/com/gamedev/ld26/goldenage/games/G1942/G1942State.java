@@ -1,5 +1,8 @@
 package com.gamedev.ld26.goldenage.games.G1942;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
@@ -8,7 +11,10 @@ import com.gamedev.ld26.goldenage.games.Bullet;
 import com.gamedev.ld26.goldenage.games.BulletFactory;
 import com.gamedev.ld26.goldenage.games.GameObject;
 import com.gamedev.ld26.goldenage.games.GameState;
+import com.gamedev.ld26.goldenage.games.PlayerTransition;
+import com.gamedev.ld26.goldenage.games.Transition;
 import com.gamedev.ld26.goldenage.utils.Config;
+import com.gamedev.ld26.goldenage.utils.Utils;
 
 public class G1942State extends GameState {
 
@@ -40,6 +46,8 @@ public class G1942State extends GameState {
 		back2 = new MovingBackground(_windowBounds, _backGroundColor2, _backGroundColor1);
 		back2.SetYOffset(_windowBounds.height);
 		_player.setImmunity(0);
+		
+		setupTransition(previous);
 	}
 
 	@Override
@@ -164,6 +172,78 @@ public class G1942State extends GameState {
 		back1.render();
 		back2.render();
 		
+	}
+	
+	
+	private float _transition = 0;	
+	static final float TransitionTime = 1.5f;
+	private ArrayList<Transition> _playerTransitions = new ArrayList<Transition>();
+
+	
+	protected boolean transitionScreen(float delta) {
+		_transition += delta;
+		
+		for (Transition pt : _playerTransitions) {
+			pt.Update(delta);
+		}
+		
+		return (_transition < TransitionTime);
+	}
+	
+	private void setupTransition(GameState previousScreen) {
+		if (previousScreen == null) return;
+		_player.setDraw(false);
+				
+		for (GameObject obj : previousScreen.getGameObjects()) {
+			
+			if (obj.isAlive()) {
+				if ((obj.isTransitionObject())) {
+					_playerTransitions.add(new PlayerTransition(createScaleTransition(), obj, TransitionTime/3));
+				}
+			}
+		}
+		
+		_playerTransitions.add(new PlayerTransition(_player,  previousScreen.getPlayer(), TransitionTime, false));
+	}
+	
+	private GameObject createScaleTransition() {
+		
+		Random rand = Assets.random;
+		float x, y;
+		
+		switch (rand.nextInt(3)) {
+			case 1:
+				x = _windowBounds.x - rand.nextInt(100);
+				y = getSide(100);
+				break;
+			case 2:
+				x = _windowBounds.x + _windowBounds.height + rand.nextInt(100);
+				y = getSide(100);
+				break;
+			default:
+				x = getTop(0);
+				y = (rand.nextBoolean()) ? _windowBounds.y - rand.nextInt(100) 
+						: _windowBounds.y + _windowBounds.height + rand.nextInt(100); 
+				break;
+		}
+		
+		
+		float size = Assets.random.nextInt(20) + 20;
+		Vector2 pos = new Vector2(x, y);
+				
+		Color color = Utils.getRandomColor();
+		GameObject object = new GameObject(pos, new Vector2(size, size), color, this);		
+		object.IsTemporary = true; 
+		return object;
+	}
+	
+	
+	private float getTop(float extra) {
+		return -extra + ((_windowBounds.width + (extra*2)) * Assets.random.nextFloat());
+	}
+	
+	private float getSide(float extra) {
+		return -extra + ((_windowBounds.height + (extra*2)) * Assets.random.nextFloat());
 	}
 
 }

@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.core.Assets;
+import com.gamedev.ld26.goldenage.core.Input;
 import com.gamedev.ld26.goldenage.utils.Config;
 
 
@@ -184,4 +185,7 @@ public abstract class GameState {
 		return _stageMusic;
 	}
 	
+	public Input getInput() {
+		return _game.input;
+	}	
 }

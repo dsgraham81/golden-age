@@ -1,10 +1,7 @@
 package com.gamedev.ld26.goldenage.games.G1942;
 
-import javax.naming.directory.DirContext;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
-import com.gamedev.ld26.goldenage.Globals;
 import com.gamedev.ld26.goldenage.core.Assets;
 import com.gamedev.ld26.goldenage.games.BulletFactory;
 import com.gamedev.ld26.goldenage.games.GameState;

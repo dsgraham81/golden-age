@@ -64,4 +64,12 @@ public class Utils {
 		System.out.println(e.getMessage());
 		System.out.println(e.getStackTrace());
 	}
+	
+	public static Color getRandomColor() {
+		return getRandomColor(1f);
+	}
+	
+	public static Color getRandomColor(float alpha) {
+		return new Color(Assets.random.nextFloat(), Assets.random.nextFloat(), Assets.random.nextFloat(), alpha);
+	}
 }
