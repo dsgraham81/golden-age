@@ -9,12 +9,14 @@ import com.gamedev.ld26.goldenage.DeltaTimer;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.TimerListener;
 import com.gamedev.ld26.goldenage.core.Assets;
+import com.gamedev.ld26.goldenage.core.Score;
 import com.gamedev.ld26.goldenage.games.Bullet;
 import com.gamedev.ld26.goldenage.games.BulletFactory;
 import com.gamedev.ld26.goldenage.games.GameObject;
 import com.gamedev.ld26.goldenage.games.GameState;
 import com.gamedev.ld26.goldenage.games.Player;
 import com.gamedev.ld26.goldenage.games.PlayerTransition;
+import com.gamedev.ld26.goldenage.utils.Config;
 import com.gamedev.ld26.goldenage.utils.Utils;
 
 public class SpaceInvadersState extends GameState implements TimerListener {
@@ -178,6 +180,7 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 		if (bulletExists()) {
 			if (_bullet.collides(alien)) {
 				alien.setAlive(false);
+				Score.AddToScore(alien.Score);
 				_bullet.setAlive(false);
 				return true;
 			}
@@ -254,7 +257,7 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 
 	@Override
 	protected void renderScreen(float delta) {
-		
+		Utils.drawText(Score.getScoreString(4), 10, Config.window_height - 40, 20, 20, new Color(1f,1f,1f,1f));
 	}
 
 	private boolean _alienFire = false;
