@@ -28,6 +28,10 @@ public class PlayScreen implements Screen {
 	}
 	
 	public void transitionGame(Globals.Games title)	{
+		if (_gameScreen != null && _gameScreen.getMusic() != null)
+		{
+			_gameScreen.getMusic().stop();
+		}
 		switch (title) {
 			case pong:
 				_gameScreen = new PongState(game, _gameScreen);
