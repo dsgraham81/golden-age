@@ -25,7 +25,7 @@ public class G1942State extends GameState {
 		if (Assets.random.nextDouble() > .99)
 		{
 			Plane plane = new Plane(new Vector2(Assets.random.nextFloat() * Config.window_width,Config.window_height), new Vector2(20,20), Color.WHITE, this, _bulletFactory);
-			_gameObjects.add(plane);
+			AddGameObject(plane);
 		}
 		
 	}
