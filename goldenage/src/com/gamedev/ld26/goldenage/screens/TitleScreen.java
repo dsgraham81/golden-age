@@ -27,6 +27,8 @@ public class TitleScreen implements Screen {
 	public void update() {
 		if (game.input.isKeyDown(Keys.ESCAPE)) {
 			Gdx.app.exit();
+		} else if (Gdx.input.justTouched()) {
+			game.setGame(Globals.Games.pong);
 		} else {
 			handleScreen();
 		}
