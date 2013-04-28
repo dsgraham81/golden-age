@@ -2,6 +2,7 @@ package com.gamedev.ld26.goldenage.games;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
@@ -19,6 +20,7 @@ public abstract class GameState {
 	protected ArrayList<GameObject> _gameObjects = new ArrayList<GameObject>();
 	protected Rectangle _windowBounds = new Rectangle(0,0, Config.window_width, Config.window_height);
 	protected boolean _gameWon;
+	protected Music _stageMusic;
 	
 	protected GameState(GoldenAgeGame game, GameState previous) {
 		_game = game;
@@ -130,4 +132,10 @@ public abstract class GameState {
 	public boolean getGameWon() {
 		return _gameWon;
 	}
+	
+	public Music getMusic()
+	{
+		return _stageMusic;
+	}
+	
 }

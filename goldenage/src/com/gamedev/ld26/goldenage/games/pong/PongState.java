@@ -45,7 +45,8 @@ public class PongState extends GameState {
 		
 		_playerScore = 0;
 		_cpuScore = 0;
-		Assets.pongMusic.play();
+		_stageMusic = Assets.pongMusic;
+		_stageMusic.play();
 	}
 
 	@Override

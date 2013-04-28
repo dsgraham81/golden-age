@@ -22,6 +22,7 @@ public class Assets {
 	
 	public static Sound beep;
 	public static Music pongMusic;
+	public static Music breakoutMusic;
 	
 	public static TextureRegion[][] letters;
 	public static TextureRegion[][] digits;
@@ -40,6 +41,7 @@ public class Assets {
 		
 		beep = Gdx.audio.newSound(Gdx.files.internal("data/audio/beep.wav"));
 		pongMusic = Gdx.audio.newMusic(Gdx.files.internal("data/audio/aces_high.mp3"));
+		breakoutMusic = Gdx.audio.newMusic(Gdx.files.internal("data/audio/breakout.mp3"));
 		
 		letters = splitAndGet(sheet, 8, 8, 0, 30, 26, 1);
 		digits  = splitAndGet(sheet, 8, 8, 0, 31, 10, 1);

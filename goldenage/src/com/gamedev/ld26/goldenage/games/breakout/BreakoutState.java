@@ -1,9 +1,11 @@
 package com.gamedev.ld26.goldenage.games.breakout;
 
 
+import java.awt.geom.FlatteningPathIterator;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
@@ -16,6 +18,7 @@ import com.gamedev.ld26.goldenage.games.GameState;
 import com.gamedev.ld26.goldenage.games.Paddle;
 import com.gamedev.ld26.goldenage.games.pong.PongState;
 import com.gamedev.ld26.goldenage.utils.Config;
+import com.gamedev.ld26.goldenage.utils.Utils;
 
 public class BreakoutState extends GameState {
 
@@ -24,7 +27,8 @@ public class BreakoutState extends GameState {
 	private Vector2 _startPos;
 	private ArrayList<Block> _blocks = new ArrayList<Block>();
 	private float _respawnTime =0;
-	
+	private boolean transistionOn = false;
+	private float textScale =0;
 	
 	public BreakoutState(GoldenAgeGame game, GameState previous) {
 		super(game, previous);
@@ -64,7 +68,8 @@ public class BreakoutState extends GameState {
 		}
 		
 		_windowBounds = new Rectangle(0,-20, Config.window_width, Config.window_height+20);
-
+		_stageMusic = Assets.breakoutMusic;
+		_stageMusic.play();
 	}
 
 	@Override
@@ -163,13 +168,19 @@ public class BreakoutState extends GameState {
 			block.setSize(scale);
 		}
 		_ball.update(delta);
+		
+		textScale = 1.0f - scale;
+		transistionOn = done;
 		return done;
 	}
 
 	@Override
 	protected void renderScreen(float delta) {
-
-
+		if (transistionOn)
+		{
+			String textString = "Welcome to 1976";
+			Utils.drawText(textString, Config.window_half_width - (textString.length() * 30 /2.0f), Config.window_half_height, 30, 30, new Color(1f,0,0,textScale));
+		}
 	}
 
 }
