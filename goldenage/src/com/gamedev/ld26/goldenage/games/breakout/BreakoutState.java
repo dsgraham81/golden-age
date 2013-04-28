@@ -4,7 +4,9 @@ package com.gamedev.ld26.goldenage.games.breakout;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.games.Ball;
@@ -30,6 +32,7 @@ public class BreakoutState extends GameState {
 				if (object.getClass() == Ball.class )
 				{
 					_ball = (Ball)object;
+					_gameObjects.add(_ball);
 				}
 				if (object.getClass() == Paddle.class && object != previous.getPlayer())
 				{
@@ -58,10 +61,12 @@ public class BreakoutState extends GameState {
 	@Override
 	protected void updateScreen(float delta) {
 		_ball.update(delta);
+		int blockCount = 0;
 		for (GameObject block : _gameObjects)
 		{
 			if (block.getClass() == Block.class)
 			{
+				blockCount++;
 				if (_ball.collides(block))
 				{
 					block.setAlive(false);
@@ -91,7 +96,26 @@ public class BreakoutState extends GameState {
 				}
 			}
 		}
+		if (blockCount < Block.BLOCKS_TALL * Block.BLOCKS_WIDE * .5f) gameWon = true;
+		handlePaddleCollisions();
 	}
+	
+	
+	private void handlePaddleCollisions() {
+		final Rectangle playerRect = _player.getRect();
+		final Circle ballCircle = _ball.getCircle();
+		Vector2 ballDir = _ball.getDir();
+		
+		// Intersection tests - ball/paddle
+		if (Intersector.overlaps(ballCircle, playerRect)) {
+			ballCircle.y = playerRect.y + playerRect.height + ballCircle.radius;
+			ballDir.y *= -1;
+			float hitPos = (ballCircle.x - playerRect.x) / playerRect.width;
+			ballDir.x += hitPos - .5f;
+			_ball.setSpeed(_ball.getSpeed() + 50.f);
+		}
+	}
+	
 	
 	@Override
 	public boolean transitionScreen(float delta)

@@ -18,11 +18,13 @@ public abstract class GameState {
 	private GameState _previousGame;
 	protected ArrayList<GameObject> _gameObjects = new ArrayList<GameObject>();
 	protected Rectangle _windowBounds = new Rectangle(0,0, Config.window_width, Config.window_height);
+	protected boolean gameWon;
 	
 	protected GameState(GoldenAgeGame game, GameState previous) {
 		_game = game;
 		_previousGame = previous;
 		setupPlayer(previous);
+		gameWon = false;
 	}
 	
 	protected void setupPlayer(GameState previous) {
