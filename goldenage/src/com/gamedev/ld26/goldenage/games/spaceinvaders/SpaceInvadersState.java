@@ -23,7 +23,7 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 	private final int Left = 2;
 	private final int LeftDown = 3;
 	
-	private final int Rows = 3;
+	private final int Rows = 5;
 	private final int Columns = 15;
 	
 	private Bullet _bullet;
@@ -54,7 +54,7 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 		_bulletFactory = new BulletFactory(this, Color.GRAY, 3);
 		_timer = new DeltaTimer(this, 0.5f);
 		
-		Color[] alienColor = new Color[] { Color.CYAN, Color.MAGENTA, Color.YELLOW };
+		Color[] alienColor = new Color[] { Color.CYAN, Color.MAGENTA, Color.YELLOW, Color.MAGENTA, Color.CYAN };
 		
 		float playerHeight = _player.getRect().height;
 		
