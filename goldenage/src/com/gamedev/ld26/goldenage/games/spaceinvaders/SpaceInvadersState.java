@@ -11,9 +11,11 @@ import com.gamedev.ld26.goldenage.TimerListener;
 import com.gamedev.ld26.goldenage.core.Assets;
 import com.gamedev.ld26.goldenage.games.Bullet;
 import com.gamedev.ld26.goldenage.games.BulletFactory;
+import com.gamedev.ld26.goldenage.games.GameObject;
 import com.gamedev.ld26.goldenage.games.GameState;
 import com.gamedev.ld26.goldenage.games.Player;
 import com.gamedev.ld26.goldenage.games.PlayerTransition;
+import com.gamedev.ld26.goldenage.games.breakout.Block;
 
 public class SpaceInvadersState extends GameState implements TimerListener {
 
@@ -24,7 +26,7 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 	
 	
 	static final float TransitionTime = 1.5f;
-	private PlayerTransition _playerTransition;
+	private ArrayList<PlayerTransition> _playerTransitions = new ArrayList<PlayerTransition>();
 	
 	private final int Rows = 3;
 	private final int Columns = 15;
@@ -56,13 +58,12 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 		_timer = new DeltaTimer(this, 0.5f);
 		
 		Color[] alienColor = new Color[] { Color.CYAN, Color.MAGENTA, Color.YELLOW };
-		float[] alienSize = new float[] { 16f, 20f, 10f }; 
-	
+		
 		_alienBounds = new Rectangle(_windowBounds.x + 10, 0, _windowBounds.width - 20, _windowBounds.height);
 				
 		for (int y = 0; y < Rows; y++) {
 			for (int x = 0; x < Columns; x++) {
-				_aliens.add(new BaseInvader(this, alienSize[y], alienColor[y]));
+				_aliens.add(new BaseInvader(this, 35, alienColor[y]));
 			}
 		}
 		
@@ -201,16 +202,29 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 	protected boolean transitionScreen(float delta) {
 		_transition += delta;
 		
-		if (_playerTransition != null) {
-			_playerTransition.Update(delta);
+		for (PlayerTransition pt : _playerTransitions) {
+			pt.Update(delta);
 		}
+		
 		return (_transition < TransitionTime);
 	}
 	
 	private void setupTransition(GameState previousScreen) {
 		if (previousScreen == null) return;
 		
-		_playerTransition = new PlayerTransition(_player,  previousScreen.getPlayer(), TransitionTime);
+		int index = 0;
+		
+		for (GameObject obj : previousScreen.getGameObjects()) {
+			if (obj.isAlive() && obj.getClass() == Block.class) {
+				if (index < _aliens.size()) {
+					_playerTransitions.add(new PlayerTransition(_aliens.get(index++), obj, TransitionTime));
+				} else {
+					obj.setDraw(false);
+				}
+			}
+		}
+		
+		_playerTransitions.add(new PlayerTransition(_player,  previousScreen.getPlayer(), TransitionTime, false));
 	}
 
 	@Override

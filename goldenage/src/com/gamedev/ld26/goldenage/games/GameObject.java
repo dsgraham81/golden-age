@@ -32,6 +32,10 @@ public class GameObject {
 		_draw = true;
 	}
 	
+	public void setColor(Color color) {
+		_color = color;
+	}
+	
 	public boolean collides(GameObject other)
 	{
 		//TODO make this use a real collideable object
