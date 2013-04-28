@@ -44,4 +44,9 @@ public class Bullet extends Ball {
 	public void setTarget(GameObject target) {
 		_target = target;
 	}
+	
+	public GameObject getTarget()
+	{
+		return _target;
+	}
 }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.IShooter;
 import com.gamedev.ld26.goldenage.core.Assets;
+import com.gamedev.ld26.goldenage.games.Bullet;
 import com.gamedev.ld26.goldenage.games.BulletFactory;
 import com.gamedev.ld26.goldenage.games.GameObject;
 import com.gamedev.ld26.goldenage.games.GameState;
@@ -11,29 +12,32 @@ import com.gamedev.ld26.goldenage.utils.Config;
 
 public class Plane extends GameObject implements IShooter {
 
-	private float distance;
-	private float _dir;
-	private float speed;
+	protected float distance;
+	protected int _dir;
+	protected float speed;
 	private BulletFactory bFactory;
+	private boolean hasFired;
 	
 	public Plane(Vector2 pos, Vector2 size, Color color, GameState gs, BulletFactory bf) {
 		super(pos, size, color, gs);
 		distance = Assets.random.nextFloat() * .4f + .3f;
 		distance *= Config.window_height;
 		_dir = 70 + Assets.random.nextInt(40);
-		speed = 100;
+		speed = 200;
 		bFactory = bf;
+		hasFired = false;
 	}
 
 	public void update(float dt){
-		float x = (float)Math.cos(_dir / 180 * Math.PI);
-		float y = -(float)Math.sin(_dir / 180 * Math.PI);
+		float x = (float)Math.cos(_dir / 180.0 * Math.PI);
+		float y = -(float)Math.sin(_dir / 180.0 * Math.PI);
 		
 		_rect.x += x * speed * dt;
 		_rect.y += y * speed * dt;
 		
-		if (_rect.y < distance)
+		if (_rect.y < distance && !hasFired)
 		{
+			hasFired = true;
 			hitDistance();
 		}
 		
@@ -41,8 +45,13 @@ public class Plane extends GameObject implements IShooter {
 	}
 
 	protected void hitDistance(){
-		bFactory.GetBullet(this);
+		fireBullet();
 		_dir += 180;
+	}
+	
+	protected void fireBullet(){
+		Bullet bul = bFactory.GetBullet(this);
+		bul.setTarget(_gState.getPlayer());
 	}
 	
 	@Override
@@ -57,8 +66,8 @@ public class Plane extends GameObject implements IShooter {
 
 	@Override
 	public Vector2 getShootDirection() {
-		float x = (float)Math.cos(_dir / 180 * Math.PI);
-		float y = -(float)Math.sin(_dir / 180 * Math.PI);
+		float x = (float)Math.cos(_dir / 180.0 * Math.PI);
+		float y = -(float)Math.sin(_dir / 180.0 * Math.PI);
 		return new Vector2(x, y);
 	}
 }
