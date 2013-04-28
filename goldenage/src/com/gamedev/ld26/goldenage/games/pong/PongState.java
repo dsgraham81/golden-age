@@ -18,6 +18,7 @@ public class PongState extends GameState {
 
 	private static final float div_width  = 16;
 	private static final float div_height = 16;	
+	private static final float respawn_speed = 300.f;
 	private static final Vector2 size = new Vector2(Config.pong_paddle_size_x, Config.pong_paddle_size_y);
 	
 	private Rectangle _divider;
@@ -26,7 +27,10 @@ public class PongState extends GameState {
 	
 	private Paddle _cpu;
 	private Ball _ball;
-		
+	
+	private int _playerScore;
+	private int _cpuScore;
+	
 	public PongState(GoldenAgeGame game, GameState previous) {
 		super(game, previous);
 		
@@ -36,12 +40,19 @@ public class PongState extends GameState {
 		
 		_cpu = new Paddle(new Vector2(Config.window_half_width, Config.window_height - size.y), size, Color.WHITE, this);
 		_ball = new Ball(new Vector2(Config.window_half_width, Config.window_half_height), 10, Color.WHITE, this);
-		_windowBounds = new Rectangle(Config.window_half_width / 2, 0, Config.window_half_width, Config.window_height);
+		_windowBounds = Config.pong_window_bounds;
+		
+		_playerScore = 0;
+		_cpuScore = 0;
 	}
-	
+
 	@Override
 	protected void updateScreen(float delta) {
 		_ball.update(Gdx.graphics.getDeltaTime());
+		checkForScore();		
+		
+		updateCpu(delta);
+		
 		Utils.constrainToRect(_player, Config.pong_window_bounds);
 		Utils.constrainToRect(_cpu, Config.pong_window_bounds);
 		Utils.constrainToRect(_ball, Config.pong_window_bounds);
@@ -52,18 +63,46 @@ public class PongState extends GameState {
 	protected void renderScreen(float delta) {
 		_cpu.render();
 		_ball.render();
-		Assets.shapes.setColor(Color.WHITE);
-		
-		// Borders + divider
-		float w = _divider.width * 2;
-		int num = (int) (Config.pong_window_bounds.width / w);
-		for(int i = 0; i < num; ++i) {
-			float x = _divider.x + i * w;
-			Assets.shapes.rect(x, _divider.y, _divider.width, _divider.height);
-		}
-		Assets.shapes.rect(_edgeLeft.x, _edgeLeft.y, _edgeLeft.width, _edgeLeft.height);
-		Assets.shapes.rect(_edgeRight.x, _edgeRight.y, _edgeRight.width, _edgeRight.height);
+		drawExtras();
+		drawScores();
 	}	
+
+	private void checkForScore() {
+		if (_ball.getCircle().y < 0) {
+			_ball.setAlive(false);
+			_playerScore++;
+		}
+		
+		if (_ball.getCircle().y > Config.window_height){
+			_ball.setAlive(false);
+			_cpuScore++;
+		}
+		
+		if (!_ball.isAlive()) {
+			if (_playerScore == 5) {
+				_gameWon = true;
+			}
+			_ball = new Ball(new Vector2(Config.window_half_width, Config.window_half_height), 10, Color.WHITE, this);
+			_ball.setSpeed(respawn_speed);
+		}
+	}
+	
+	private void updateCpu(float delta) {
+		Circle ball = _ball.getCircle();
+		Rectangle rect = _cpu.getRect();
+		Vector2 center = new Vector2(rect.x + rect.width / 2, rect.y + rect.height / 2);
+		
+		// Move cpu paddle towards ball with variable speed when ball is coming towards paddle
+		if (_ball.getDir().y > 0) {
+			float diff = ball.x - center.x;
+			float dir = (float) Math.signum(diff);
+			float scale = (float) Math.min(1.f, Assets.random.nextFloat() + 0.3f);
+			if (Math.abs(diff) < rect.width / 2) {
+				scale = 0;
+			}
+			rect.x += (dir * delta * _ball.getSpeed() * scale);			
+		}
+	}
 	
 	private void handleCollisions() {
 		final Rectangle playerRect = _player.getRect();
@@ -75,14 +114,45 @@ public class PongState extends GameState {
 		if (Intersector.overlaps(ballCircle, playerRect)) {
 			ballCircle.y = playerRect.y + playerRect.height + ballCircle.radius;
 			ballDir.y *= -1;
+			float hitPos = (ballCircle.x - playerRect.x) / playerRect.width;
+			ballDir.x += hitPos - .5f;
 			_ball.setSpeed(_ball.getSpeed() + 50.f);
+			Assets.beep.play();
 		}
 		
 		if (Intersector.overlaps(_ball.getCircle(), cpuRect)) {
 			ballCircle.y = cpuRect.y - ballCircle.radius;
 			ballDir.y *= -1;
+			float hitPos = (ballCircle.x - cpuRect.x) / cpuRect.width;
+			ballDir.x += hitPos - .5f;
 			_ball.setSpeed(_ball.getSpeed() + 50.f);
+			Assets.beep.play();
 		}
+	}
+
+	private void drawExtras() {
+		Assets.shapes.setColor(Color.WHITE);
+		float w = _divider.width * 2;
+		int num = (int) (Config.pong_window_bounds.width / w);
+		for(int i = 0; i < num; ++i) {
+			float x = _divider.x + i * w;
+			Assets.shapes.rect(x, _divider.y, _divider.width, _divider.height);
+		}
+		Assets.shapes.rect(_edgeLeft.x, _edgeLeft.y, _edgeLeft.width, _edgeLeft.height);
+		Assets.shapes.rect(_edgeRight.x, _edgeRight.y, _edgeRight.width, _edgeRight.height);
+	}
+	
+	private void drawScores() {
+		String s1 = "" + _playerScore;
+		String s2 = "" + _cpuScore;
+		int cw = 40;
+		int ch = 64;
+		float x1 = Config.window_half_width / 4;
+		float y1 = Config.window_height - ch - 32;
+		float x2 = Config.window_width - x1 - cw;
+		float y2 = ch;
+		Utils.drawText(s1, x1, y1, cw, ch, Color.WHITE);
+		Utils.drawText(s2, x2, y2, cw, ch, Color.WHITE);
 	}
 	
 }
