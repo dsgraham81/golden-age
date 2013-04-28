@@ -15,19 +15,22 @@ public class GameObject {
 	protected boolean _alive;
 	protected Object collideObject;
 	
-	public GameObject(Vector2 pos, Vector2 size, Color color, GameState gs) {
-		this(gs);
-		_rect = new Rectangle(pos.x, pos.y, size.x, size.y);
-		this._color = color;
-		this.collideObject = _rect;
-	}
-	
 	public GameObject(GameState gs)
 	{
+		this(Vector2.Zero,  Vector2.Zero,  Color.WHITE, gs);
+	}
+	
+	public GameObject(Vector2 pos, Vector2 size, Color color, GameState gs) {
 		_gState = gs;
 		_gState.AddGameObject(this);
 		_alive = true;
+		
+		_rect = new Rectangle(pos.x, pos.y, size.x, size.y);
+		_color = color;
+		collideObject = _rect;
 	}
+	
+	
 	
 	public boolean collides(GameObject other)
 	{
