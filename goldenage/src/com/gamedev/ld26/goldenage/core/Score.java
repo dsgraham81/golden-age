@@ -19,5 +19,19 @@ public class Score {
 	{
 		_score += amount;
 	}
+	
+	public static String getScoreString(int padding){
+		 String tempString = String.format("%0"+padding+"d", _score);
+		 if (tempString.length()> padding)
+		 {
+			 tempString = "";
+			 for(int i =0;i < padding; i++)
+			 {
+				 tempString += "9";
+			 }
+		 }
+		 tempString = "Score: " + tempString;
+		return tempString;
+	}
 
 }
