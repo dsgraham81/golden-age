@@ -1,8 +1,10 @@
 package com.gamedev.ld26.goldenage.utils;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.core.Assets;
+import com.gamedev.ld26.goldenage.games.GameObject;
 
 public class Utils {
 
@@ -37,6 +39,12 @@ public class Utils {
 	public static float clamp(float value, float min, float max)
 	{
 		return Math.max(Math.min(value, max), min);
+	}
+	
+	public static void constrainToRect(GameObject object, Rectangle bounds) {
+		Rectangle r = object.getRect();
+		r.x = clamp(r.x, bounds.x, bounds.x + bounds.width - r.width);
+		r.y = clamp(r.y, bounds.y, bounds.y + bounds.height - r.height);
 	}
 	
 	public static Vector2 lerpVector2(Vector2 initial, Vector2 dest, float amount)

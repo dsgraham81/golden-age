@@ -18,12 +18,14 @@ public class Ball extends GameObject {
 	private float _speed;
 	
 	public Ball(Vector2 pos, float radius, Color color, GameState gs) {
-		super(pos,  new Vector2(radius, radius), color, gs);
+		super(pos, new Vector2(radius, radius), color, gs);
 		
 		_circle = new Circle(pos.x, pos.y, radius);
 		_color = color;
 		float x = Assets.random.nextFloat() * 2.f - 1.f;
 		float y = Assets.random.nextFloat() * 2.f - 1.f;
+		if (Math.abs(x) < 0.5f) x = Math.signum(x) * 0.5f;
+		if (Math.abs(y) < 0.5f) x = Math.signum(y) * 0.5f;
 		_dir = new Vector2(x, y).nor();
 		_speed = 500.f;
 	}
