@@ -14,23 +14,57 @@ public class G1942State extends GameState {
 
 	static final Vector2 size = new Vector2(80, 80);
 	private BulletFactory _bulletFactory;
-	private float respawnTime = 0;
+	private float _respawnTime = 0;
+	private int _shipsKilled;
+	private PlaneSpawnInfo _leftCircleSpawner;
+	private PlaneSpawnInfo _rightCircleSpawner;
+	private float _gunDelay;
 	
 	public G1942State(GoldenAgeGame game, GameState previous) {
 		super(game, previous);
 		// TODO Auto-generated constructor stub
 		_bulletFactory = new BulletFactory(this, Color.GRAY, 3);
 		_windowBounds = Config.g1942_window_bounds;
+		_shipsKilled = 0;
+		_gunDelay = 0;
+		_leftCircleSpawner = new PlaneSpawnInfo(15, .15f, 10f);
+		_rightCircleSpawner = new PlaneSpawnInfo(15, .15f, 12f);
+		_rightCircleSpawner.SetSpawnTime(15f);
 	}
 
 	@Override
 	protected void updateScreen(float delta) {
+		if (_respawnTime > 0)
+		{
+			respawnPlayer(delta);
+		}
+		if (_gunDelay > 0) _gunDelay -= delta;
+		
+		if (_game.input.isButtonDown(0) && _gunDelay <= 0 && _player.isAlive()) {
+			_bulletFactory.GetBullet(_player);
+			_gunDelay = .4f;
+		}	
+		
 		if (Assets.random.nextDouble() > .99)
 		{
 			Plane plane = new Plane(new Vector2(Assets.random.nextFloat() * Config.window_width,Config.window_height), new Vector2(20,20), Color.WHITE, this, _bulletFactory);
-			AddGameObject(plane);
+			//AddGameObject(plane);
 		}
+		
+		spawnCircleShips(delta);
 		checkCollisions();
+	}
+	
+	private void spawnCircleShips(float dt)
+	{	
+		if (_leftCircleSpawner.ShouldSpawn(dt))
+		{
+			CirclePlane cirPlane = new CirclePlane(new Vector2(0,500), new Vector2(20,20), Color.RED, this, _bulletFactory);
+		}
+		if (_rightCircleSpawner.ShouldSpawn(dt))
+		{
+			CirclePlane cirPlane = new CirclePlane(new Vector2(Config.window_width,400), new Vector2(20,20), Color.BLUE, this, _bulletFactory);
+		}
 	}
 	
 	private void checkCollisions()
@@ -39,16 +73,34 @@ public class G1942State extends GameState {
 		{
 			if (obj.getClass() == Bullet.class)
 			{
-				if (obj.collides(_player))
+				if (!obj.isAlive()) continue;
+				Bullet bullet = (Bullet)obj;
+				if (bullet.getTarget() == _player)
 				{
-					killPlayer();
+//					if (bullet.collides(_player))
+//					{
+//						bullet.setAlive(false);
+//						killPlayer();
+//					}
+				}
+				else { // Must be from player
+					for (GameObject tar : _gameObjects)
+					{
+						if (tar instanceof Plane && obj.collides(tar))
+						{
+							obj.setAlive(false);
+							tar.setAlive(false);
+							_shipsKilled++;
+						}
+					}
 				}
 			}
 			if (obj.getClass() == Plane.class)
 			{
-				if (obj.collides(_player))
+				if (_player.isAlive() && obj.collides(_player))
 				{
 					killPlayer();
+					_shipsKilled ++;
 					obj.setAlive(false);
 				}
 			}
@@ -57,9 +109,19 @@ public class G1942State extends GameState {
 
 	private void killPlayer()
 	{
-		respawnTime = 3f;
-		_player.setDraw(false);
+		_respawnTime = 3f;
+		_player.setAlive(false);
 	}
+	
+	private void respawnPlayer(float dt){
+		_respawnTime -= dt;
+		if (_respawnTime <= 0)
+		{
+			_player.setAlive(true);
+			AddGameObject(_player);
+		}
+	}
+
 	
 	protected void updatePlayer(float delta) {
 		_player.setPosition(_game.input.getCurrMouse().x, -_game.input.getCurrMouse().y);
