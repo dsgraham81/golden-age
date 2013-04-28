@@ -30,8 +30,6 @@ public class GameObject {
 		collideObject = _rect;
 	}
 	
-	
-	
 	public boolean collides(GameObject other)
 	{
 		//TODO make this use a real collideable object
@@ -43,7 +41,7 @@ public class GameObject {
 		_alive = alive;
 	}
 	
-	public boolean getAlive()
+	public boolean isAlive()
 	{
 		return _alive;
 	}
@@ -88,9 +86,10 @@ public class GameObject {
 	{
 		return new Vector2(_rect.x + _rect.width,  _rect.y);
 	}
+	
 	public Rectangle getRect() { return _rect; }
 	public Color getColor() { return _color; }
-	public boolean isAlive() { return _alive; }
 
 
+	public void update(float delta) {}
 }

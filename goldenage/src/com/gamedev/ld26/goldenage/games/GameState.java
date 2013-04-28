@@ -78,12 +78,15 @@ public abstract class GameState {
 		
 		//TODO make this a reusable list
 		keepObjects = new ArrayList<GameObject>();
+		try {
 		for (GameObject obj: _gameObjects)
 		{
 			if (obj._alive){
 				keepObjects.add(obj);
+				obj.update(delta);
 			}
 		}
+		} catch (Exception e){ } 
 		_gameObjects = keepObjects;
 	}
 	
@@ -113,10 +116,12 @@ public abstract class GameState {
 		Assets.shapes.begin(ShapeType.Filled);
 		_player.render();
 		renderScreen(delta);
-		for (GameObject object : _gameObjects)
-		{
-			object.render();
-		}
+		try {
+			for (GameObject object : _gameObjects)
+			{
+				object.render();
+			}
+		} catch (Exception e) { } 
 		Assets.shapes.end();
 	}
 	
