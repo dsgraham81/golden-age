@@ -54,6 +54,17 @@ public class PlayScreen implements Screen {
 		
 		final float delta = Gdx.graphics.getDeltaTime();
 		_gameScreen.update(delta);
+		if (_gameScreen.getGameWon())
+		{
+			if (_gameScreen.getClass() == PongState.class)
+			{
+				transitionGame(Globals.Games.breakout);
+			}
+			else if (_gameScreen.getClass() == BreakoutState.class)
+			{
+				transitionGame(Globals.Games.spaceinvaders);
+			}
+		}
 	}
 	
 	@Override

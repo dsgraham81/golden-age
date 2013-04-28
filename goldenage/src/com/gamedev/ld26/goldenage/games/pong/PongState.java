@@ -81,6 +81,8 @@ public class PongState extends GameState {
 		
 		if (_playerScore == win_score) {
 			_gameWon = true;
+			_ball.setAlive(true);
+			return;
 		}
 		
 		if (!_ball.isAlive()) {
