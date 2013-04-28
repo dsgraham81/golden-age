@@ -41,7 +41,9 @@ public class BreakoutState extends GameState {
 					_ball = (Ball)object;
 					_ball.getCircle().y = Config.window_height - _ball.getCircle().radius;
 					_ball.multiplyDir(new Vector2(1, -1));
+					_ball.getDir().nor();
 					_ball.setGameState(this);
+					_ball.setSpeed(300);
 					_gameObjects.add(_ball);
 				}
 				if (object.getClass() == Paddle.class && object != previous.getPlayer())
@@ -79,7 +81,7 @@ public class BreakoutState extends GameState {
 		{
 			respawnBall(delta);
 		}
-		_ball.update(delta);
+		//_ball.update(delta);
 		int blockCount = 0;
 		for (GameObject block : _gameObjects)
 		{
@@ -167,7 +169,7 @@ public class BreakoutState extends GameState {
 		{
 			block.setSize(scale);
 		}
-		_ball.update(delta);
+		//_ball.update(delta);
 		
 		textScale = 1.0f - scale;
 		transistionOn = done;

@@ -51,7 +51,7 @@ public class PongState extends GameState {
 
 	@Override
 	protected void updateScreen(float delta) {
-		_ball.update(Gdx.graphics.getDeltaTime());
+		//_ball.update(Gdx.graphics.getDeltaTime());
 		checkForScore();		
 		
 		updateCpu(delta);
