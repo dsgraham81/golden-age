@@ -9,6 +9,7 @@ import com.gamedev.ld26.goldenage.games.BulletFactory;
 import com.gamedev.ld26.goldenage.games.GameObject;
 import com.gamedev.ld26.goldenage.games.GameState;
 import com.gamedev.ld26.goldenage.utils.Config;
+import com.gamedev.ld26.goldenage.utils.Utils;
 
 public class Plane extends GameObject implements IShooter {
 
@@ -83,5 +84,20 @@ public class Plane extends GameObject implements IShooter {
 		float x = (float)Math.cos(_dir / 180.0 * Math.PI);
 		float y = -(float)Math.sin(_dir / 180.0 * Math.PI);
 		return new Vector2(x, y);
+	}
+	
+	public void render()
+	{
+		Assets.shapes.setColor(_color);
+		Vector2 center = Utils.rectCenter(_rect);
+		
+		Assets.shapes.translate(center.x, center.y, 0);
+		Assets.shapes.rotate(0, 0, -1, _dir);
+		Assets.shapes.scale(1, .7f, 1);
+		Assets.shapes.translate(-center.x, -center.y, 0);
+		
+		Assets.shapes.triangle(_rect.x, _rect.y, _rect.x, _rect.y + _rect.height, _rect.x+ _rect.width, _rect.y + _rect.height/2);
+		Assets.shapes.identity();
+		//Assets.shapes.rect(_rect.x, _rect.y, _rect.width, _rect.height);
 	}
 }
