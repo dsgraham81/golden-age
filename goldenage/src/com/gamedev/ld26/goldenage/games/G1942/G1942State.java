@@ -24,6 +24,7 @@ public class G1942State extends GameState {
 	private int _shipsKilled;
 	private PlaneSpawnInfo _leftCircleSpawner;
 	private PlaneSpawnInfo _rightCircleSpawner;
+	private boolean _bossSpawned;
 	private float _gunDelay;
 	private MovingBackground back1;
 	private MovingBackground back2;
@@ -46,6 +47,9 @@ public class G1942State extends GameState {
 		_player.setImmunity(0);
 		
 		setupTransition(previous);
+		_bossSpawned = false;
+		_stageMusic = Assets.g1942Music;
+		
 	}
 
 	@Override
@@ -69,13 +73,21 @@ public class G1942State extends GameState {
 			_gunDelay = GUN_INTERVAL;
 		}	
 		
-		if (Assets.random.nextDouble() > .99)
+		if (!_bossSpawned)
 		{
-			Plane plane = new Plane(new Vector2(Assets.random.nextFloat() * Config.window_width,Config.window_height), new Vector2(20,20), Color.WHITE, this, _bulletFactory);
-			//AddGameObject(plane);
+			if (Assets.random.nextDouble() > .98)
+			{
+				Plane plane = new Plane(new Vector2(Assets.random.nextFloat() * Config.window_width,Config.window_height), new Vector2(20,20), Color.WHITE, this, _bulletFactory);
+				//AddGameObject(plane);
+			}
+			spawnCircleShips(delta);
+		}
+		if (_shipsKilled > 1 && !_bossSpawned)
+		{
+			_bossSpawned = true;
+			BossPlane plane = new BossPlane(Color.WHITE, this, _bulletFactory);
 		}
 		
-		spawnCircleShips(delta);
 		checkCollisions();
 		back1.Update(delta);
 		back2.Update(delta);

@@ -1,5 +1,6 @@
 package com.gamedev.ld26.goldenage.utils;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -9,6 +10,7 @@ import com.gamedev.ld26.goldenage.games.GameObject;
 public class Utils {
 
 	private static final String symbols = ",.!?'\"-+=/\\%()<>:;";
+	private static Music currentMusic;
 	
 	public static void drawText(String text, float x, float y, int w, int h, Color color) {
 		text = text.toUpperCase();
@@ -35,6 +37,21 @@ public class Utils {
 		Assets.batch.end();
 	}
 	
+	public static void PlayMusic(Music music)
+	{
+		if (currentMusic != null)
+		{
+			currentMusic.stop();
+		}
+		
+		currentMusic = music;
+		
+		if (music != null)
+		{
+			currentMusic.setLooping(true);
+			currentMusic.play();
+		}
+	}
 	
 	public static float clamp(float value, float min, float max)
 	{
@@ -58,6 +75,11 @@ public class Utils {
 	
 	public static float lerp(float initial, float dest, float amount) {
 		return initial + amount * (dest - initial);
+	}
+	
+	public static Vector2 rectCenter(Rectangle rect)
+	{
+		return new Vector2(rect.x + ( rect.width/2), rect.y + (rect.height/2));
 	}
 	
 	public static void print(Exception e) {

@@ -24,6 +24,7 @@ public class TitleScreen implements Screen {
 		super();
 		this.game = game;
 		camera.setToOrtho(false, Config.window_width, Config.window_height);
+		Utils.PlayMusic(Assets.titleMusic);
 	}
 	
 	public void update() {

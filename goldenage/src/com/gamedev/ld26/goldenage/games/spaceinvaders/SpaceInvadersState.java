@@ -43,6 +43,7 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 		super(game, previous);
 		setupScreen();
 	    setupTransition(previous);
+	    _stageMusic= Assets.spaceInvMusic;
 	}
 	
 	protected Player createPlayer() {

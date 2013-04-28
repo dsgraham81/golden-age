@@ -15,7 +15,7 @@ public class Plane extends GameObject implements IShooter {
 	protected float distance;
 	protected int _dir;
 	protected float speed;
-	private BulletFactory bFactory;
+	protected BulletFactory bFactory;
 	private boolean hasFired;
 	protected int _hitPoints;
 	

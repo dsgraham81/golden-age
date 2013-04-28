@@ -72,7 +72,7 @@ public class BreakoutState extends GameState {
 		
 		_windowBounds = new Rectangle(0,-20, Config.window_width, Config.window_height+20);
 		_stageMusic = Assets.breakoutMusic;
-		_stageMusic.play();
+		
 	}
 
 	@Override
@@ -118,7 +118,7 @@ public class BreakoutState extends GameState {
 				}
 			}
 		}
-		if (blockCount < Block.BLOCKS_TALL * Block.BLOCKS_WIDE * .5f) _gameWon = true;
+		if (blockCount < (Block.BLOCKS_TALL-2) * Block.BLOCKS_WIDE * .5f) _gameWon = true;
 		handlePaddleCollisions();
 	}
 	
