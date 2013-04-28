@@ -5,12 +5,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.DirectionVector;
 import com.gamedev.ld26.goldenage.IShooter;
 
-public class Paddle extends GameObject implements IShooter {
+public class Player extends GameObject implements IShooter {
 
 	public int speed = 2000;
 	public Vector2 direction = DirectionVector.Up;
 	
-	public Paddle(Vector2 size, Color color, GameState gs) {
+	public Player(Vector2 size, Color color, GameState gs) {
 		super(Vector2.Zero, size, color, gs);
 	}
 	

@@ -17,7 +17,7 @@ public abstract class GameState {
 	protected final GoldenAgeGame _game;	
 	private GameState _previousGame;
 	
-	protected Paddle _player;
+	protected Player _player;
 	protected ArrayList<GameObject> _gameObjects = new ArrayList<GameObject>();
 
 	public Rectangle _windowBounds = new Rectangle(0,0, Config.window_width, Config.window_height);
@@ -49,8 +49,8 @@ public abstract class GameState {
 		_player.setPosition(x, y);
 	}
 	
-	protected Paddle createPlayer() {
-		return new Paddle(new Vector2(100, 20), Color.WHITE, this);
+	protected Player createPlayer() {
+		return new Player(new Vector2(100, 20), Color.WHITE, this);
 	}
 	
 	public void AddGameObject(GameObject obj)
@@ -103,7 +103,7 @@ public abstract class GameState {
 		_newObjects = new ArrayList<GameObject>();
 	}
 	
-	public Paddle getPlayer()
+	public Player getPlayer()
 	{
 		return _player;
 	}

@@ -15,7 +15,7 @@ import com.gamedev.ld26.goldenage.core.Assets;
 import com.gamedev.ld26.goldenage.games.Ball;
 import com.gamedev.ld26.goldenage.games.GameObject;
 import com.gamedev.ld26.goldenage.games.GameState;
-import com.gamedev.ld26.goldenage.games.Paddle;
+import com.gamedev.ld26.goldenage.games.Player;
 import com.gamedev.ld26.goldenage.games.pong.PongState;
 import com.gamedev.ld26.goldenage.utils.Config;
 import com.gamedev.ld26.goldenage.utils.Utils;
@@ -46,7 +46,7 @@ public class BreakoutState extends GameState {
 					_ball.setSpeed(300);
 					_gameObjects.add(_ball);
 				}
-				if (object.getClass() == Paddle.class && object != previous.getPlayer())
+				if (object.getClass() == Player.class && object != previous.getPlayer())
 				{
 					_startPos = new Vector2(object.getRect().x, Config.window_height);
 				}
