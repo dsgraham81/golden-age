@@ -6,6 +6,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Rectangle;
 import com.gamedev.ld26.goldenage.Globals;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.core.Assets;
@@ -57,13 +59,15 @@ public class TitleScreen implements Screen {
 		Gdx.gl20.glClearColor(0.53f, 0.81f, 0.92f, 1);
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		Assets.batch.setProjectionMatrix(camera.combined);
-		Assets.batch.begin();
-		Assets.batch.draw(Assets.background, Config.window_half_width - Assets.background.getWidth() / 2, 0);
-		Assets.batch.end();
+		Assets.shapes.begin(ShapeType.Filled);
 		
-		final String testString1 = "Ludem ipsum dare: sit amit, ld48 !26?";
-		final String testString2 = "Testing symbols: ,.?!'\"-+=/\\%()<>:;  -[]- =$= -#- =@=";
+		drawCanvas();
+		
+		Assets.shapes.identity();		
+		Assets.shapes.end();
+		
+		final String testString1 = "Golden Age";
+		final String testString2 = "Relive the classics";
 		final int w = 16, h = 16;
 		final float speed = 8.f;
 		final float range = 33.33f;
@@ -71,8 +75,31 @@ public class TitleScreen implements Screen {
 		float x1 = (float) Math.sin(accum * speed) * range + minx;
 		float x2 = (float) Math.cos(accum * speed / 2) * range + minx;
 
-		Utils.drawText(testString1, x1, Config.window_height / 2 + h / 2, w, h, Color.GREEN);
-		Utils.drawText(testString2, x2, Config.window_height / 2 - h / 2, w, h, Color.ORANGE);
+		Rectangle r = Config.pong_window_bounds;
+		
+		Utils.drawText(testString1, x1, r.height - 200, w, h, Color.GREEN);
+		Utils.drawText(testString2, x2, 100, w, h, Color.ORANGE);
+	}
+	
+	private float _dr = 0f;
+	
+	private void drawCanvas() {
+		Rectangle r = Config.pong_window_bounds;
+		Assets.shapes.identity();
+		Assets.shapes.setColor(Color.BLACK);
+		Assets.shapes.rect(r.x, r.y, r.width, r.height);
+		
+		float boxWidth = 100;
+		float boxHeight = 100;
+		_dr += 5f;
+		float x = r.x + (r.width/2);
+		float y = r.y + (r.height/2);
+		Assets.shapes.translate(x,  y,  0);		
+		Assets.shapes.rotate(0, 0, 1, _dr);
+		
+		Assets.shapes.setColor(Color.RED);
+		Assets.shapes.rect(-boxWidth/2, -boxHeight/2, boxWidth, boxHeight);
+		
 	}
 
 	@Override
