@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.gamedev.ld26.goldenage.Globals;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
+import com.gamedev.ld26.goldenage.core.Assets;
 import com.gamedev.ld26.goldenage.games.GameState;
 import com.gamedev.ld26.goldenage.games.G1942.G1942State;
 import com.gamedev.ld26.goldenage.games.breakout.BreakoutState;
@@ -14,6 +15,7 @@ import com.gamedev.ld26.goldenage.games.centipede.CentipedeState;
 import com.gamedev.ld26.goldenage.games.pong.PongState;
 import com.gamedev.ld26.goldenage.games.spaceinvaders.SpaceInvadersState;
 import com.gamedev.ld26.goldenage.utils.Config;
+import com.gamedev.ld26.goldenage.utils.Utils;
 
 public class PlayScreen implements Screen {
 
@@ -28,10 +30,6 @@ public class PlayScreen implements Screen {
 	}
 	
 	public void transitionGame(Globals.Games title)	{
-		if (_gameScreen != null && _gameScreen.getMusic() != null)
-		{
-			_gameScreen.getMusic().stop();
-		}
 		switch (title) {
 			case pong:
 				_gameScreen = new PongState(game, _gameScreen);
@@ -49,11 +47,13 @@ public class PlayScreen implements Screen {
 				_gameScreen = new G1942State(game, _gameScreen);
 				break;
 		}
+		Utils.PlayMusic(_gameScreen.getMusic());
 	}
 	
 	public void update() {
 		if (game.input.isKeyDown(Keys.ESCAPE)) {
 			game.setScreen(game.title);
+			Utils.PlayMusic(Assets.titleMusic);
 		}
 		
 		final float delta = Gdx.graphics.getDeltaTime();

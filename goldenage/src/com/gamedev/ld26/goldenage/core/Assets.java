@@ -21,8 +21,18 @@ public class Assets {
 	public static Texture background;
 	
 	public static Sound beep;
+	public static Sound lifeLostSound;
+	public static Sound laserSound;
+	public static Sound beepsSound;
+	public static Sound buzzSound;
+	public static Sound wobbleSound;
+	
 	public static Music pongMusic;
 	public static Music breakoutMusic;
+	public static Music spaceInvMusic;
+	public static Music g1942Music;
+	public static Music endScreenMusic;
+	public static Music titleMusic;
 	
 	public static TextureRegion[][] letters;
 	public static TextureRegion[][] digits;
@@ -40,8 +50,13 @@ public class Assets {
 		background.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);	
 		
 		beep = Gdx.audio.newSound(Gdx.files.internal("data/audio/beep.wav"));
+		
+		titleMusic = Gdx.audio.newMusic(Gdx.files.internal("data/audio/title.mp3"));
 		pongMusic = Gdx.audio.newMusic(Gdx.files.internal("data/audio/aces_high.mp3"));
 		breakoutMusic = Gdx.audio.newMusic(Gdx.files.internal("data/audio/breakout.mp3"));
+		spaceInvMusic = Gdx.audio.newMusic(Gdx.files.internal("data/audio/space_invaders.mp3"));
+		g1942Music = Gdx.audio.newMusic(Gdx.files.internal("data/audio/g1942.mp3"));
+		endScreenMusic = Gdx.audio.newMusic(Gdx.files.internal("data/audio/endscreen.mp3"));
 		
 		letters = splitAndGet(sheet, 8, 8, 0, 30, 26, 1);
 		digits  = splitAndGet(sheet, 8, 8, 0, 31, 10, 1);

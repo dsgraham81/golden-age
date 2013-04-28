@@ -20,11 +20,11 @@ public class BulletFactory {
 		return new Bullet(shooter, _bulletSize, _bulletColor, _gameState);
 	}
 	
-	public Bullet GetBullet(Vector2 direction, int speed) {
-		return GetBullet(direction, speed, _bulletColor, _bulletSize);
-	}
+//	public Bullet GetBullet(Vector2 direction, int speed) {
+//		return GetBullet(direction, speed, _bulletColor, _bulletSize);
+//	}
 	
-	public Bullet GetBullet(Vector2 direction, int speed, Color bulletColor, float bulletSize) {
-		return new Bullet(direction, bulletSize, bulletColor, direction, speed, _gameState);
+	public Bullet GetBullet(Vector2 pos, int speed, Color bulletColor, Vector2 direction, float bulletSize) {
+		return new Bullet(pos, bulletSize, bulletColor, direction, speed, _gameState);
 	}
 }
