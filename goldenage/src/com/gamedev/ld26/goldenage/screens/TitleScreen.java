@@ -79,12 +79,12 @@ public class TitleScreen implements Screen {
 
 	@Override
 	public void show() {
-		game.input.resetKeys();
+		game.input.reset();
 	}
 
 	@Override
 	public void hide() {
-		game.input.resetKeys();
+		game.input.reset();
 	}
 
 	@Override
