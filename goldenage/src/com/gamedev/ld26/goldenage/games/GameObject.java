@@ -1,11 +1,8 @@
 package com.gamedev.ld26.goldenage.games;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Shape;
-import com.badlogic.gdx.utils.compression.lzma.Base;
 import com.gamedev.ld26.goldenage.core.Assets;
 import com.gamedev.ld26.goldenage.utils.Config;
 import com.gamedev.ld26.goldenage.utils.Utils;
@@ -80,6 +77,7 @@ public class GameObject {
 	}
 	public Rectangle getRect() { return _rect; }
 	public Color getColor() { return _color; }
+	public boolean isAlive() { return _alive; }
 
 
 }
