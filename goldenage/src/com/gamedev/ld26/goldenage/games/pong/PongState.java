@@ -19,6 +19,7 @@ public class PongState extends GameState {
 	private static final float div_width  = 16;
 	private static final float div_height = 16;	
 	private static final float respawn_speed = 300.f;
+	private static final int win_score = 3;
 	private static final Vector2 size = new Vector2(Config.pong_paddle_size_x, Config.pong_paddle_size_y);
 	
 	private Rectangle _divider;
@@ -70,18 +71,19 @@ public class PongState extends GameState {
 	private void checkForScore() {
 		if (_ball.getCircle().y < 0) {
 			_ball.setAlive(false);
-			_playerScore++;
+			_cpuScore++;
 		}
 		
 		if (_ball.getCircle().y > Config.window_height){
 			_ball.setAlive(false);
-			_cpuScore++;
+			_playerScore++;
+		}
+		
+		if (_playerScore == win_score) {
+			_gameWon = true;
 		}
 		
 		if (!_ball.isAlive()) {
-			if (_playerScore == 5) {
-				_gameWon = true;
-			}
 			_ball = new Ball(new Vector2(Config.window_half_width, Config.window_half_height), 10, Color.WHITE, this);
 			_ball.setSpeed(respawn_speed);
 		}
@@ -143,8 +145,8 @@ public class PongState extends GameState {
 	}
 	
 	private void drawScores() {
-		String s1 = "" + _playerScore;
-		String s2 = "" + _cpuScore;
+		String s1 = "" + _cpuScore;
+		String s2 = "" + _playerScore;
 		int cw = 40;
 		int ch = 64;
 		float x1 = Config.window_half_width / 4;
