@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.core.Assets;
@@ -16,18 +17,31 @@ public abstract class GameState {
 	protected Paddle _player;
 	private GameState _previousGame;
 	private ArrayList<GameObject> _gameObjects = new ArrayList<GameObject>();
-	static Vector2 size = new Vector2(Config.pong_paddle_size_x, Config.pong_paddle_size_y);
 	
 	protected GameState(GoldenAgeGame game, GameState previous) {
 		_game = game;
 		_previousGame = previous;
-		if (previous != null)
+		setupPlayer(previous);
+	}
+	
+	protected void setupPlayer(GameState previous) {
+		_player = createPlayer();
+		
+		float x = Config.window_width / 2;
+		float y = 0;
+		if (previous != null) 
 		{
-			_player = previous.getPlayer();
+		
+			Rectangle playerPosition = previous.getPlayer().getRect();
+			x = playerPosition.x;
+			y = playerPosition.y;
 		}
-		else {
-			_player = new Paddle(new Vector2(Config.window_width / 2, 0), size, Color.WHITE, this);
-		}
+	
+		_player.setPosition(x, y);
+	}
+	
+	protected Paddle createPlayer() {
+		return new Paddle(new Vector2(Config.window_width / 2, 0), new Vector2(100, 20), Color.WHITE, this);
 	}
 	
 	public void AddGameObject(GameObject obj)

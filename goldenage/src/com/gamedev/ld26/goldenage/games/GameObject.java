@@ -32,6 +32,12 @@ public class GameObject {
 		_rect.y = Utils.clamp(y, 0, Config.window_height - _rect.height);
 	}
 	
+	public void setSize(float width, float height)
+	{
+		_rect.width = width;
+		_rect.height = height;
+	}
+	
 	public void render() {
 		Assets.shapes.setColor(_color);
 		Assets.shapes.rect(_rect.x, _rect.y, _rect.width, _rect.height);

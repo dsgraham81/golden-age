@@ -53,7 +53,7 @@ public class BreakoutState extends GameState {
 			}
 		}
 	}
-
+	
 	@Override
 	protected void updateScreen(float delta) {
 		_ball.update(delta);
