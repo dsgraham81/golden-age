@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.core.Assets;
+import com.gamedev.ld26.goldenage.core.Score;
 import com.gamedev.ld26.goldenage.games.Ball;
 import com.gamedev.ld26.goldenage.games.GameObject;
 import com.gamedev.ld26.goldenage.games.GameState;
@@ -66,6 +67,7 @@ public class BreakoutState extends GameState {
 				float greyLevel = (float)y/Block.BLOCKS_TALL;
 				Color blockColor = new Color(greyLevel, greyLevel, greyLevel, 1.0f);
 				Block newBlock = new Block(new Vector2(x,y), blockColor, _startPos, this);
+				newBlock.Score = (int)Math.pow(2, Block.BLOCKS_TALL - y);
 				_blocks.add(newBlock);
 			}
 		}
@@ -92,6 +94,7 @@ public class BreakoutState extends GameState {
 				if (_ball.collides(block))
 				{
 					Assets.bricksSound.play();
+					Score.AddToScore(block.Score);
 					block.setAlive(false);
 					
 					boolean intersectLeft = Intersector.intersectSegmentCircle(block.getUpperLeftPoint(), 
@@ -194,6 +197,9 @@ public class BreakoutState extends GameState {
 			Utils.drawText(textString, Config.window_half_width - (textString.length() * 30 /2.0f), Config.window_half_height, 30, 30, new Color(1f,0,0,textScale));
 
 		}
+		
+		String scoreSting = "Score: " + Score.GetScore();
+		Utils.drawText(scoreSting, 10, Config.window_height - 40, 20, 20, new Color(1f,1f,1f,1f-textScale));
 	}
 
 }

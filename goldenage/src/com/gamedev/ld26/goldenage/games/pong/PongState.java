@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.core.Assets;
+import com.gamedev.ld26.goldenage.core.Score;
 import com.gamedev.ld26.goldenage.games.Ball;
 import com.gamedev.ld26.goldenage.games.GameState;
 import com.gamedev.ld26.goldenage.games.Player;
@@ -47,6 +48,7 @@ public class PongState extends GameState {
 		_playerScore = 0;
 		_cpuScore = 0;
 		_stageMusic = Assets.pongMusic;
+		Score.ResetScore();
 	}
 
 	@Override
@@ -79,6 +81,7 @@ public class PongState extends GameState {
 		if (_ball.getCircle().y > Config.window_height){
 			_ball.setAlive(false);
 			_playerScore++;
+			Score.AddToScore(1);
 		}
 		
 		if (_playerScore == win_score) {
