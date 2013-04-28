@@ -17,6 +17,7 @@ public class Plane extends GameObject implements IShooter {
 	protected float speed;
 	private BulletFactory bFactory;
 	private boolean hasFired;
+	protected int _hitPoints;
 	
 	public Plane(Vector2 pos, Vector2 size, Color color, GameState gs, BulletFactory bf) {
 		super(pos, size, color, gs);
@@ -26,6 +27,7 @@ public class Plane extends GameObject implements IShooter {
 		speed = 200;
 		bFactory = bf;
 		hasFired = false;
+		_hitPoints = 1;
 	}
 
 	public void update(float dt){
@@ -52,6 +54,18 @@ public class Plane extends GameObject implements IShooter {
 	protected void fireBullet(){
 		Bullet bul = bFactory.GetBullet(this);
 		bul.setTarget(_gState.getPlayer());
+		bul.setColor(_color);
+		bul.setSize(70, 70);
+	}
+	
+	public boolean gotHit() {
+		_hitPoints--;
+		if (_hitPoints <= 0)
+		{
+			_alive = false;
+			return true;
+		}
+		return false;
 	}
 	
 	@Override

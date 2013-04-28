@@ -150,9 +150,10 @@ public abstract class GameState {
 	public void render(float delta) {
 		Assets.shapes.begin(ShapeType.Filled);
 
-		render(_player);
+
 		
 		renderScreen(delta);
+		render(_player);
 		try {
 			for (GameObject object : _gameObjects)
 			{
