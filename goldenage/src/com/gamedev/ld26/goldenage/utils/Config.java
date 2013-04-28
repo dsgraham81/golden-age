@@ -16,4 +16,7 @@ public class Config {
 	public static final int pong_paddle_size_y = 20;
 	public static final Rectangle pong_window_bounds = new Rectangle(Config.window_half_width / 2, -40, Config.window_half_width, Config.window_height + 80);
 	public static final Rectangle full_window_bounds = new Rectangle(0,0, Config.window_width, Config.window_height);
+	public static final Rectangle g1942_window_bounds = new Rectangle(-20,-20, Config.window_width + 40, Config.window_height + 40);
+
 }
+
