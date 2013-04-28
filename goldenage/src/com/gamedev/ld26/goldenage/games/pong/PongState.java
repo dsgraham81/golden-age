@@ -9,7 +9,7 @@ import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.core.Assets;
 import com.gamedev.ld26.goldenage.games.Ball;
 import com.gamedev.ld26.goldenage.games.GameState;
-import com.gamedev.ld26.goldenage.games.Paddle;
+import com.gamedev.ld26.goldenage.games.Player;
 import com.gamedev.ld26.goldenage.utils.Config;
 import com.gamedev.ld26.goldenage.utils.Utils;
 
@@ -25,7 +25,7 @@ public class PongState extends GameState {
 	private Rectangle _edgeLeft;
 	private Rectangle _edgeRight;
 	
-	private Paddle _cpu;
+	private Player _cpu;
 	private Ball _ball;
 	
 	private int _playerScore;
@@ -38,7 +38,7 @@ public class PongState extends GameState {
 		_edgeLeft = new Rectangle(Config.pong_window_bounds.x - 20, 0, 20, Config.window_height);
 		_edgeRight = new Rectangle(Config.pong_window_bounds.x + Config.pong_window_bounds.width, 0, 20, Config.window_height);
 		
-		_cpu = new Paddle(size, Color.WHITE, this);
+		_cpu = new Player(size, Color.WHITE, this);
 		_cpu.setPosition(Config.window_half_width, Config.window_height - size.y);
 		
 		_ball = new Ball(new Vector2(Config.window_half_width, Config.window_half_height), 10, Color.WHITE, this);

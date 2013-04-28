@@ -12,9 +12,8 @@ import com.gamedev.ld26.goldenage.core.Assets;
 import com.gamedev.ld26.goldenage.games.Bullet;
 import com.gamedev.ld26.goldenage.games.BulletFactory;
 import com.gamedev.ld26.goldenage.games.GameState;
-import com.gamedev.ld26.goldenage.games.Paddle;
+import com.gamedev.ld26.goldenage.games.Player;
 import com.gamedev.ld26.goldenage.games.PlayerTransition;
-import com.gamedev.ld26.goldenage.utils.Config;
 
 public class SpaceInvadersState extends GameState implements TimerListener {
 
@@ -48,8 +47,8 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 	    setupTransition(previous);
 	}
 	
-	protected Paddle createPlayer() {
-		return new Paddle(new Vector2(50, 50), Color.RED, this);
+	protected Player createPlayer() {
+		return new Player(new Vector2(50, 50), Color.RED, this);
 	}
 	
 	private void setupScreen() {
