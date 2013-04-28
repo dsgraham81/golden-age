@@ -11,7 +11,7 @@ import com.gamedev.ld26.goldenage.utils.Config;
 import com.gamedev.ld26.goldenage.utils.Utils;
 
 public class Block extends GameObject {
-	public static final int BLOCKS_WIDE = 20;
+	public static final int BLOCKS_WIDE = 15;
 	public static final int BLOCKS_TALL = 12;
 	public static final float BLOCK_AREA = .4f;
 
