@@ -2,13 +2,8 @@ package com.gamedev.ld26.goldenage.core;
 
 import java.util.Random;
 
-import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.AudioDevice;
-import com.badlogic.gdx.audio.AudioRecorder;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -42,7 +37,6 @@ public class Assets {
 		background.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);	
 		
 		beep = Gdx.audio.newSound(Gdx.files.internal("data/audio/beep.wav"));
-		
 		
 		letters = splitAndGet(sheet, 8, 8, 0, 30, 26, 1);
 		digits  = splitAndGet(sheet, 8, 8, 0, 31, 10, 1);
