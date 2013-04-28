@@ -15,18 +15,23 @@ import com.gamedev.ld26.goldenage.utils.Config;
 public abstract class GameState {
 
 	protected final GoldenAgeGame _game;	
-	protected Paddle _player;
 	private GameState _previousGame;
+	
+	protected Paddle _player;
 	protected ArrayList<GameObject> _gameObjects = new ArrayList<GameObject>();
+
 	public Rectangle _windowBounds = new Rectangle(0,0, Config.window_width, Config.window_height);
-	protected boolean _gameWon;
+	protected boolean _gameWon = false;
 	protected Music _stageMusic;
 	
 	protected GameState(GoldenAgeGame game, GameState previous) {
 		_game = game;
 		_previousGame = previous;
 		setupPlayer(previous);
-		_gameWon = false;
+	}
+	
+	public Rectangle getBounds() {
+		return _windowBounds;
 	}
 	
 	protected void setupPlayer(GameState previous) {
@@ -35,8 +40,7 @@ public abstract class GameState {
 		float x = Config.window_width / 2;
 		float y = 0;
 		if (previous != null) 
-		{
-		
+		{		
 			Rectangle playerPosition = previous.getPlayer().getRect();
 			x = playerPosition.x;
 			y = playerPosition.y;
@@ -46,7 +50,7 @@ public abstract class GameState {
 	}
 	
 	protected Paddle createPlayer() {
-		return new Paddle(new Vector2(Config.window_width / 2, 0), new Vector2(100, 20), Color.WHITE, this);
+		return new Paddle(new Vector2(100, 20), Color.WHITE, this);
 	}
 	
 	public void AddGameObject(GameObject obj)
@@ -63,7 +67,11 @@ public abstract class GameState {
 	public ArrayList<GameObject> _newObjects = new ArrayList<GameObject>();
 	
 	public void update(float delta) {
-		
+		if (!_player.isAlive()) {
+			if (updateReset(delta)) {
+				return;
+			}
+		}
 		
 		updatePlayer(delta);
 		
@@ -75,8 +83,6 @@ public abstract class GameState {
 		} else {		
 			updateScreen(delta);
 		}
-		
-
 		
 		for (GameObject obj: _gameObjects)
 		{
@@ -113,24 +119,53 @@ public abstract class GameState {
 	protected void dispose() {		
 	}
 	
-	protected void updatePlayer(float delta) {		
+	protected void updatePlayer(float delta) {
 		_player.setPosition(_game.input.getCurrMouse().x, 0);
+	}
+	
+	private float _resetTime = 0;
+	
+	// override to handle update image
+	protected boolean updateReset(float delta) {
+		_resetTime += delta;
+		
+		if (_resetTime > 3f) {
+			_resetTime = 0;
+			resetScreen();
+			return true;
+		}
+		return false;
+	}
+	
+	protected void resetScreen() { 
+		_player.setAlive(true);
 	}
 	
 	protected abstract void updateScreen(float delta);
 	
 	public void render(float delta) {
 		Assets.shapes.begin(ShapeType.Filled);
-		_player.render();
+
+		render(_player);
+		
 		renderScreen(delta);
 		try {
 			for (GameObject object : _gameObjects)
 			{
-				if (object.getDraw())
-					object.render();
+				render(object);
 			}
-		} catch (Exception e) { } 
+		} catch (Exception e) { 
+
+			System.out.println(e.getMessage());
+	
+		} 
 		Assets.shapes.end();
+	}
+	
+	protected void render(GameObject gameObject) {
+		if (gameObject != null && gameObject.isAlive()) {
+			gameObject.render();
+		}
 	}
 	
 	protected abstract void renderScreen(float delta);

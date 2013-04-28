@@ -3,6 +3,7 @@ package com.gamedev.ld26.goldenage.games.spaceinvaders;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.DeltaTimer;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
@@ -17,6 +18,12 @@ import com.gamedev.ld26.goldenage.utils.Config;
 
 public class SpaceInvadersState extends GameState implements TimerListener {
 
+	private final int Right = 0;
+	private final int RightDown = 1;
+	private final int Left = 2;
+	private final int LeftDown = 3;
+	
+	
 	static final float TransitionTime = 1.5f;
 	private PlayerTransition _playerTransition;
 	
@@ -26,10 +33,14 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 	private Bullet _bullet;
 	
 	private ArrayList<BaseInvader> _aliens = new ArrayList<BaseInvader>(); 
-	private int _alienCount;
+	private int _alienSpeed = 100;
+	private int _downHeight = -72;
+	private int _dy;
 	private BulletFactory _bulletFactory;
+	private Rectangle _alienBounds;
 	
 	private DeltaTimer _timer;
+	private int _movement = Right;
 	
 	public SpaceInvadersState(GoldenAgeGame game, GameState previous) {
 		super(game, previous);
@@ -38,7 +49,7 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 	}
 	
 	protected Paddle createPlayer() {
-		return new Paddle(new Vector2(Config.window_width / 2, 0), new Vector2(50, 50), Color.RED, this);
+		return new Paddle(new Vector2(50, 50), Color.RED, this);
 	}
 	
 	private void setupScreen() {
@@ -47,7 +58,59 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 		
 		Color[] alienColor = new Color[] { Color.CYAN, Color.MAGENTA, Color.YELLOW };
 		float[] alienSize = new float[] { 16f, 20f, 10f }; 
+	
+		_alienBounds = new Rectangle(_windowBounds.x + 10, 0, _windowBounds.width - 20, _windowBounds.height);
+				
+		for (int y = 0; y < Rows; y++) {
+			for (int x = 0; x < Columns; x++) {
+				_aliens.add(new BaseInvader(this, alienSize[y], alienColor[y]));
+			}
+		}
 		
+		resetScreen();
+	}
+
+	
+	@Override
+	protected void updateScreen(float delta) {	
+		if (_game.input.isButtonDown(0) && !bulletExists()) {
+			_bullet = _bulletFactory.GetBullet(_player);
+		}		
+		_timer.Update(delta);
+		
+		Vector2 offset = GetOffset(delta);
+		
+		boolean changeDirections = false;
+		
+		int aliens = 0;
+		
+		for (BaseInvader alien : _aliens) {
+			if (alien.isAlive()) {
+				if (checkBullet(alien)) continue;
+				
+				alien.offset(offset);
+				aliens++;
+				
+				if (!isMovingDown()){
+					changeDirections |= !alien.inBounds(_alienBounds);
+				}
+				
+				if (shouldFire()){
+					Bullet bullet = _bulletFactory.GetBullet(alien);
+					bullet.setTarget(_player);
+				}
+			}
+		}
+		
+		if (aliens < 30) {
+			_gameWon = true;
+			return;
+		}
+		
+		changeDirection(changeDirections || (_dy < _downHeight));
+	}
+	
+	protected void resetScreen() {
 		float hgap = 800 / (Columns + 1);
 		float vgap = 300 / (Rows + 1);
 		
@@ -55,27 +118,85 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 		float initX = xPos;
 		float yPos = _windowBounds.height - vgap;
 				
+		int index = 0;
 		for (int y = 0; y < Rows; y++) {
 			for (int x = 0; x < Columns; x++) {
-				BaseInvader alien = new BaseInvader(this, alienSize[y], alienColor[y]);
-				alien.setPosition(xPos, yPos);
-				_aliens.add(alien);
+				_aliens.get(index++).setPosition(xPos, yPos);
 				xPos += hgap;
 			}
 			xPos = initX;
 			yPos -= vgap;
 		}
 		
-		_alienCount = _aliens.size();
+		super.resetScreen();
 	}
-
-	@Override
-	protected void updateScreen(float delta) {	
-		if (_game.input.isButtonDown(0) && _bullet == null) {
-			_bullet = _bulletFactory.GetBullet(_player);
-		}		
-		_timer.Update(delta);
+	
+	private boolean bulletExists()
+	{
+		return (_bullet != null) && (_bullet.isAlive());
 	}
+	
+	private boolean checkBullet(BaseInvader alien) {
+		if (_bullet != null) {
+			if (_bullet.collides(alien)) {
+				alien.setAlive(false);
+				_bullet.setAlive(false);
+				_bullet = null;
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean isMovingDown()
+	{
+		return ((_movement == LeftDown) || (_movement == RightDown));
+	}
+	
+	
+	private boolean shouldFire() {
+		if (_alienFire) {
+			if (Assets.random.nextInt(100) < 5) {
+				_alienFire = false;
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private void changeDirection(boolean change) {
+		if (!change) return;
+		
+		_alienSpeed += 20;
+		
+		if (++_movement == 4) {
+			_movement = 0;
+		}
+	}
+	
+	private Vector2 GetOffset(float delta) {
+		float dy = 0;
+		float dx = 0;
+		
+		if (_movement == LeftDown || _movement == RightDown) {
+			float tempDy = delta*_alienSpeed;
+			_dy -= tempDy;
+			if (_dy < _downHeight) {
+				dy = _dy - _downHeight;
+			} else {
+				dy = -tempDy;
+			}
+		} else {
+			_dy = 0;
+			dx = delta*_alienSpeed;
+			if (_movement == Left) {
+				dx = -dx;
+			}			
+		}
+		
+		return new Vector2(dx, dy);
+	}
+	
 	
 	private float _transition = 0;	
 	
@@ -100,17 +221,9 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 		
 	}
 
+	private boolean _alienFire = false;
 	@Override
 	public void OnTimer() {
-		
-		int shootIndex = Assets.random.nextInt(_alienCount);
-
-		for (BaseInvader alien : _aliens) {
-			if (alien.isAlive() && shootIndex-- == 0) {
-				_bulletFactory.GetBullet(alien);
-				return;
-			}
-		}
+		_alienFire = true;
 	}
-
 }

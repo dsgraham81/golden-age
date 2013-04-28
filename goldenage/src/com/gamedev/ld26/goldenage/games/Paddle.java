@@ -10,8 +10,8 @@ public class Paddle extends GameObject implements IShooter {
 	public int speed = 2000;
 	public Vector2 direction = DirectionVector.Up;
 	
-	public Paddle(Vector2 pos, Vector2 size, Color color, GameState gs) {
-		super(pos, size, color, gs);
+	public Paddle(Vector2 size, Color color, GameState gs) {
+		super(Vector2.Zero, size, color, gs);
 	}
 	
 	public Vector2 GetTip() {
@@ -25,6 +25,6 @@ public class Paddle extends GameObject implements IShooter {
 
 	@Override
 	public Vector2 getShootDirection() {
-		return direction;
+		return new Vector2(direction);
 	}
 }

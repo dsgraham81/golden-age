@@ -1,6 +1,5 @@
 package com.gamedev.ld26.goldenage.games.pong;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
@@ -39,7 +38,9 @@ public class PongState extends GameState {
 		_edgeLeft = new Rectangle(Config.pong_window_bounds.x - 20, 0, 20, Config.window_height);
 		_edgeRight = new Rectangle(Config.pong_window_bounds.x + Config.pong_window_bounds.width, 0, 20, Config.window_height);
 		
-		_cpu = new Paddle(new Vector2(Config.window_half_width, Config.window_height - size.y), size, Color.WHITE, this);
+		_cpu = new Paddle(size, Color.WHITE, this);
+		_cpu.setPosition(Config.window_half_width, Config.window_height - size.y);
+		
 		_ball = new Ball(new Vector2(Config.window_half_width, Config.window_half_height), 10, Color.WHITE, this);
 		_windowBounds = Config.pong_window_bounds;
 		

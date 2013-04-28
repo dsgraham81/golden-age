@@ -18,7 +18,7 @@ public class Ball extends GameObject {
 	private float _speed;
 	
 	public Ball(Vector2 pos, float radius, Color color, GameState gs) {
-		super(pos, new Vector2(radius, radius), color, gs);
+		super(pos, Vector2.Zero, color, gs);
 		
 		_circle = new Circle(pos.x, pos.y, radius);
 		float x = Assets.random.nextFloat() * 2.f - 1.f;
@@ -29,8 +29,9 @@ public class Ball extends GameObject {
 	
 	public void setPosition(float x, float y)
 	{
-		_circle.x = Utils.clamp(x, 0, Config.window_width - _rect.width);
-		_circle.y = Utils.clamp(y, 0, Config.window_height - _rect.height);
+		float size = _circle.radius * 2;
+		_circle.x = Utils.clamp(x, 0, Config.window_width - size);
+		_circle.y = Utils.clamp(y, 0, Config.window_height - size);
 	}
 	
 	public void setVelocity(Vector2 newVel)
@@ -62,7 +63,7 @@ public class Ball extends GameObject {
 	
 	public boolean collides(GameObject other)
 	{
-		return Intersector.overlaps(_circle, other._rect);
+		return (other != null) && Intersector.overlaps(_circle, other._rect);
 	}
 	
 	public void update(float delta) {
@@ -72,9 +73,6 @@ public class Ball extends GameObject {
 		
 		keepInsideRect(_gState._windowBounds);
 		clampSpeed();
-		
-		_rect.x = _circle.x;
-		_rect.y = _circle.y;
 	}
 
 	public void clampSpeed() {
