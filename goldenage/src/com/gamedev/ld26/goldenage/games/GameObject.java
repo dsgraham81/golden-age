@@ -23,9 +23,8 @@ public class GameObject {
 	
 	public GameObject(Vector2 pos, Vector2 size, Color color, GameState gs) {
 		_gState = gs;
-		_alive = true;
 		_gState.AddGameObject(this);
-
+		_alive = true;
 		
 		_rect = new Rectangle(pos.x, pos.y, size.x, size.y);
 		_color = color;
@@ -69,6 +68,17 @@ public class GameObject {
 		_rect.y = Utils.clamp(y, 0, Config.window_height - _rect.height);
 	}
 	
+	public void offset(Vector2 position) {
+		_rect.x += position.x;
+		_rect.y += position.y;
+	}
+	
+	public boolean inBounds(Rectangle r) {
+		return !((_rect.x < r.x) || (_rect.y < r.y)  
+				|| ((_rect.x + _rect.width) > (r.x + r.width))
+				|| ((_rect.y + _rect.height)> (r.y + r.height)));
+	}
+	
 	public void setSize(float width, float height) {
 		_rect.width = width;
 		_rect.height = height;		
@@ -105,4 +115,6 @@ public class GameObject {
 
 
 	public void update(float delta) {}
+	
+	public void dispose() {}
 }

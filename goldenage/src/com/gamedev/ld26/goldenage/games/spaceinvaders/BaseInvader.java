@@ -2,7 +2,6 @@ package com.gamedev.ld26.goldenage.games.spaceinvaders;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.DirectionVector;
 import com.gamedev.ld26.goldenage.IShooter;
@@ -42,6 +41,6 @@ public class BaseInvader extends GameObject implements IShooter {
 
 	@Override
 	public Vector2 getShootDirection() {
-		return DirectionVector.Down;
+		return new Vector2(DirectionVector.Down);
 	}
 }
