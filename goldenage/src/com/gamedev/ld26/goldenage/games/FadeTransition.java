@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 
 public class FadeTransition extends Transition {
 
-	private float _da;
+	protected float _da;
 	private float _alpha;
 	private GameObject _object;
 	

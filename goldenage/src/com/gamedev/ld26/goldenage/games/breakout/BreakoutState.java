@@ -15,6 +15,7 @@ import com.gamedev.ld26.goldenage.games.Ball;
 import com.gamedev.ld26.goldenage.games.GameObject;
 import com.gamedev.ld26.goldenage.games.GameState;
 import com.gamedev.ld26.goldenage.games.Player;
+import com.gamedev.ld26.goldenage.games.TextTransition;
 import com.gamedev.ld26.goldenage.games.pong.PongState;
 import com.gamedev.ld26.goldenage.utils.Config;
 import com.gamedev.ld26.goldenage.utils.Utils;
@@ -72,9 +73,15 @@ public class BreakoutState extends GameState {
 			}
 		}
 		
+		_transitionTime = (Config.window_height * Block.BLOCK_AREA) / (_ball.getSpeed() * -_ball.getDir().y);
+		
 		_windowBounds = new Rectangle(0,-20, Config.window_width, Config.window_height+20);
 		_stageMusic = Assets.breakoutMusic;
-		
+
+
+		String textString = "Welcome to 1976";
+		addTransition(new TextTransition(textString,
+				new Vector2(Config.window_half_width - (textString.length() * 30 /2.0f), Config.window_half_height), Color.RED, _transitionTime));
 	}
 
 	@Override
@@ -182,6 +189,9 @@ public class BreakoutState extends GameState {
 		
 		textScale = 1.0f - scale;
 		transistionOn = done;
+		
+		super.transitionScreen(delta);		
+		
 		return done;
 	}
 
@@ -192,10 +202,9 @@ public class BreakoutState extends GameState {
 			Assets.shapes.setColor(new Color(textScale,textScale,textScale,textScale));
 			Assets.shapes.rect(edgeLeft.x * textScale, edgeLeft.y, edgeLeft.width, edgeLeft.height);
 			Assets.shapes.rect(edgeRight.x + ((Config.window_width - edgeRight.x) *(1.0f - textScale)), edgeRight.y, edgeRight.width, edgeRight.height);
-			String textString = "Welcome to 1976";
 			
+			String textString = "Welcome to 1976";			
 			Utils.drawText(textString, Config.window_half_width - (textString.length() * 30 /2.0f), Config.window_half_height, 30, 30, new Color(1f,0,0,textScale));
-
 		}
 		
 		String scoreSting = "Score: " + Score.GetScore();
