@@ -2,8 +2,6 @@ package com.gamedev.ld26.goldenage.core;
 
 import java.util.Random;
 
-import sun.awt.SunDisplayChanger;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
