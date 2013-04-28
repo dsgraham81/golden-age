@@ -14,7 +14,6 @@ public class Ball extends GameObject {
 	private static final float max_speed = 750.f;
 	
 	private Circle _circle;
-	private Color _color;
 	private Vector2 _dir;
 	private float _speed;
 	
@@ -22,7 +21,6 @@ public class Ball extends GameObject {
 		super(pos, new Vector2(radius, radius), color, gs);
 		
 		_circle = new Circle(pos.x, pos.y, radius);
-		_color = color;
 		float x = Assets.random.nextFloat() * 2.f - 1.f;
 		float y = Assets.random.nextBoolean() ? -1.f : 1.f;
 		_dir = new Vector2(x, y).nor();
@@ -89,7 +87,6 @@ public class Ball extends GameObject {
 	}
 	
 	public Circle getCircle() { return _circle; }
-	public Color getColor() { return _color; }
 	public Vector2 getDir() { return _dir; }
 	public float getSpeed() { return _speed; }
 	public void setSpeed(float s) { _speed = s; clampSpeed(); }
@@ -99,7 +96,7 @@ public class Ball extends GameObject {
 		return new Vector2(_circle.x, _circle.y);
 	}
 	
-	private void keepInsideRect(Rectangle bounds) {
+	protected void keepInsideRect(Rectangle bounds) {
 		if ((_circle.x - _circle.radius) < bounds.x) {
 			_circle.x = bounds.x + _circle.radius;
 			_dir.x = -_dir.x;
@@ -117,5 +114,4 @@ public class Ball extends GameObject {
 			_dir.y = -_dir.y;
 		}
 	}
-	
 }

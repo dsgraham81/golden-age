@@ -139,7 +139,7 @@ public class BreakoutState extends GameState {
 			ballDir.x += hitPos - .5f;
 			_ball.setSpeed(_ball.getSpeed() + 50.f);
 		}
-		if (_ball.getPos().y <= 0 && _ball.getAlive())
+		if (_ball.getPos().y <= 0 && _ball.isAlive())
 		{
 			_ball.setAlive(false);
 			_respawnTime = 3f;
