@@ -54,10 +54,6 @@ public abstract class GameState {
 		_newObjects.add(obj);
 	}
 	
-	public void removeGameObject(GameObject obj)
-	{
-		_gameObjects.remove(obj);
-	}
 	
 	public ArrayList<GameObject> getGameObjects()
 	{
@@ -67,6 +63,8 @@ public abstract class GameState {
 	public ArrayList<GameObject> _newObjects = new ArrayList<GameObject>();
 	
 	public void update(float delta) {
+		
+		
 		updatePlayer(delta);
 		
 		if (_previousGame != null) {
@@ -78,7 +76,7 @@ public abstract class GameState {
 			updateScreen(delta);
 		}
 		
-		_newObjects = new ArrayList<GameObject>();
+
 		
 		for (GameObject obj: _gameObjects)
 		{
@@ -96,6 +94,7 @@ public abstract class GameState {
 		}
 		} catch (Exception e){ } 
 		_gameObjects = _newObjects;
+		_newObjects = new ArrayList<GameObject>();
 	}
 	
 	public Paddle getPlayer()

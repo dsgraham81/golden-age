@@ -126,7 +126,7 @@ public class BreakoutState extends GameState {
 		if (_respawnTime <=0)
 		{
 			_ball.setAlive(true);
-			_gameObjects.add(_ball);
+			AddGameObject(_ball);
 			_ball.setPosition(_player.getRect().x + (_player.getRect().width /2.0f), _player.getRect().height + _ball.getCircle().radius + 1);
 			_ball.setVelocity(new Vector2(.2f, 1f));
 			_ball.setSpeed(500f);

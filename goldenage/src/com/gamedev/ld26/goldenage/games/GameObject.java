@@ -22,8 +22,9 @@ public class GameObject {
 	
 	public GameObject(Vector2 pos, Vector2 size, Color color, GameState gs) {
 		_gState = gs;
-		_gState.AddGameObject(this);
 		_alive = true;
+		_gState.AddGameObject(this);
+
 		
 		_rect = new Rectangle(pos.x, pos.y, size.x, size.y);
 		_color = color;
