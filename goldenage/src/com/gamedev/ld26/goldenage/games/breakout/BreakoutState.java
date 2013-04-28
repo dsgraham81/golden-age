@@ -22,6 +22,8 @@ public class BreakoutState extends GameState {
 	private Ball _ball;
 	private Vector2 _startPos;
 	private ArrayList<Block> _blocks = new ArrayList<Block>();
+	private float _respawnTime =0;
+	
 	
 	public BreakoutState(GoldenAgeGame game, GameState previous) {
 		super(game, previous);
@@ -56,10 +58,18 @@ public class BreakoutState extends GameState {
 				_blocks.add(newBlock);
 			}
 		}
+		
+		_windowBounds = new Rectangle(0,-20, Config.window_width, Config.window_height+20);
+
 	}
 
 	@Override
 	protected void updateScreen(float delta) {
+
+		if (_respawnTime > 0)
+		{
+			respawnBall(delta);
+		}
 		_ball.update(delta);
 		int blockCount = 0;
 		for (GameObject block : _gameObjects)
@@ -100,19 +110,35 @@ public class BreakoutState extends GameState {
 		handlePaddleCollisions();
 	}
 	
+	private void respawnBall(float dt){
+		_respawnTime -=dt;
+		if (_respawnTime <=0)
+		{
+			_ball.setAlive(true);
+			_gameObjects.add(_ball);
+			_ball.setPosition(_player.getRect().x + (_player.getRect().width /2.0f), _player.getRect().height + _ball.getCircle().radius + 1);
+			_ball.setVelocity(new Vector2(.2f, 1f));
+			_ball.setSpeed(500f);
+		}
+	}
 	
 	private void handlePaddleCollisions() {
 		final Rectangle playerRect = _player.getRect();
-		final Circle ballCircle = _ball.getCircle();
+		Circle ballCircle = _ball.getCircle();
 		Vector2 ballDir = _ball.getDir();
 		
 		// Intersection tests - ball/paddle
 		if (Intersector.overlaps(ballCircle, playerRect)) {
 			ballCircle.y = playerRect.y + playerRect.height + ballCircle.radius;
-			ballDir.y *= -1;
+			ballDir.y = Math.abs(ballDir.y);
 			float hitPos = (ballCircle.x - playerRect.x) / playerRect.width;
 			ballDir.x += hitPos - .5f;
 			_ball.setSpeed(_ball.getSpeed() + 50.f);
+		}
+		if (_ball.getPos().y <= 0 && _ball.getAlive())
+		{
+			_ball.setAlive(false);
+			_respawnTime = 3f;
 		}
 	}
 	
