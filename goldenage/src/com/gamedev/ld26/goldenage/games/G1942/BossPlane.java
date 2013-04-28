@@ -14,30 +14,47 @@ public class BossPlane extends Plane {
 
 	private Vector2 _targetPosition;
 	private static final Vector2 _size = new Vector2(100,100);
+	private boolean dying;
+	private final int TotalHitPoints = 50;
 	
 	public BossPlane(Color color, GameState gs,	BulletFactory bf) {
 		super(new Vector2(Config.window_half_width - _size.x/2, 0), _size, color, gs, bf);
 		_targetPosition = new Vector2(_rect.x, Config.window_half_height);
-		_hitPoints = 50;
+		_hitPoints = TotalHitPoints;
 		ShootSound = null;
+		dying = false;
 	}
 
 	public void update(float dt){
+		if (dying)
+		{
+			_targetPosition = new Vector2(_rect.x, -20);
+			if (_rect.y < 0)
+				_alive = false;
+		}
 		Vector2 tempAngle = new Vector2(_targetPosition.x -_rect.x, _targetPosition.y - _rect.y);
-		_dir += 1;
+
 		float distanceSq = _targetPosition.dst2(_rect.x, _rect.y);
 		if (distanceSq <= (speed * dt) * (speed * dt))
 		{
 			_rect.x = _targetPosition.x;
 			_rect.y = _targetPosition.y;
-			fireArc(10);
-			_targetPosition = new Vector2(Assets.random.nextFloat() * Config.window_width,
-										  Assets.random.nextFloat() * Config.window_height);
+			fireArc(TotalHitPoints - _hitPoints + 10);
+			_targetPosition = new Vector2(Assets.random.nextFloat() * (Config.window_width- 100) + 50,
+										  Assets.random.nextFloat() * (Config.window_height - 100) + 50);
 		}
 		else {
 			tempAngle.nor();
 			_rect.x += tempAngle.x * speed * dt;
 			_rect.y += tempAngle.y * speed * dt;
+		}
+		
+		if (!dying && Assets.random.nextFloat() > .98f)
+		{
+			Vector2 playerAngle = new Vector2(_gState.getPlayer().getRect().x -_rect.x, _gState.getPlayer().getRect().y - _rect.y);
+			playerAngle.nor();
+			Bullet bullet = bFactory.GetBullet(Utils.rectCenter(_rect), 300, Color.RED, new Vector2(playerAngle.x, playerAngle.y), 5); 
+			bullet.setTarget(_gState.getPlayer());
 		}
 	}
 	
@@ -59,13 +76,23 @@ public class BossPlane extends Plane {
 		
 	}
 	
+	public boolean gotHit() {
+		_hitPoints--;
+		if (_hitPoints <= 0)
+		{
+			dying = true;
+			return true;
+		}
+		return false;
+	}
+	
 	public void render()
 	{
 		Assets.shapes.end();
 		Assets.batch.begin();
 		
 		Assets.batch.setColor(Color.WHITE);
-		Assets.batch.draw(Assets.potato, _rect.x, _rect.y, _rect.width, _rect.height);
+		Assets.batch.draw(dying ? Assets.baked_potato : Assets.potato, _rect.x, _rect.y, _rect.width, _rect.height);
 		Assets.batch.end();
 		Assets.shapes.begin(ShapeType.Filled);
 	}

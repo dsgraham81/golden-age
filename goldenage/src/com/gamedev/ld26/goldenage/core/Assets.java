@@ -60,6 +60,9 @@ public class Assets {
 		potato = new Texture(Gdx.files.internal("data/potato.png"));
 		potato.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		
+		baked_potato = new Texture(Gdx.files.internal("data/baked_potato.png"));
+		baked_potato.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+		
 		beep = Gdx.audio.newSound(Gdx.files.internal("data/audio/beep.wav"));
 		bricksSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/brickhit.wav"));
 		buzzSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/buzz.wav"));

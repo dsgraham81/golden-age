@@ -25,6 +25,7 @@ public class G1942State extends GameState {
 	private PlaneSpawnInfo _leftCircleSpawner;
 	private PlaneSpawnInfo _rightCircleSpawner;
 	private boolean _bossSpawned;
+	private BossPlane _boss;
 	private float _gunDelay;
 	private MovingBackground back1;
 	private MovingBackground back2;
@@ -54,6 +55,11 @@ public class G1942State extends GameState {
 
 	@Override
 	protected void updateScreen(float delta) {
+		if (_boss != null && !_boss.isAlive())
+		{
+			_gameWon = true;
+		}
+		
 		if (_respawnTime > 0)
 		{
 			respawnPlayer(delta);
@@ -85,7 +91,7 @@ public class G1942State extends GameState {
 		if (_shipsKilled > 1 && !_bossSpawned)
 		{
 			_bossSpawned = true;
-			BossPlane plane = new BossPlane(Color.WHITE, this, _bulletFactory);
+			_boss = new BossPlane(Color.WHITE, this, _bulletFactory);
 		}
 		
 		checkCollisions();
