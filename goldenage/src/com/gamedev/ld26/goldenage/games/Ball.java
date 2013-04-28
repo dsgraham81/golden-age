@@ -84,6 +84,14 @@ public class Ball extends GameObject {
 		Assets.shapes.circle(_circle.x, _circle.y, _circle.radius);
 	}
 	
+
+	public boolean inBounds(Rectangle r) {
+		return !(((_circle.x - _circle.radius) < r.x)
+			|| ((_circle.x + _circle.radius) > (r.x + r.width))
+			|| ((_circle.y - _circle.radius) < r.y) 
+			|| ((_circle.y + _circle.radius) > (r.y + r.height)));
+	}
+	
 	public Circle getCircle() { return _circle; }
 	public Vector2 getDir() { return _dir; }
 	public float getSpeed() { return _speed; }

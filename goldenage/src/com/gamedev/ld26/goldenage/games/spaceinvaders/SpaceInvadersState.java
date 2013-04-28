@@ -33,7 +33,7 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 	
 	private ArrayList<BaseInvader> _aliens = new ArrayList<BaseInvader>(); 
 	private int _alienSpeed = 100;
-	private int _downHeight = -72;
+	private int _downHeight = -40;
 	private int _dy;
 	private BulletFactory _bulletFactory;
 	private Rectangle _alienBounds;
@@ -93,7 +93,7 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 				if (!isMovingDown()){
 					changeDirections |= !alien.inBounds(_alienBounds);
 				}
-				
+
 				if (shouldFire()){
 					Bullet bullet = _bulletFactory.GetBullet(alien);
 					bullet.setTarget(_player);
@@ -136,11 +136,10 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 	}
 	
 	private boolean checkBullet(BaseInvader alien) {
-		if (_bullet != null) {
+		if (bulletExists()) {
 			if (_bullet.collides(alien)) {
 				alien.setAlive(false);
 				_bullet.setAlive(false);
-				_bullet = null;
 				return true;
 			}
 		}
