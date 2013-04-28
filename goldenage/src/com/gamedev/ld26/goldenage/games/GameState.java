@@ -126,7 +126,8 @@ public abstract class GameState {
 		try {
 			for (GameObject object : _gameObjects)
 			{
-				object.render();
+				if (object.getDraw())
+					object.render();
 			}
 		} catch (Exception e) { } 
 		Assets.shapes.end();

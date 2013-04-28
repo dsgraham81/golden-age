@@ -34,13 +34,17 @@ public class Plane extends GameObject implements IShooter {
 		
 		if (_rect.y < distance)
 		{
-			bFactory.GetBullet(this);
-			_dir += 180;
+			hitDistance();
 		}
 		
-		_alive = _gState._windowBounds.overlaps(_rect);
+		_alive = _alive && _gState._windowBounds.overlaps(_rect);
 	}
 
+	protected void hitDistance(){
+		bFactory.GetBullet(this);
+		_dir += 180;
+	}
+	
 	@Override
 	public Vector2 GetTip() {
 		return new Vector2(_rect.x + (_rect.width/2), _rect.y);
