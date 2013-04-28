@@ -59,7 +59,7 @@ public class BreakoutState extends GameState {
 			_startPos = new Vector2(Config.window_width/2, Config.window_height);
 		}
 
-		for (int y = 2; y < Block.BLOCKS_TALL; y ++)
+		for (int y = Block.TOP_GAP; y < Block.BLOCKS_TALL; y ++)
 		{
 			for (int x = 0; x < Block.BLOCKS_WIDE; x++)
 			{
@@ -91,6 +91,7 @@ public class BreakoutState extends GameState {
 				blockCount++;
 				if (_ball.collides(block))
 				{
+					Assets.bricksSound.play();
 					block.setAlive(false);
 					
 					boolean intersectLeft = Intersector.intersectSegmentCircle(block.getUpperLeftPoint(), 
@@ -118,7 +119,7 @@ public class BreakoutState extends GameState {
 				}
 			}
 		}
-		if (blockCount < (Block.BLOCKS_TALL-2) * Block.BLOCKS_WIDE * .5f) _gameWon = true;
+		if (blockCount < (Block.BLOCKS_TALL- Block.TOP_GAP) * Block.BLOCKS_WIDE * .5f) _gameWon = true;
 		handlePaddleCollisions();
 	}
 	
@@ -143,6 +144,7 @@ public class BreakoutState extends GameState {
 		
 		// Intersection tests - ball/paddle
 		if (Intersector.overlaps(ballCircle, playerRect)) {
+			Assets.beep.play();
 			ballCircle.y = playerRect.y + playerRect.height + ballCircle.radius;
 			ballDir.y = Math.abs(ballDir.y);
 			float hitPos = (ballCircle.x - playerRect.x) / playerRect.width;
@@ -151,6 +153,7 @@ public class BreakoutState extends GameState {
 		}
 		if (_ball.getPos().y <= 0 && _ball.isAlive())
 		{
+			Assets.lifeLostSound.play();
 			_ball.setAlive(false);
 			_respawnTime = 3f;
 		}

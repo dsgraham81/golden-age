@@ -14,9 +14,10 @@ public class Block extends GameObject {
 	public static final int BLOCKS_WIDE = 15;
 	public static final int BLOCKS_TALL = 12;
 	public static final float BLOCK_AREA = .4f;
+	public static final int TOP_GAP = 4;
 
 	private final float BLOCK_WIDTH = Config.window_width / BLOCKS_WIDE;
-	private final float BLOCK_HEIGHT = (Config.window_height * BLOCK_AREA) / BLOCKS_TALL;
+	private final float BLOCK_HEIGHT = (Config.window_height * BLOCK_AREA) / (BLOCKS_TALL + TOP_GAP);
 	private final Vector2 _index;
 	private Vector2 _pos; 
 	private Color _color;

@@ -23,7 +23,7 @@ public class Assets {
 	public static Sound beep;
 	public static Sound lifeLostSound;
 	public static Sound laserSound;
-	public static Sound beepsSound;
+	public static Sound bricksSound;
 	public static Sound buzzSound;
 	public static Sound wobbleSound;
 	
@@ -50,6 +50,11 @@ public class Assets {
 		background.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);	
 		
 		beep = Gdx.audio.newSound(Gdx.files.internal("data/audio/beep.wav"));
+		bricksSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/brickhit.wav"));
+		buzzSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/buzz.wav"));
+		//laserSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/laser.wav"));
+		lifeLostSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/life_lost.wav"));
+		wobbleSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/wobbledown.wav"));
 		
 		titleMusic = Gdx.audio.newMusic(Gdx.files.internal("data/audio/title.mp3"));
 		pongMusic = Gdx.audio.newMusic(Gdx.files.internal("data/audio/aces_high.mp3"));
