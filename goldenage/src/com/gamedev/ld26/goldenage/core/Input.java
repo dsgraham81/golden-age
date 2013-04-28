@@ -1,7 +1,10 @@
 package com.gamedev.ld26.goldenage.core;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector2;
+import com.gamedev.ld26.goldenage.utils.Config;
+import com.gamedev.ld26.goldenage.utils.Utils;
 
 public class Input extends InputAdapter {
 	
@@ -90,6 +93,8 @@ public class Input extends InputAdapter {
 	public boolean mouseMoved(int screenX, int screenY) {
 		prevMouse.set(currMouse);
 		currMouse.set(screenX, screenY);
+		Gdx.input.setCursorPosition((int)Utils.clamp(screenX, 0, Config.window_width),
+									 (int)Utils.clamp(Config.window_height - screenY, 0, Config.window_height));
 		return false;
 	}
 

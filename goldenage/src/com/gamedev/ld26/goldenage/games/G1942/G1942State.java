@@ -156,7 +156,7 @@ public class G1942State extends GameState {
 	
 	
 	protected void updatePlayer(float delta) {
-		_player.setPosition(_game.input.getCurrMouse().x, -_game.input.getCurrMouse().y);
+		_player.setPosition(_game.input.getCurrMouse().x - _player.getRect().width/2, Config.window_height - _game.input.getCurrMouse().y);
 	}
 	
 	@Override
