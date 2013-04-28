@@ -6,4 +6,5 @@ public interface IShooter {
 	Vector2 GetTip();
 	int getShootSpeed();
 	Vector2 getShootDirection();
+	void play();
 }

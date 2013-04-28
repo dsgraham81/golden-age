@@ -18,6 +18,8 @@ public class GameObject {
 	protected float _respawnImmunity;
 	public boolean IsTemporary;
 	
+	public int Score = 0;
+	
 	public GameObject(GameState gs)
 	{
 		this(Vector2.Zero,  Vector2.Zero,  Color.WHITE, gs);

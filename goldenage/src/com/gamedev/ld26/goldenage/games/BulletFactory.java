@@ -17,6 +17,7 @@ public class BulletFactory {
 	}
 	
 	public Bullet GetBullet(IShooter shooter) {
+		shooter.play();
 		return new Bullet(shooter, _bulletSize, _bulletColor, _gameState);
 	}
 	

@@ -18,6 +18,7 @@ public class BossPlane extends Plane {
 		super(new Vector2(Config.window_half_width - _size.x/2, 0), _size, color, gs, bf);
 		_targetPosition = new Vector2(_rect.x, Config.window_half_height);
 		_hitPoints = 50;
+		ShootSound = null;
 	}
 
 	public void update(float dt){
@@ -52,6 +53,7 @@ public class BossPlane extends Plane {
 			Bullet bullet = bFactory.GetBullet(Utils.rectCenter(_rect), 100, _color, new Vector2(x, y), 5); 
 			bullet.setTarget(_gState.getPlayer());
 		}
+		Assets.bossShot.play();
 		
 	}
 }

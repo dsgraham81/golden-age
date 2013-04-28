@@ -15,6 +15,7 @@ import com.gamedev.ld26.goldenage.games.GameObject;
 import com.gamedev.ld26.goldenage.games.GameState;
 import com.gamedev.ld26.goldenage.games.Player;
 import com.gamedev.ld26.goldenage.games.PlayerTransition;
+import com.gamedev.ld26.goldenage.utils.Utils;
 
 public class SpaceInvadersState extends GameState implements TimerListener {
 
@@ -26,11 +27,13 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 	private final int Rows = 5;
 	private final int Columns = 15;
 	
+	private final int WinCount = 20;
+	private final int MaxSpeed = 600;
+	
 	private Bullet _bullet;
 	
 	private ArrayList<BaseInvader> _aliens = new ArrayList<BaseInvader>(); 
-	private final int _initialSpeed = 100;
-	private int _alienSpeed = _initialSpeed;
+	private int _alienSpeed;
 	private int _downHeight = -30;
 	private int _dy;
 	private BulletFactory _bulletFactory;
@@ -38,6 +41,7 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 	
 	private DeltaTimer _timer;
 	private int _movement = Right;
+	
 	
 	public SpaceInvadersState(GoldenAgeGame game, GameState previous) {
 		super(game, previous);
@@ -47,22 +51,33 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 	}
 	
 	protected Player createPlayer() {
-		return new Player(new Vector2(50, 50), Color.RED, this);
+		Color color = new Color(Color.RED);
+		color.a = 0.75f;
+		Player player = new Player(new Vector2(50, 50), color, this);
+		player.ShootSound = Assets.siPlayerLaser;
+		return player;
 	}
 	
 	private void setupScreen() {
 		_bulletFactory = new BulletFactory(this, Color.GRAY, 3);
 		_timer = new DeltaTimer(this, 0.5f);
 		
-		Color[] alienColor = new Color[] { Color.CYAN, Color.MAGENTA, Color.YELLOW, Color.MAGENTA, Color.CYAN };
+		Color[] alienColor = new Color[] { Color.CYAN, Utils.blend(Color.CYAN, Color.MAGENTA),
+				Color.MAGENTA, Utils.blend(Color.MAGENTA, Color.YELLOW), Color.YELLOW };
 		
 		float playerHeight = _player.getRect().height;
 		
 		_alienBounds = new Rectangle(_windowBounds.x + 10, playerHeight, _windowBounds.width - 20, _windowBounds.height - playerHeight);
 				
 		for (int y = 0; y < Rows; y++) {
+			int rowValue = Rows - y;
+			int rotation = rowValue + 1;
+			int score =  rowValue*rowValue;
 			for (int x = 0; x < Columns; x++) {
-				_aliens.add(new BaseInvader(this, 35, alienColor[y]));
+				BaseInvader invader = new BaseInvader(this, 35, alienColor[y]);
+				invader.Score = score;
+				invader.Rotation = rotation;
+				_aliens.add(invader);
 			}
 		}
 		
@@ -91,10 +106,10 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 				alien.offset(offset);
 				aliens++;
 				
-				if (!isMovingDown()){
-					changeDirections |= !alien.inBounds(_alienBounds);
+				if (!changeDirections) {
+					changeDirections |= checkBounds(alien);
 				}
-				
+								
 				onBottom |= (alien.getRect().y < _alienBounds.y);
 
 				if (shouldFire()){
@@ -104,12 +119,14 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 			}
 		}
 		
+		_alienSpeed = (int)(MaxSpeed * ((float)WinCount / aliens));
+		
 		if (onBottom) {
 			_player.setAlive(false);
 			return;
 		}
 		
-		if (aliens < 30) {
+		if (aliens <= WinCount) {
 			_gameWon = true;
 			return;
 		}
@@ -117,16 +134,27 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 		changeDirection(changeDirections || (_dy < _downHeight));
 	}
 	
+	private boolean checkBounds(GameObject object) {
+		switch (_movement){
+			case Left:
+				return (object.getLowerLeftPoint().x <= _alienBounds.x);
+			case Right:
+				return (object.getLowerRightPoint().x >= (_alienBounds.x + _alienBounds.width));		
+		}
+		return false;
+	}
+	
 	protected void resetScreen() {
-		_alienSpeed = _initialSpeed;
 		_movement = Right;
+		
+		int alienWidth = 950;
 		 
-		float hgap = 800 / (Columns + 1);
+		float hgap = alienWidth / (Columns + 1);
 		float vgap = 300 / (Rows + 1);
 		
-		float xPos = _windowBounds.x + ((_windowBounds.width - 800)/2) + hgap;
+		float xPos = _windowBounds.x + ((_windowBounds.width - alienWidth)/2) + hgap;
 		float initX = xPos;
-		float yPos = _windowBounds.height - vgap;
+		float yPos = _windowBounds.height - vgap - 50;
 				
 		int index = 0;
 		for (int y = 0; y < Rows; y++) {
@@ -157,12 +185,6 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 		return false;
 	}
 	
-	private boolean isMovingDown()
-	{
-		return ((_movement == LeftDown) || (_movement == RightDown));
-	}
-	
-	
 	private boolean shouldFire() {
 		if (_alienFire) {
 			if (Assets.random.nextInt(100) < 5) {
@@ -175,8 +197,6 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 	
 	private void changeDirection(boolean change) {
 		if (!change) return;
-		
-		_alienSpeed += 20;
 		
 		if (++_movement == 4) {
 			_movement = 0;
@@ -234,7 +254,6 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 
 	@Override
 	protected void renderScreen(float delta) {
-		// TODO Auto-generated method stub
 		
 	}
 

@@ -2,6 +2,8 @@ package com.gamedev.ld26.goldenage.core;
 
 import java.util.Random;
 
+import sun.awt.SunDisplayChanger;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -26,6 +28,12 @@ public class Assets {
 	public static Sound bricksSound;
 	public static Sound buzzSound;
 	public static Sound wobbleSound;
+	
+	public static Sound siPlayerLaser;
+	public static Sound siAlienLaser;
+	
+	public static Sound planeShot;
+	public static Sound bossShot;
 	
 	public static Music pongMusic;
 	public static Music breakoutMusic;
@@ -55,6 +63,12 @@ public class Assets {
 		//laserSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/laser.wav"));
 		lifeLostSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/life_lost.wav"));
 		wobbleSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/wobbledown.wav"));
+		
+		siPlayerLaser = beep;
+		siAlienLaser = beep;
+		
+		planeShot = beep;
+		bossShot = beep;
 		
 		titleMusic = Gdx.audio.newMusic(Gdx.files.internal("data/audio/title.mp3"));
 		pongMusic = Gdx.audio.newMusic(Gdx.files.internal("data/audio/aces_high.mp3"));
