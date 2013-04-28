@@ -81,6 +81,8 @@ public class Input extends InputAdapter {
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		prevMouse.set(currMouse);
+		currMouse.set(screenX, screenY);
 		return false;
 	}
 
