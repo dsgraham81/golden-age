@@ -15,7 +15,6 @@ import com.gamedev.ld26.goldenage.games.GameObject;
 import com.gamedev.ld26.goldenage.games.GameState;
 import com.gamedev.ld26.goldenage.games.Player;
 import com.gamedev.ld26.goldenage.games.PlayerTransition;
-import com.gamedev.ld26.goldenage.games.Transition;
 
 public class SpaceInvadersState extends GameState implements TimerListener {
 
@@ -23,10 +22,6 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 	private final int RightDown = 1;
 	private final int Left = 2;
 	private final int LeftDown = 3;
-	
-	
-	static final float TransitionTime = 1.5f;
-	private ArrayList<Transition> _playerTransitions = new ArrayList<Transition>();
 	
 	private final int Rows = 3;
 	private final int Columns = 15;
@@ -210,19 +205,6 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 		return new Vector2(dx, dy);
 	}
 	
-	
-	private float _transition = 0;	
-	
-	protected boolean transitionScreen(float delta) {
-		_transition += delta;
-		
-		for (Transition pt : _playerTransitions) {
-			pt.Update(delta);
-		}
-		
-		return (_transition < TransitionTime);
-	}
-	
 	private void setupTransition(GameState previousScreen) {
 		if (previousScreen == null) return;
 		_player.setDraw(false);
@@ -233,15 +215,12 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 			
 			if (obj.isAlive()) {
 				if ((obj.isTransitionObject()) && (index < _aliens.size())) {
-					_playerTransitions.add(new PlayerTransition(_aliens.get(index++), obj, TransitionTime));
+					addTransition(new PlayerTransition(_aliens.get(index++), obj, _transitionTime));
 				}
-				//else if (obj != previousScreen.getPlayer()) {
-				//	_playerTransitions.add(new FadeTransition(obj, true, TransitionTime));
-				//}
 			}
 		}
 		
-		_playerTransitions.add(new PlayerTransition(_player,  previousScreen.getPlayer(), TransitionTime, false));
+		addTransition(new PlayerTransition(_player,  previousScreen.getPlayer(), _transitionTime, false));
 	}
 	
 	protected void handleReset(float delta) {

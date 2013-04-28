@@ -1,6 +1,7 @@
 package com.gamedev.ld26.goldenage.games;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
@@ -11,6 +12,7 @@ import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.core.Assets;
 import com.gamedev.ld26.goldenage.core.Input;
 import com.gamedev.ld26.goldenage.utils.Config;
+import com.gamedev.ld26.goldenage.utils.Utils;
 
 
 public abstract class GameState {
@@ -113,10 +115,6 @@ public abstract class GameState {
 		return (_previousGame != null);
 	}
 	
-	protected boolean transitionScreen(float delta) {
-		return false;				
-	}
-	
 	protected void dispose() {		
 	}
 	
@@ -187,5 +185,68 @@ public abstract class GameState {
 	
 	public Input getInput() {
 		return _game.input;
-	}	
+	}
+	
+	private float _transition = 0;	
+	protected float _transitionTime = 1.5f;
+	private ArrayList<Transition> _objectTransitions = new ArrayList<Transition>();
+	
+	protected void addTransition(Transition trans) {
+		_objectTransitions.add(trans);
+	}
+		
+	protected boolean transitionScreen(float delta) {
+		_transition += delta;
+		
+		for (Transition pt : _objectTransitions) {
+			pt.Update(delta);
+		}
+		
+		return (_transition < _transitionTime);
+	}
+	
+	protected GameObject createScaleTransition() {
+		Vector2 pos = getTransPosition();
+		Vector2 size = getTransSize();		
+		Color color = Utils.getRandomColor();
+		GameObject object = new GameObject(pos, size, color, this);		
+		object.IsTemporary = true; 
+		return object;
+	}
+	
+	protected Vector2 getTransPosition()	{
+		Random rand = Assets.random;
+		float x, y;
+		
+		switch (rand.nextInt(3)) {
+			case 1:
+				x = _windowBounds.x - rand.nextInt(100);
+				y = getSide(100);
+				break;
+			case 2:
+				x = _windowBounds.x + _windowBounds.height + rand.nextInt(100);
+				y = getSide(100);
+				break;
+			default:
+				x = getTop(0);
+				y = (rand.nextBoolean()) ? _windowBounds.y - rand.nextInt(100) 
+						: _windowBounds.y + _windowBounds.height + rand.nextInt(100); 
+				break;
+		}
+				
+		return new Vector2(x, y);
+	}
+	
+	protected Vector2 getTransSize() {
+		float size = 20 + Assets.random.nextInt(20);
+		return new Vector2(size, size);
+	}
+	
+	private float getTop(float extra) {
+		return -extra + ((_windowBounds.width + (extra*2)) * Assets.random.nextFloat());
+	}
+	
+	private float getSide(float extra) {
+		return -extra + ((_windowBounds.height + (extra*2)) * Assets.random.nextFloat());
+	}
 }
