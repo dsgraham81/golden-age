@@ -74,6 +74,11 @@ public class Utils {
 		return new Vector2(initial.x + dx, initial.y + dy);
 	}
 	
+	public static float toRadians(float degrees)
+	{
+		return degrees /180.0f * (float)Math.PI;
+	}
+	
 	public static float lerp(float initial, float dest, float amount) {
 		return initial + amount * (dest - initial);
 	}
