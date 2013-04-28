@@ -18,7 +18,7 @@ public abstract class GameState {
 	protected Paddle _player;
 	private GameState _previousGame;
 	protected ArrayList<GameObject> _gameObjects = new ArrayList<GameObject>();
-	protected Rectangle _windowBounds = new Rectangle(0,0, Config.window_width, Config.window_height);
+	public Rectangle _windowBounds = new Rectangle(0,0, Config.window_width, Config.window_height);
 	protected boolean _gameWon;
 	protected Music _stageMusic;
 	
@@ -51,7 +51,7 @@ public abstract class GameState {
 	
 	public void AddGameObject(GameObject obj)
 	{
-		_gameObjects.add(obj);
+		_newObjects.add(obj);
 	}
 	
 	public void removeGameObject(GameObject obj)
@@ -64,7 +64,7 @@ public abstract class GameState {
 		return _gameObjects;
 	}
 		
-	ArrayList<GameObject> keepObjects = new ArrayList<GameObject>();
+	public ArrayList<GameObject> _newObjects = new ArrayList<GameObject>();
 	
 	public void update(float delta) {
 		updatePlayer(delta);
@@ -78,18 +78,24 @@ public abstract class GameState {
 			updateScreen(delta);
 		}
 		
+		_newObjects = new ArrayList<GameObject>();
+		
+		for (GameObject obj: _gameObjects)
+		{
+			obj.update(delta);
+		}
+		
 		//TODO make this a reusable list
-		keepObjects = new ArrayList<GameObject>();
+
 		try {
 		for (GameObject obj: _gameObjects)
 		{
 			if (obj._alive){
-				keepObjects.add(obj);
-				obj.update(delta);
+				_newObjects.add(obj);
 			}
 		}
 		} catch (Exception e){ } 
-		_gameObjects = keepObjects;
+		_gameObjects = _newObjects;
 	}
 	
 	public Paddle getPlayer()

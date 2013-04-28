@@ -65,12 +65,16 @@ public class Input extends InputAdapter {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		prevMouse.set(currMouse);
+		currMouse.set(screenX, screenY);
 		buttons[button] = true;
 		return false;
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		prevMouse.set(currMouse);
+		currMouse.set(screenX, screenY);
 		buttons[button] = false;
 		return false;
 	}
