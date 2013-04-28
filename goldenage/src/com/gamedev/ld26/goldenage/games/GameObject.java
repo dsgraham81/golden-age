@@ -48,6 +48,11 @@ public class GameObject {
 		return _alive;
 	}
 	
+	public void setGameState(GameState gs)
+	{
+		_gState = gs;
+	}
+	
 	public void setPosition(float x, float y)
 	{
 		_rect.x = Utils.clamp(x, 0, Config.window_width - _rect.width);

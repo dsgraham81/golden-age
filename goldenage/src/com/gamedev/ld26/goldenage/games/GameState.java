@@ -121,4 +121,8 @@ public abstract class GameState {
 	}
 	
 	protected abstract void renderScreen(float delta);
+
+	public boolean getGameWon() {
+		return _gameWon;
+	}
 }

@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
+import com.gamedev.ld26.goldenage.core.Assets;
 import com.gamedev.ld26.goldenage.games.Ball;
 import com.gamedev.ld26.goldenage.games.GameObject;
 import com.gamedev.ld26.goldenage.games.GameState;
@@ -34,6 +35,9 @@ public class BreakoutState extends GameState {
 				if (object.getClass() == Ball.class )
 				{
 					_ball = (Ball)object;
+					_ball.getCircle().y = Config.window_height - _ball.getCircle().radius;
+					_ball.multiplyDir(new Vector2(1, -1));
+					_ball.setGameState(this);
 					_gameObjects.add(_ball);
 				}
 				if (object.getClass() == Paddle.class && object != previous.getPlayer())
