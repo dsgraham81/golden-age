@@ -59,7 +59,7 @@ public class Plane extends GameObject implements IShooter {
 		Bullet bul = bFactory.GetBullet(this);
 		bul.setTarget(_gState.getPlayer());
 		bul.setColor(_color);
-		bul.setSize(70, 70);
+		bul.setSize(4, 4);
 	}
 	
 	public boolean gotHit() {
