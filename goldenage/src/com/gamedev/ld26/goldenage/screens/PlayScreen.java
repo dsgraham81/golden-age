@@ -18,7 +18,7 @@ import com.gamedev.ld26.goldenage.utils.Config;
 public class PlayScreen implements Screen {
 
 	private final OrthographicCamera camera = new OrthographicCamera();
-	private final GoldenAgeGame game;
+	public final GoldenAgeGame game;
 	private GameState _gameScreen;
 	
 	public PlayScreen(GoldenAgeGame game) {
