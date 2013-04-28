@@ -1,5 +1,6 @@
 package com.gamedev.ld26.goldenage.games.G1942;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.IShooter;
@@ -13,6 +14,8 @@ import com.gamedev.ld26.goldenage.utils.Utils;
 
 public class Plane extends GameObject implements IShooter {
 
+	public Sound ShootSound = Assets.planeShot;
+	
 	protected float distance;
 	protected int _dir;
 	protected float speed;
@@ -99,5 +102,11 @@ public class Plane extends GameObject implements IShooter {
 		Assets.shapes.triangle(_rect.x, _rect.y, _rect.x, _rect.y + _rect.height, _rect.x+ _rect.width, _rect.y + _rect.height/2);
 		Assets.shapes.identity();
 		//Assets.shapes.rect(_rect.x, _rect.y, _rect.width, _rect.height);
+	}
+	
+	public void play(){
+		if (ShootSound != null) {
+			ShootSound.play();
+		}
 	}
 }
