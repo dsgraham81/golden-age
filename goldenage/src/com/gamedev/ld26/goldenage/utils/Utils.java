@@ -50,6 +50,7 @@ public class Utils {
 		{
 			currentMusic.setLooping(true);
 			currentMusic.play();
+			currentMusic.setVolume(.3f);
 		}
 	}
 	
