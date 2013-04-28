@@ -35,7 +35,7 @@ public class Bullet extends Ball {
 		
 		if (_bounds != null && !inBounds(_bounds)) {
 			setAlive(false);
-		} else if (collides(_target)) {
+		} else if (_target != null && _target.isAlive() && collides(_target)) {
 			_target.setAlive(false);
 			setAlive(false);
 		}

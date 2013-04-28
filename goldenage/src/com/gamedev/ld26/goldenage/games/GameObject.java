@@ -16,6 +16,7 @@ public class GameObject {
 	protected Object collideObject;
 	protected boolean _draw;
 	protected boolean _transitionObject = true;
+	protected float _respawnImmunity;
 	
 	public GameObject(GameState gs)
 	{
@@ -35,6 +36,7 @@ public class GameObject {
 		_color = color;
 		collideObject = _rect;
 		_draw = true;
+		_respawnImmunity = 0;
 	}
 	
 	public void setColor(Color color) {
@@ -49,8 +51,19 @@ public class GameObject {
 	
 	public void setAlive(boolean alive)
 	{
-		_alive = alive;
+		_alive = alive || _respawnImmunity > 0;
 	}
+	
+	public void setImmunity(float value)
+	{
+		_respawnImmunity = value;
+	}
+	
+	public float getImmunity()
+	{
+		return _respawnImmunity;	
+	}
+	
 	
 	public boolean isAlive()
 	{
