@@ -60,4 +60,8 @@ public class Utils {
 		return initial + amount * (dest - initial);
 	}
 	
+	public static void print(Exception e) {
+		System.out.println(e.getMessage());
+		System.out.println(e.getStackTrace());
+	}
 }

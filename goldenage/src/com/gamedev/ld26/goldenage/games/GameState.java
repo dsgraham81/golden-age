@@ -63,7 +63,7 @@ public abstract class GameState {
 	{
 		return _gameObjects;
 	}
-		
+	
 	public ArrayList<GameObject> _newObjects = new ArrayList<GameObject>();
 	
 	public void update(float delta) {
@@ -132,10 +132,14 @@ public abstract class GameState {
 		if (_resetTime > 3f) {
 			_resetTime = 0;
 			resetScreen();
-			return true;
+			return false;
 		}
-		return false;
+		
+		handleReset(delta);
+		return true;
 	}
+	
+	protected void handleReset(float delta) { }
 	
 	protected void resetScreen() { 
 		_player.setAlive(true);
