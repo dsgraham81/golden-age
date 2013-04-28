@@ -12,6 +12,8 @@ import com.gamedev.ld26.goldenage.utils.Config;
 
 public class G1942State extends GameState {
 
+	private final float GUN_INTERVAL = .15f; 
+	
 	static final Vector2 size = new Vector2(80, 80);
 	private BulletFactory _bulletFactory;
 	private float _respawnTime = 0;
@@ -37,6 +39,7 @@ public class G1942State extends GameState {
 		back1 = new MovingBackground(_windowBounds, _backGroundColor1, _backGroundColor2);
 		back2 = new MovingBackground(_windowBounds, _backGroundColor2, _backGroundColor1);
 		back2.SetYOffset(_windowBounds.height);
+		_player.setImmunity(0);
 	}
 
 	@Override
@@ -46,10 +49,18 @@ public class G1942State extends GameState {
 			respawnPlayer(delta);
 		}
 		if (_gunDelay > 0) _gunDelay -= delta;
+		if (_player.getImmunity() > 0) 
+		{
+			_player.setImmunity(_player.getImmunity() - delta);
+			_player.setDraw((int)(_player.getImmunity() * 5) % 2 == 0);
+		}
+		else {
+			_player.setDraw(true);
+		}
 		
-		if (_game.input.isButtonDown(0) && _gunDelay <= 0 && _player.isAlive()) {
+		if (_game.input.isButtonDown(0) && _player.getImmunity() <=0 &&  _gunDelay <= 0 && _player.isAlive()) {
 			_bulletFactory.GetBullet(_player);
-			_gunDelay = .4f;
+			_gunDelay = GUN_INTERVAL;
 		}	
 		
 		if (Assets.random.nextDouble() > .99)
@@ -62,6 +73,12 @@ public class G1942State extends GameState {
 		checkCollisions();
 		back1.Update(delta);
 		back2.Update(delta);
+		
+		// Fuck it a catch all
+		if (!_player.isAlive() && _respawnTime <= 0)
+		{
+			_respawnTime = 2f;
+		}
 	}
 	
 	private void spawnCircleShips(float dt)
@@ -107,7 +124,7 @@ public class G1942State extends GameState {
 			}
 			if (obj instanceof Plane)
 			{
-				if (_player.isAlive() && obj.collides(_player))
+				if (_player.isAlive() && _player.getImmunity() <= 0 && obj.collides(_player))
 				{
 					killPlayer();
 					if (((Plane)obj).gotHit())
@@ -127,6 +144,7 @@ public class G1942State extends GameState {
 		_respawnTime -= dt;
 		if (_respawnTime <= 0)
 		{
+			_player.setImmunity(2f);
 			_player.setAlive(true);
 			AddGameObject(_player);
 		}
