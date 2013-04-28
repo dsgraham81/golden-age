@@ -4,6 +4,7 @@ package com.gamedev.ld26.goldenage.games.breakout;
 import java.awt.geom.FlatteningPathIterator;
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Circle;
@@ -29,6 +30,9 @@ public class BreakoutState extends GameState {
 	private float _respawnTime =0;
 	private boolean transistionOn = false;
 	private float textScale =0;
+	
+	Rectangle edgeLeft = new Rectangle(Config.pong_window_bounds.x - 20, 0, 20, Config.window_height);
+	Rectangle edgeRight = new Rectangle(Config.pong_window_bounds.x + Config.pong_window_bounds.width, 0, 20, Config.window_height);
 	
 	public BreakoutState(GoldenAgeGame game, GameState previous) {
 		super(game, previous);
@@ -180,8 +184,13 @@ public class BreakoutState extends GameState {
 	protected void renderScreen(float delta) {
 		if (transistionOn)
 		{
+			Assets.shapes.setColor(new Color(textScale,textScale,textScale,textScale));
+			Assets.shapes.rect(edgeLeft.x * textScale, edgeLeft.y, edgeLeft.width, edgeLeft.height);
+			Assets.shapes.rect(edgeRight.x + ((Config.window_width - edgeRight.x) *(1.0f - textScale)), edgeRight.y, edgeRight.width, edgeRight.height);
 			String textString = "Welcome to 1976";
+			
 			Utils.drawText(textString, Config.window_half_width - (textString.length() * 30 /2.0f), Config.window_half_height, 30, 30, new Color(1f,0,0,textScale));
+
 		}
 	}
 
