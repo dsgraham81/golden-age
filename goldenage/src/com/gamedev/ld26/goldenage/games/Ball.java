@@ -28,6 +28,12 @@ public class Ball extends GameObject {
 		_speed = 500.f;
 	}
 	
+	public void setPosition(float x, float y)
+	{
+		_circle.x = Utils.clamp(x, 0, Config.window_width - _rect.width);
+		_circle.y = Utils.clamp(y, 0, Config.window_height - _rect.height);
+	}
+	
 	public void setVelocity(Vector2 newVel)
 	{
 		_dir = newVel;
@@ -61,6 +67,7 @@ public class Ball extends GameObject {
 	}
 	
 	public void update(float delta) {
+		if (!_alive) return;
 		_circle.x += _dir.x * _speed * delta;
 		_circle.y += _dir.y * _speed * delta;
 		

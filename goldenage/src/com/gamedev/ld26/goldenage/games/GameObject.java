@@ -43,6 +43,11 @@ public class GameObject {
 		_alive = alive;
 	}
 	
+	public boolean getAlive()
+	{
+		return _alive;
+	}
+	
 	public void setPosition(float x, float y)
 	{
 		_rect.x = Utils.clamp(x, 0, Config.window_width - _rect.width);
