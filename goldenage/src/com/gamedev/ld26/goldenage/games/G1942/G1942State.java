@@ -1,11 +1,8 @@
 package com.gamedev.ld26.goldenage.games.G1942;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.games.GameState;
-import com.gamedev.ld26.goldenage.games.Paddle;
-import com.gamedev.ld26.goldenage.utils.Config;
 
 public class G1942State extends GameState {
 
