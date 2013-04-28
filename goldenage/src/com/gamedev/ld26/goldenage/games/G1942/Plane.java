@@ -23,7 +23,7 @@ public class Plane extends GameObject implements IShooter {
 		super(pos, size, color, gs);
 		distance = Assets.random.nextFloat() * .4f + .3f;
 		distance *= Config.window_height;
-		_dir = 70 + Assets.random.nextInt(40);
+		_dir = 60 + Assets.random.nextInt(60);
 		speed = 200;
 		bFactory = bf;
 		hasFired = false;

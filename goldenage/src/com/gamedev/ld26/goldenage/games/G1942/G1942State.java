@@ -132,6 +132,10 @@ public class G1942State extends GameState {
 		}
 	}
 
+	protected boolean updateReset(float delta) {
+		return false;
+	}
+	
 	
 	protected void updatePlayer(float delta) {
 		_player.setPosition(_game.input.getCurrMouse().x, -_game.input.getCurrMouse().y);
