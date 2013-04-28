@@ -106,7 +106,7 @@ public class BreakoutState extends GameState {
 				}
 			}
 		}
-		if (blockCount < Block.BLOCKS_TALL * Block.BLOCKS_WIDE * .5f) gameWon = true;
+		if (blockCount < Block.BLOCKS_TALL * Block.BLOCKS_WIDE * .5f) _gameWon = true;
 		handlePaddleCollisions();
 	}
 	
