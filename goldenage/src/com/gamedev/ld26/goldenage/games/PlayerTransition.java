@@ -14,6 +14,8 @@ public class PlayerTransition extends Transition {
 	private boolean _adjustPos;
 	private Color _initColor;
 	private float _dr, _db, _dg;
+	
+	private float _transitionTime;
 		
 	public PlayerTransition(GameObject transition, GameObject initial, float transitionTime)
 	{
@@ -22,6 +24,7 @@ public class PlayerTransition extends Transition {
 	
 	public PlayerTransition(GameObject transition, GameObject initial, float transitionTime, boolean position)
 	{	
+		_transitionTime = transitionTime;
 		_transitionObject = transition;
 		Rectangle bounds = transition.getRect();
 		
@@ -54,6 +57,12 @@ public class PlayerTransition extends Transition {
 		_transitionObject.setSize(_initWidth + (_transition * _dw), _initHeight + (_transition * _dh));
 		
 		_transitionObject.setColor(new Color(_initColor.r + (_transition * _dr), _initColor.g + (_transition * _dg), _initColor.b + (_transition * _db), _initColor.a));
+		
+		if (_transitionObject.IsTemporary) {
+			if ((_transitionTime - _transition) < 0.001) {
+				_transitionObject.setAlive(false);
+			}
+		}	
 		
 		if (!_adjustPos) return; 
 		_transitionObject.setPosition(_initX + (_transition * _dx), _initY + (_transition * _dy));

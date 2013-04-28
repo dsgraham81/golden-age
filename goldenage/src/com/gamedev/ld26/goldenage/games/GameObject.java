@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.core.Assets;
-import com.gamedev.ld26.goldenage.utils.Config;
 import com.gamedev.ld26.goldenage.utils.Utils;
 
 public class GameObject {
@@ -17,6 +16,7 @@ public class GameObject {
 	protected boolean _draw;
 	protected boolean _transitionObject = true;
 	protected float _respawnImmunity;
+	public boolean IsTemporary;
 	
 	public GameObject(GameState gs)
 	{
@@ -86,8 +86,9 @@ public class GameObject {
 	
 	public void setPosition(float x, float y)
 	{
-		_rect.x = Utils.clamp(x, 0, Config.window_width - _rect.width);
-		_rect.y = Utils.clamp(y, 0, Config.window_height - _rect.height);
+		Rectangle bounds = _gState._windowBounds;
+		_rect.x = Utils.clamp(x, 0, bounds.x + bounds.width - _rect.width);
+		_rect.y = Utils.clamp(y, 0, bounds.y + bounds.height - _rect.height);
 	}
 	
 	public void offset(Vector2 position) {

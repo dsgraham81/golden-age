@@ -1,12 +1,9 @@
 package com.gamedev.ld26.goldenage.games.breakout;
 
 
-import java.awt.geom.FlatteningPathIterator;
 import java.util.ArrayList;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
