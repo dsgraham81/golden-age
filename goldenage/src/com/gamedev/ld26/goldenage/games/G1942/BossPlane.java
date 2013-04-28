@@ -1,6 +1,7 @@
 package com.gamedev.ld26.goldenage.games.G1942;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.core.Assets;
 import com.gamedev.ld26.goldenage.games.Bullet;
@@ -23,6 +24,7 @@ public class BossPlane extends Plane {
 
 	public void update(float dt){
 		Vector2 tempAngle = new Vector2(_targetPosition.x -_rect.x, _targetPosition.y - _rect.y);
+		_dir += 1;
 		float distanceSq = _targetPosition.dst2(_rect.x, _rect.y);
 		if (distanceSq <= (speed * dt) * (speed * dt))
 		{
@@ -56,4 +58,16 @@ public class BossPlane extends Plane {
 		Assets.bossShot.play();
 		
 	}
+	
+	public void render()
+	{
+		Assets.shapes.end();
+		Assets.batch.begin();
+		
+		Assets.batch.setColor(Color.WHITE);
+		Assets.batch.draw(Assets.potato, _rect.x, _rect.y, _rect.width, _rect.height);
+		Assets.batch.end();
+		Assets.shapes.begin(ShapeType.Filled);
+	}
+	
 }

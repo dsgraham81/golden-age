@@ -97,6 +97,7 @@ public class Ball extends GameObject {
 	public Vector2 getDir() { return _dir; }
 	public float getSpeed() { return _speed; }
 	public void setSpeed(float s) { _speed = s; clampSpeed(); }
+	public void setSize(float x, float y) { _circle.radius = x;}
 
 	public Vector2 getPos()
 	{

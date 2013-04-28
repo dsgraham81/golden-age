@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.IShooter;
+import com.gamedev.ld26.goldenage.core.Assets;
 
 public class Bullet extends Ball {
 	
@@ -38,6 +39,7 @@ public class Bullet extends Ball {
 		} else if (_target != null && _target.isAlive() && collides(_target)) {
 			_target.setAlive(false);
 			setAlive(false);
+			
 		}
 	}
 	

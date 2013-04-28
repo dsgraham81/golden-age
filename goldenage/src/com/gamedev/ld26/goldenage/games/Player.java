@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.DirectionVector;
 import com.gamedev.ld26.goldenage.IShooter;
+import com.gamedev.ld26.goldenage.core.Assets;
 
 public class Player extends GameObject implements IShooter {
 
@@ -35,5 +36,12 @@ public class Player extends GameObject implements IShooter {
 		if (ShootSound != null) {
 			ShootSound.play();
 		}
+	}
+	
+	public void setAlive(boolean alive)
+	{
+		super.setAlive(alive);
+		if (!_alive)
+			Assets.lifeLostSound.play();
 	}
 }

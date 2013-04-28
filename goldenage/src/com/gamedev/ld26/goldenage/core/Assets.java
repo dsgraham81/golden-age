@@ -21,6 +21,8 @@ public class Assets {
 	
 	public static Texture sheet;
 	public static Texture background;
+	public static Texture potato;
+	public static Texture baked_potato;
 	
 	public static Sound beep;
 	public static Sound lifeLostSound;
@@ -56,6 +58,9 @@ public class Assets {
 		
 		background = new Texture(Gdx.files.internal("data/background.png"));
 		background.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);	
+		
+		potato = new Texture(Gdx.files.internal("data/potato.png"));
+		potato.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		
 		beep = Gdx.audio.newSound(Gdx.files.internal("data/audio/beep.wav"));
 		bricksSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/brickhit.wav"));
