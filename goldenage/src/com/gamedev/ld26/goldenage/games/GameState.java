@@ -120,7 +120,7 @@ public abstract class GameState {
 	}
 	
 	protected void updatePlayer(float delta) {
-		_player.setPosition(_game.input.getCurrMouse().x, 0);
+		_player.setPosition(_game.input.getCurrMouse().x - _player.getRect().width/2, 0);
 	}
 	
 	private float _resetTime = 0;
