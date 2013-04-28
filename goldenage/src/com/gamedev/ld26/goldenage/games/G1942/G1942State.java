@@ -19,6 +19,10 @@ public class G1942State extends GameState {
 	private PlaneSpawnInfo _leftCircleSpawner;
 	private PlaneSpawnInfo _rightCircleSpawner;
 	private float _gunDelay;
+	private MovingBackground back1;
+	private MovingBackground back2;
+	private final Color _backGroundColor1 = new Color(0,0f,.3f,1f);
+	private final Color _backGroundColor2 = new Color(0,.3f,0,1f);
 	
 	public G1942State(GoldenAgeGame game, GameState previous) {
 		super(game, previous);
@@ -30,6 +34,9 @@ public class G1942State extends GameState {
 		_leftCircleSpawner = new PlaneSpawnInfo(15, .15f, 10f);
 		_rightCircleSpawner = new PlaneSpawnInfo(15, .15f, 12f);
 		_rightCircleSpawner.SetSpawnTime(15f);
+		back1 = new MovingBackground(_windowBounds, _backGroundColor1, _backGroundColor2);
+		back2 = new MovingBackground(_windowBounds, _backGroundColor2, _backGroundColor1);
+		back2.SetYOffset(_windowBounds.height);
 	}
 
 	@Override
@@ -53,6 +60,8 @@ public class G1942State extends GameState {
 		
 		spawnCircleShips(delta);
 		checkCollisions();
+		back1.Update(delta);
+		back2.Update(delta);
 	}
 	
 	private void spawnCircleShips(float dt)
@@ -88,20 +97,21 @@ public class G1942State extends GameState {
 					{
 						if (tar instanceof Plane && obj.collides(tar))
 						{
+							
 							obj.setAlive(false);
-							tar.setAlive(false);
-							_shipsKilled++;
+							if (((Plane)tar).gotHit())
+								_shipsKilled++;
 						}
 					}
 				}
 			}
-			if (obj.getClass() == Plane.class)
+			if (obj instanceof Plane)
 			{
 				if (_player.isAlive() && obj.collides(_player))
 				{
 					killPlayer();
-					_shipsKilled ++;
-					obj.setAlive(false);
+					if (((Plane)obj).gotHit())
+						_shipsKilled++;
 				}
 			}
 		}
@@ -129,7 +139,8 @@ public class G1942State extends GameState {
 	
 	@Override
 	protected void renderScreen(float delta) {
-		// TODO Auto-generated method stub
+		back1.render();
+		back2.render();
 		
 	}
 
