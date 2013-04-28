@@ -1,15 +1,11 @@
 package com.gamedev.ld26.goldenage.games;
 
-import javax.naming.directory.DirContext;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.gamedev.ld26.goldenage.Globals;
 import com.gamedev.ld26.goldenage.core.Assets;
-import com.gamedev.ld26.goldenage.utils.Config;
 import com.gamedev.ld26.goldenage.utils.Utils;
 
 public class Ball extends GameObject {
@@ -27,9 +23,7 @@ public class Ball extends GameObject {
 		_circle = new Circle(pos.x, pos.y, radius);
 		_color = color;
 		float x = Assets.random.nextFloat() * 2.f - 1.f;
-		float y = Assets.random.nextFloat() * 2.f - 1.f;
-		if (Math.abs(x) < 0.5f) x = Math.signum(x) * 0.5f;
-		if (Math.abs(y) < 0.5f) x = Math.signum(y) * 0.5f;
+		float y = Assets.random.nextBoolean() ? -1.f : 1.f;
 		_dir = new Vector2(x, y).nor();
 		_speed = 500.f;
 	}
