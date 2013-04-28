@@ -34,8 +34,9 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 	private Bullet _bullet;
 	
 	private ArrayList<BaseInvader> _aliens = new ArrayList<BaseInvader>(); 
-	private int _alienSpeed = 100;
-	private int _downHeight = -40;
+	private final int _initialSpeed = 100;
+	private int _alienSpeed = _initialSpeed;
+	private int _downHeight = -30;
 	private int _dy;
 	private BulletFactory _bulletFactory;
 	private Rectangle _alienBounds;
@@ -111,6 +112,7 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 	}
 	
 	protected void resetScreen() {
+		_alienSpeed = _initialSpeed;
 		float hgap = 800 / (Columns + 1);
 		float vgap = 300 / (Rows + 1);
 		
@@ -225,6 +227,14 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 		}
 		
 		_playerTransitions.add(new PlayerTransition(_player,  previousScreen.getPlayer(), TransitionTime, false));
+	}
+	
+	protected void handleReset(float delta) {
+		for (GameObject bullet : getGameObjects()) {
+			if (bullet.getClass() == Bullet.class) {
+				bullet.setAlive(false);
+			}
+		}		
 	}
 
 	@Override
