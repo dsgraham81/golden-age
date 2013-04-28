@@ -4,6 +4,7 @@ package com.gamedev.ld26.goldenage.games.breakout;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.games.Ball;
@@ -32,17 +33,17 @@ public class BreakoutState extends GameState {
 				}
 				if (object.getClass() == Paddle.class && object != previous.getPlayer())
 				{
-					_startPos = new Vector2(object.getRect().x, 0);
+					_startPos = new Vector2(object.getRect().x, Config.window_height);
 				}
 			}
 		}
 		else {
 			_ball = new Ball(new Vector2(Config.window_width/2, Config.window_height),  10, Color.WHITE, this);
 			_ball.setVelocity(new Vector2(.2f, -.8f));
-			_startPos = new Vector2(Config.window_width/2, 0);
+			_startPos = new Vector2(Config.window_width/2, Config.window_height);
 		}
 
-		for (int y = 0; y < Block.BLOCKS_TALL; y ++)
+		for (int y = 2; y < Block.BLOCKS_TALL; y ++)
 		{
 			for (int x = 0; x < Block.BLOCKS_WIDE; x++)
 			{
@@ -53,10 +54,43 @@ public class BreakoutState extends GameState {
 			}
 		}
 	}
-	
+
 	@Override
 	protected void updateScreen(float delta) {
 		_ball.update(delta);
+		for (GameObject block : _gameObjects)
+		{
+			if (block.getClass() == Block.class)
+			{
+				if (_ball.collides(block))
+				{
+					block.setAlive(false);
+					
+					boolean intersectLeft = Intersector.intersectSegmentCircle(block.getUpperLeftPoint(), 
+																		  block.getLowerLeftPoint(), 
+																		  _ball.getPos(), _ball.getCircle().radius * _ball.getCircle().radius);
+					
+					boolean intersectRight = Intersector.intersectSegmentCircle(block.getUpperRightPoint(), 
+																		        block.getLowerRightPoint(), 
+																		        _ball.getPos(), _ball.getCircle().radius * _ball.getCircle().radius);
+					
+					boolean intersectTop = Intersector.intersectSegmentCircle(block.getUpperLeftPoint(), 
+							  											  block.getUpperRightPoint(), 
+							  											  _ball.getPos(), _ball.getCircle().radius * _ball.getCircle().radius);
+							  											
+					boolean intersectBottom= Intersector.intersectSegmentCircle(block.getLowerLeftPoint(), 
+							        		   							  block.getLowerRightPoint(), 
+							        		   							  _ball.getPos(), _ball.getCircle().radius * _ball.getCircle().radius);
+					float dirX =0;
+					float dirY =0;
+					if (intersectBottom) dirY = -1;
+					if (intersectTop) dirY = 1;
+					if (intersectLeft) dirX = -1;
+					if (intersectRight) dirX = 1;
+					_ball.setCollisionDirection(new Vector2(dirX, dirY));
+				}
+			}
+		}
 	}
 	
 	@Override
@@ -80,7 +114,7 @@ public class BreakoutState extends GameState {
 
 	@Override
 	protected void renderScreen(float delta) {
-		//_ball.render();
+
 
 	}
 

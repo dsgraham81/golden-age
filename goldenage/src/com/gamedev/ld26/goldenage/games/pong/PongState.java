@@ -36,6 +36,7 @@ public class PongState extends GameState {
 		
 		_cpu = new Paddle(new Vector2(Config.window_half_width, Config.window_height - size.y), size, Color.WHITE, this);
 		_ball = new Ball(new Vector2(Config.window_half_width, Config.window_half_height), 10, Color.WHITE, this);
+		_windowBounds = new Rectangle(Config.window_half_width / 2, 0, Config.window_half_width, Config.window_height);
 	}
 	
 	@Override

@@ -16,7 +16,8 @@ public abstract class GameState {
 	protected final GoldenAgeGame _game;	
 	protected Paddle _player;
 	private GameState _previousGame;
-	private ArrayList<GameObject> _gameObjects = new ArrayList<GameObject>();
+	protected ArrayList<GameObject> _gameObjects = new ArrayList<GameObject>();
+	protected Rectangle _windowBounds = new Rectangle(0,0, Config.window_width, Config.window_height);
 	
 	protected GameState(GoldenAgeGame game, GameState previous) {
 		_game = game;
@@ -59,6 +60,8 @@ public abstract class GameState {
 		return _gameObjects;
 	}
 		
+	ArrayList<GameObject> keepObjects = new ArrayList<GameObject>();
+	
 	public void update(float delta) {
 		updatePlayer(delta);
 		
@@ -70,6 +73,16 @@ public abstract class GameState {
 		} else {		
 			updateScreen(delta);
 		}
+		
+		//TODO make this a reusable list
+		keepObjects = new ArrayList<GameObject>();
+		for (GameObject obj: _gameObjects)
+		{
+			if (obj._alive){
+				keepObjects.add(obj);
+			}
+		}
+		_gameObjects = keepObjects;
 	}
 	
 	public Paddle getPlayer()
