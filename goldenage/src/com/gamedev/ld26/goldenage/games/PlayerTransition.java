@@ -3,7 +3,7 @@ package com.gamedev.ld26.goldenage.games;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
 
-public class PlayerTransition {
+public class PlayerTransition extends Transition {
 	
 	private Rectangle _initialBounds;
 	private GameObject _transitionObject;
@@ -48,6 +48,8 @@ public class PlayerTransition {
 	}
 	
 	public void Update(float delta) {
+		_transitionObject.setDraw(true);
+		
 		_transition += delta;
 		_transitionObject.setSize(_initWidth + (_transition * _dw), _initHeight + (_transition * _dh));
 		

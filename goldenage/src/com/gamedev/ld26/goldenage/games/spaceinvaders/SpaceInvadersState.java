@@ -11,10 +11,12 @@ import com.gamedev.ld26.goldenage.TimerListener;
 import com.gamedev.ld26.goldenage.core.Assets;
 import com.gamedev.ld26.goldenage.games.Bullet;
 import com.gamedev.ld26.goldenage.games.BulletFactory;
+import com.gamedev.ld26.goldenage.games.FadeTransition;
 import com.gamedev.ld26.goldenage.games.GameObject;
 import com.gamedev.ld26.goldenage.games.GameState;
 import com.gamedev.ld26.goldenage.games.Player;
 import com.gamedev.ld26.goldenage.games.PlayerTransition;
+import com.gamedev.ld26.goldenage.games.Transition;
 import com.gamedev.ld26.goldenage.games.breakout.Block;
 
 public class SpaceInvadersState extends GameState implements TimerListener {
@@ -26,7 +28,7 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 	
 	
 	static final float TransitionTime = 1.5f;
-	private ArrayList<PlayerTransition> _playerTransitions = new ArrayList<PlayerTransition>();
+	private ArrayList<Transition> _playerTransitions = new ArrayList<Transition>();
 	
 	private final int Rows = 3;
 	private final int Columns = 15;
@@ -216,7 +218,7 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 	protected boolean transitionScreen(float delta) {
 		_transition += delta;
 		
-		for (PlayerTransition pt : _playerTransitions) {
+		for (Transition pt : _playerTransitions) {
 			pt.Update(delta);
 		}
 		
@@ -225,16 +227,19 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 	
 	private void setupTransition(GameState previousScreen) {
 		if (previousScreen == null) return;
+		_player.setDraw(false);
 		
 		int index = 0;
 		
 		for (GameObject obj : previousScreen.getGameObjects()) {
-			if (obj.isAlive() && obj.getClass() == Block.class) {
-				if (index < _aliens.size()) {
+			
+			if (obj.isAlive()) {
+				if ((obj.getClass() == Block.class) && (index < _aliens.size())) {
 					_playerTransitions.add(new PlayerTransition(_aliens.get(index++), obj, TransitionTime));
-				} else {
-					obj.setDraw(false);
 				}
+				//else if (obj != previousScreen.getPlayer()) {
+				//	_playerTransitions.add(new FadeTransition(obj, true, TransitionTime));
+				//}
 			}
 		}
 		
