@@ -14,6 +14,7 @@ public class GameObject {
 	protected GameState _gState;
 	protected boolean _alive;
 	protected Object collideObject;
+	protected boolean _draw;
 	
 	public GameObject(GameState gs)
 	{
@@ -29,6 +30,7 @@ public class GameObject {
 		_rect = new Rectangle(pos.x, pos.y, size.x, size.y);
 		_color = color;
 		collideObject = _rect;
+		_draw = true;
 	}
 	
 	public boolean collides(GameObject other)
@@ -45,6 +47,15 @@ public class GameObject {
 	public boolean isAlive()
 	{
 		return _alive;
+	}
+	
+	
+	public void setDraw(boolean value){
+		_draw = value;
+	}
+	
+	public boolean getDraw(){
+		return _draw;
 	}
 	
 	public void setGameState(GameState gs)
@@ -64,6 +75,7 @@ public class GameObject {
 	}
 	
 	public void render() {
+		if (!_draw) return;
 		Assets.shapes.setColor(_color);
 		Assets.shapes.rect(_rect.x, _rect.y, _rect.width, _rect.height);
 	}
