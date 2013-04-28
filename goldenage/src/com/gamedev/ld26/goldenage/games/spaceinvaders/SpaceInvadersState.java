@@ -11,7 +11,6 @@ import com.gamedev.ld26.goldenage.TimerListener;
 import com.gamedev.ld26.goldenage.core.Assets;
 import com.gamedev.ld26.goldenage.games.Bullet;
 import com.gamedev.ld26.goldenage.games.BulletFactory;
-import com.gamedev.ld26.goldenage.games.FadeTransition;
 import com.gamedev.ld26.goldenage.games.GameObject;
 import com.gamedev.ld26.goldenage.games.GameState;
 import com.gamedev.ld26.goldenage.games.Player;
@@ -234,7 +233,7 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 		for (GameObject obj : previousScreen.getGameObjects()) {
 			
 			if (obj.isAlive()) {
-				if ((obj.getClass() == Block.class) && (index < _aliens.size())) {
+				if ((obj.isTransitionObject()) && (index < _aliens.size())) {
 					_playerTransitions.add(new PlayerTransition(_aliens.get(index++), obj, TransitionTime));
 				}
 				//else if (obj != previousScreen.getPlayer()) {

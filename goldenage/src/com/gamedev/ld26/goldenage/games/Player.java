@@ -12,6 +12,7 @@ public class Player extends GameObject implements IShooter {
 	
 	public Player(Vector2 size, Color color, GameState gs) {
 		super(Vector2.Zero, size, color, gs);
+		_transitionObject = false;
 	}
 	
 	public Vector2 GetTip() {

@@ -19,6 +19,7 @@ public class Ball extends GameObject {
 	
 	public Ball(Vector2 pos, float radius, Color color, GameState gs) {
 		super(pos, Vector2.Zero, color, gs);
+		_transitionObject = false;
 		
 		_circle = new Circle(pos.x, pos.y, radius);
 		float x = Assets.random.nextFloat() * 2.f - 1.f;

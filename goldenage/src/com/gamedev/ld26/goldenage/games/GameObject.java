@@ -15,10 +15,15 @@ public class GameObject {
 	protected boolean _alive;
 	protected Object collideObject;
 	protected boolean _draw;
+	protected boolean _transitionObject = true;
 	
 	public GameObject(GameState gs)
 	{
 		this(Vector2.Zero,  Vector2.Zero,  Color.WHITE, gs);
+	}
+	
+	public boolean isTransitionObject() {
+		return _transitionObject;
 	}
 	
 	public GameObject(Vector2 pos, Vector2 size, Color color, GameState gs) {
