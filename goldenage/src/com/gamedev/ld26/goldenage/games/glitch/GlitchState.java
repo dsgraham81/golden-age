@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.gamedev.ld26.goldenage.Globals.Games;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.core.Assets;
+import com.gamedev.ld26.goldenage.core.Score;
 import com.gamedev.ld26.goldenage.games.GameState;
 
 public class GlitchState extends GameState {

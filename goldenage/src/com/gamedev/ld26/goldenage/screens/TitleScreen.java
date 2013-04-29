@@ -63,6 +63,8 @@ public class TitleScreen implements Screen {
 			game.setGame(Globals.Games.glitch);
 		} else if (game.input.isKeyDown(Keys.NUM_5)) {
 			game.setGame(Globals.Games.g1942);
+		} else if (game.input.isKeyDown(Keys.NUM_6)) {
+			game.setGame(Globals.Games.end);
 		} 
 	}
 	
