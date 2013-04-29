@@ -5,6 +5,7 @@ import java.util.Random;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
+import com.gamedev.ld26.goldenage.Globals;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.core.Assets;
 import com.gamedev.ld26.goldenage.core.Score;
@@ -14,6 +15,9 @@ import com.gamedev.ld26.goldenage.games.GameObject;
 import com.gamedev.ld26.goldenage.games.GameState;
 import com.gamedev.ld26.goldenage.games.Player;
 import com.gamedev.ld26.goldenage.games.PlayerTransition;
+import com.gamedev.ld26.goldenage.games.breakout.BreakoutState;
+import com.gamedev.ld26.goldenage.games.pong.PongState;
+import com.gamedev.ld26.goldenage.games.spaceinvaders.SpaceInvadersState;
 import com.gamedev.ld26.goldenage.utils.Config;
 import com.gamedev.ld26.goldenage.utils.Utils;
 
@@ -218,5 +222,9 @@ public class G1942State extends GameState {
 		}
 		
 		addTransition(new PlayerTransition(_player,  previousScreen.getPlayer(), _transitionTime, false));
+	}
+	
+	public Globals.Games nextScreen() {
+		return Globals.Games.glitch;
 	}
 }

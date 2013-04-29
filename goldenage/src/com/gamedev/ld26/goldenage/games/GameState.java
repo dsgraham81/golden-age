@@ -3,11 +3,14 @@ package com.gamedev.ld26.goldenage.games;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.xml.bind.annotation.XmlElementDecl.GLOBAL;
+
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.gamedev.ld26.goldenage.Globals;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.core.Assets;
 import com.gamedev.ld26.goldenage.core.Input;
@@ -247,4 +250,6 @@ public abstract class GameState {
 	private float getSide(float extra) {
 		return -extra + ((_windowBounds.height + (extra*2)) * Assets.random.nextFloat());
 	}
+	
+	public abstract Globals.Games nextScreen();
 }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.gamedev.ld26.goldenage.Globals;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.core.Assets;
 import com.gamedev.ld26.goldenage.core.Score;
@@ -163,5 +164,8 @@ public class PongState extends GameState {
 		Utils.drawText(s1, x1, y1, cw, ch, Color.WHITE);
 		Utils.drawText(s2, x2, y2, cw, ch, Color.WHITE);
 	}
-	
+
+	public Globals.Games nextScreen() {
+		return Globals.Games.breakout;
+	}
 }

@@ -12,6 +12,8 @@ import com.gamedev.ld26.goldenage.games.GameState;
 import com.gamedev.ld26.goldenage.games.G1942.G1942State;
 import com.gamedev.ld26.goldenage.games.breakout.BreakoutState;
 import com.gamedev.ld26.goldenage.games.centipede.CentipedeState;
+import com.gamedev.ld26.goldenage.games.end.EndScreen;
+import com.gamedev.ld26.goldenage.games.glitch.GlitchState;
 import com.gamedev.ld26.goldenage.games.pong.PongState;
 import com.gamedev.ld26.goldenage.games.spaceinvaders.SpaceInvadersState;
 import com.gamedev.ld26.goldenage.utils.Config;
@@ -46,6 +48,12 @@ public class PlayScreen implements Screen {
 			case g1942:
 				_gameScreen = new G1942State(game, _gameScreen);
 				break;
+			case end:
+				_gameScreen = new EndScreen(this, _gameScreen);
+				break;
+			case glitch:
+				_gameScreen = new GlitchState(game, _gameScreen);
+				break;
 		}
 		Utils.PlayMusic(_gameScreen.getMusic());
 	}
@@ -60,24 +68,7 @@ public class PlayScreen implements Screen {
 		_gameScreen.update(delta);
 		if (_gameScreen.getGameWon())
 		{
-			if (_gameScreen.getClass() == PongState.class)
-			{
-				transitionGame(Globals.Games.breakout);
-			}
-			else if (_gameScreen.getClass() == BreakoutState.class)
-			{
-				transitionGame(Globals.Games.spaceinvaders);
-			}
-			else if (_gameScreen.getClass() == SpaceInvadersState.class)
-			{
-				/*
-				transitionGame(Globals.Games.centipede);
-			}
-			else if (_gameScreen.getClass() == CentipedeState.class)
-			{
-			*/
-				transitionGame(Globals.Games.g1942);
-			}
+			transitionGame(_gameScreen.nextScreen());
 		}
 	}
 	

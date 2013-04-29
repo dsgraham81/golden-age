@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.gamedev.ld26.goldenage.Globals;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.core.Assets;
 import com.gamedev.ld26.goldenage.core.Score;
@@ -16,7 +17,9 @@ import com.gamedev.ld26.goldenage.games.GameObject;
 import com.gamedev.ld26.goldenage.games.GameState;
 import com.gamedev.ld26.goldenage.games.Player;
 import com.gamedev.ld26.goldenage.games.TextTransition;
+import com.gamedev.ld26.goldenage.games.G1942.G1942State;
 import com.gamedev.ld26.goldenage.games.pong.PongState;
+import com.gamedev.ld26.goldenage.games.spaceinvaders.SpaceInvadersState;
 import com.gamedev.ld26.goldenage.utils.Config;
 import com.gamedev.ld26.goldenage.utils.Utils;
 
@@ -211,4 +214,7 @@ public class BreakoutState extends GameState {
 		Utils.drawText(Score.getScoreString(3), 10, Config.window_height - 40, 20, 20, new Color(1f,1f,1f,1f-textScale));
 	}
 
+	public Globals.Games nextScreen() {
+		return Globals.Games.spaceinvaders;
+	}
 }
