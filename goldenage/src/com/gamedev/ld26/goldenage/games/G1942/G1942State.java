@@ -158,7 +158,7 @@ public class G1942State extends GameState {
 					}
 				}
 			}
-			if (obj instanceof Plane)
+			else if (obj instanceof Plane)
 			{
 				if (_player.isAlive() && _player.getImmunity() <= 0 && obj.collides(_player))
 				{
