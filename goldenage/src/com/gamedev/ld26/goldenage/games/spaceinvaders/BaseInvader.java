@@ -32,6 +32,12 @@ public class BaseInvader extends GameObject implements IShooter {
 	
 	private float _dr;
 	
+	public void offset(Vector2 position) {
+		super.offset(position);
+		float sign = position.x > 0 ? -1 : 1;
+		Rotation = Math.abs(Rotation) * sign;
+	}
+	
 	public void render(float delta)
 	{
 		_dr += Rotation;
