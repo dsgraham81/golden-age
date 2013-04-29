@@ -19,8 +19,7 @@ public class Block extends GameObject {
 	private final float BLOCK_WIDTH = Config.window_width / BLOCKS_WIDE;
 	private final float BLOCK_HEIGHT = (Config.window_height * BLOCK_AREA) / (BLOCKS_TALL + TOP_GAP);
 	private final Vector2 _index;
-	private Vector2 _pos; 
-	private Color _color;
+	private Vector2 _pos;
 	private float _width;
 	private float _height; 
 	private final Vector2 _origin;
@@ -29,9 +28,9 @@ public class Block extends GameObject {
 	{
 		super(gs);
 		_index = pos;
-		_color = color;
 		_origin = origin;
 		setSize(0);
+		setColor(color);
 	}
 	
 	public void setSize(float size)
@@ -50,7 +49,7 @@ public class Block extends GameObject {
 	
 	public void render(float delta)
 	{
-		Assets.shapes.setColor(_color);
+		Assets.shapes.setColor(this.getColor());
 		Assets.shapes.rect(_pos.x, (_pos.y), _width, _height);
 		Assets.shapes.end();
 		

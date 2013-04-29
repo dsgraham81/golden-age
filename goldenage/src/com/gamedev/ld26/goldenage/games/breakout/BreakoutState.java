@@ -13,6 +13,7 @@ import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.core.Assets;
 import com.gamedev.ld26.goldenage.core.Score;
 import com.gamedev.ld26.goldenage.games.Ball;
+import com.gamedev.ld26.goldenage.games.Explosion;
 import com.gamedev.ld26.goldenage.games.GameObject;
 import com.gamedev.ld26.goldenage.games.GameState;
 import com.gamedev.ld26.goldenage.games.Player;
@@ -106,6 +107,12 @@ public class BreakoutState extends GameState {
 				{
 					Assets.bricksSound.play();
 					Score.AddToScore(block.ScoreValue);
+					
+					Explosion explosion = new Explosion(block.getCenterPosition(), block.getColor(), Vector2.Zero, this, 4);
+					explosion.setParticleSize(block.getRect().width / 2, block.getRect().height / 2);
+					explosion.setParticleTTL(3.f);
+					explosion.deferred = true;
+
 					block.setAlive(false);
 					
 					boolean intersectLeft = Intersector.intersectSegmentCircle(block.getUpperLeftPoint(), 
