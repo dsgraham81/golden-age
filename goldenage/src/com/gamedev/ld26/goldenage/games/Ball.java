@@ -16,6 +16,8 @@ public class Ball extends GameObject {
 	private Vector2 _dir;
 	private float _speed;
 	
+	private boolean _isSquare;
+	
 	public Ball(Vector2 pos, float radius, Color color, GameState gs) {
 		super(pos, Vector2.Zero, color, gs);
 		_transitionObject = false;
@@ -25,6 +27,10 @@ public class Ball extends GameObject {
 		float y = Assets.random.nextBoolean() ? -1.f : 1.f;
 		_dir = new Vector2(x, y).nor();
 		_speed = 500.f;
+	}
+	
+	public void setSquare(boolean square) {
+		_isSquare = square;
 	}
 	
 	public void setPosition(float x, float y)
@@ -81,7 +87,13 @@ public class Ball extends GameObject {
 
 	public void render(float delta) {
 		Assets.shapes.setColor(_color);
-		Assets.shapes.circle(_circle.x, _circle.y, _circle.radius);
+		if (_isSquare) {		
+			float rad = _circle.radius;
+			float size = rad*2;
+			Assets.shapes.rect(_circle.x - rad, _circle.y - rad, size, size);
+		} else {
+			Assets.shapes.circle(_circle.x, _circle.y, _circle.radius);
+		}
 	}
 	
 
