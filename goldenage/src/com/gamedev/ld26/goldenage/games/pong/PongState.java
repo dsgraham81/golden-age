@@ -36,7 +36,7 @@ public class PongState extends GameState {
 	
 	public PongState(GoldenAgeGame game, GameState previous) {
 		super(game, previous);
-		
+		_windowBounds = Config.pong_window_bounds;
 		_divider = new Rectangle(Config.pong_window_bounds.x + div_width / 2, Config.window_half_height - div_height / 2, div_width, div_height);
 		_edgeLeft = new Rectangle(Config.pong_window_bounds.x - 20, 0, 20, Config.window_height);
 		_edgeRight = new Rectangle(Config.pong_window_bounds.x + Config.pong_window_bounds.width, 0, 20, Config.window_height);
@@ -45,11 +45,12 @@ public class PongState extends GameState {
 		_cpu.setPosition(Config.window_half_width, Config.window_height - size.y);
 		
 		_ball = new Ball(new Vector2(Config.window_half_width, Config.window_half_height), 10, Color.WHITE, this);
-		_windowBounds = Config.pong_window_bounds;
+		
 		
 		_playerScore = 0;
 		_cpuScore = 0;
 		_stageMusic = Assets.pongMusic;
+		_transitionTime =0;
 		Score.ResetScore();
 		
 	}
@@ -76,12 +77,12 @@ public class PongState extends GameState {
 	}	
 
 	private void checkForScore() {
-		if (_ball.getCircle().y < 0) {
+		if (_ball.getCircle().y <= 0) {
 			_ball.setAlive(false);
 			_cpuScore++;
 		}
 		
-		if (_ball.getCircle().y > Config.window_height){
+		if (_ball.getCircle().y >= Config.window_height){
 			_ball.setAlive(false);
 			_playerScore++;
 			Score.AddToScore(1);
@@ -119,7 +120,7 @@ public class PongState extends GameState {
 	private void handleCollisions() {
 		final Rectangle playerRect = _player.getRect();
 		final Rectangle cpuRect = _cpu.getRect();
-		final Circle ballCircle = _ball.getCircle();
+		Circle ballCircle = _ball.getCircle();
 		Vector2 ballDir = _ball.getDir();
 		
 		// Intersection tests - ball/paddle
