@@ -165,12 +165,20 @@ public abstract class GameState {
 	
 		} 
 		Assets.shapes.end();
+		if(isTransitioning())
+		{
+			for (Transition pt : _objectTransitions) {
+				pt.Render();
+			}
+		}
 	}
 	
 	protected void render(GameObject gameObject, float delta) {
 		if (gameObject != null && gameObject.isAlive()) {
 			gameObject.render(delta);
 		}
+		
+
 	}
 	
 	protected abstract void renderScreen(float delta);
@@ -194,6 +202,10 @@ public abstract class GameState {
 	
 	protected void addTransition(Transition trans) {
 		_objectTransitions.add(trans);
+	}
+	
+	protected void clearTransitions(){
+		_objectTransitions.clear();
 	}
 		
 	protected boolean transitionScreen(float delta) {

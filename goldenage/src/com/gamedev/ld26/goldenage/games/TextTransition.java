@@ -1,7 +1,9 @@
 package com.gamedev.ld26.goldenage.games;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
+import com.gamedev.ld26.goldenage.core.Assets;
 import com.gamedev.ld26.goldenage.utils.Utils;
 
 public class TextTransition extends FadeTransition {
@@ -18,10 +20,18 @@ public class TextTransition extends FadeTransition {
 	}
 
 	public void Update(float time) {
-		float alpha = (_color.a + _da);
-		alpha = Utils.clamp(alpha,  0,  1);
-		_color.a = alpha;
-		Utils.drawText(_text, _position.x, _position.y, 30, 30, _color);
-
+		_alpha += (_da * time);
+		_alpha = Utils.clamp(_alpha,  0,  1);
+		_color.a = _alpha;
+		
+	}
+	
+	public void Render()
+	{
+//		float alpha = (_color.a);
+//		alpha = Utils.clamp(alpha,  0,  1);
+//		_color.a = alpha;
+		Utils.drawText(_text, _position.x, _position.y, 30, 30, new Color(1,0,0,_alpha));
+		System.out.println(_alpha);
 	}
 }
