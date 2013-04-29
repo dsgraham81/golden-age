@@ -25,9 +25,11 @@ public class Assets {
 	public static Sound beep;
 	public static Sound lifeLostSound;
 	public static Sound laserSound;
+	public static Sound laser1Sound;
 	public static Sound bricksSound;
 	public static Sound buzzSound;
 	public static Sound wobbleSound;
+	public static Sound missileSound;
 	
 	public static Sound siPlayerLaser;
 	public static Sound siAlienLaser;
@@ -67,15 +69,17 @@ public class Assets {
 		beep = Gdx.audio.newSound(Gdx.files.internal("data/audio/beep.wav"));
 		bricksSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/brickhit.wav"));
 		buzzSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/buzz.wav"));
-		//laserSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/laser.wav"));
+		laserSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/laser2.wav"));
+		laser1Sound = Gdx.audio.newSound(Gdx.files.internal("data/audio/laser1.wav"));
 		lifeLostSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/life_lost.wav"));
 		wobbleSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/wobbledown.wav"));
+		missileSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/missile.wav"));
 		
-		siPlayerLaser = beep;
-		siAlienLaser = beep;
+		siPlayerLaser = laserSound;
+		siAlienLaser = laser1Sound;
 		
 		planeShot = beep;
-		bossShot = beep;
+		bossShot = missileSound;
 		g1942PlayerLaser = beep;
 		
 		titleMusic = Gdx.audio.newMusic(Gdx.files.internal("data/audio/title.mp3"));

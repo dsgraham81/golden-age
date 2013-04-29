@@ -23,6 +23,7 @@ public class BossPlane extends Plane {
 		_hitPoints = TotalHitPoints;
 		ShootSound = null;
 		dying = false;
+		Score = 1000;
 	}
 
 	public void update(float dt){
@@ -72,13 +73,27 @@ public class BossPlane extends Plane {
 			Bullet bullet = bFactory.GetBullet(Utils.rectCenter(_rect), 100, _color, new Vector2(x, y), 5); 
 			bullet.setTarget(_gState.getPlayer());
 		}
+		
+		if (_hitPoints < TotalHitPoints/2)
+		{
+			angle +=(angleDelta /2.0f);
+			for (int i =0; i < bullets/2; i++)
+			{
+				angle += angleDelta* 2.0f;
+				float x = (float)Math.cos(angle / 180.0 * Math.PI);
+				float y = -(float)Math.sin(angle / 180.0 * Math.PI);
+				
+				Bullet bullet = bFactory.GetBullet(Utils.rectCenter(_rect), 200, _color, new Vector2(x, y), 5); 
+				bullet.setTarget(_gState.getPlayer());
+			}
+		}
 		Assets.bossShot.play();
 		
 	}
 	
 	public boolean gotHit() {
 		_hitPoints--;
-		if (_hitPoints <= 0)
+		if (!dying && _hitPoints <= 0)
 		{
 			dying = true;
 			return true;

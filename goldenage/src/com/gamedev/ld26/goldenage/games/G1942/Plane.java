@@ -32,6 +32,7 @@ public class Plane extends GameObject implements IShooter {
 		bFactory = bf;
 		hasFired = false;
 		_hitPoints = 1;
+		Score = 20;
 	}
 
 	public void update(float dt){

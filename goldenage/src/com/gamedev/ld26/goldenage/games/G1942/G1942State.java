@@ -3,9 +3,11 @@ package com.gamedev.ld26.goldenage.games.G1942;
 import java.util.Random;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.core.Assets;
+import com.gamedev.ld26.goldenage.core.Score;
 import com.gamedev.ld26.goldenage.games.Bullet;
 import com.gamedev.ld26.goldenage.games.BulletFactory;
 import com.gamedev.ld26.goldenage.games.GameObject;
@@ -18,6 +20,7 @@ import com.gamedev.ld26.goldenage.utils.Utils;
 public class G1942State extends GameState {
 
 	private final float GUN_INTERVAL = .15f; 
+	private final int SHIPS_TO_KILL = 40;
 	
 	static final Vector2 size = new Vector2(80, 80);
 	private BulletFactory _bulletFactory;
@@ -89,7 +92,7 @@ public class G1942State extends GameState {
 			}
 			spawnCircleShips(delta);
 		}
-		if (_shipsKilled > 1 && !_bossSpawned)
+		if (_shipsKilled > SHIPS_TO_KILL && !_bossSpawned)
 		{
 			_bossSpawned = true;
 			_boss = new BossPlane(Color.WHITE, this, _bulletFactory);
@@ -146,7 +149,10 @@ public class G1942State extends GameState {
 							
 							obj.setAlive(false);
 							if (((Plane)tar).gotHit())
+							{
 								_shipsKilled++;
+								Score.AddToScore(tar.Score);
+							}
 						}
 					}
 				}
@@ -192,7 +198,9 @@ public class G1942State extends GameState {
 	protected void renderScreen(float delta) {
 		back1.render();
 		back2.render();
-		
+		Assets.shapes.end();
+		Utils.drawText(Score.getScoreString(5), 10, Config.window_height - 40, 20, 20, new Color(1f,1f,1f,1f));
+		Assets.shapes.begin(ShapeType.Filled);
 	}
 		
 	private void setupTransition(GameState previousScreen) {
