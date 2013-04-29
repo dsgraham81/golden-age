@@ -39,9 +39,14 @@ public class EndScreen extends GameState {
 		add("Your score " + score, 30, Color.RED);
 		
 		int time = (int)Score.getTime();
+		// they need at least one second
+		time = Math.max(time,  1);
 		
 		int t1 = time - 2 - Assets.random.nextInt(300);
 		int t2 = t1 - Assets.random.nextInt(300);
+		
+		t1 = Math.max(t1, 0);
+		t2 = Math.max(t2, 0);
 	
 		add("Shortest Times", 40, Color.ORANGE);
 		add("1) "+ getRandomDev(), t2 + " seconds", 30, Color.WHITE);
@@ -53,6 +58,7 @@ public class EndScreen extends GameState {
 		int l1 = lives - 1;
 		int l2 = l1 - Assets.random.nextInt(2);
 		int l3 = l2 - Assets.random.nextInt(4);
+		// if l3 > 0, set to 0, if less than 0, leave - cause it's fucking funny
 		l3 = Math.min(l3,  0);		
 		
 		add("Lives Lost", 40, Color.ORANGE);

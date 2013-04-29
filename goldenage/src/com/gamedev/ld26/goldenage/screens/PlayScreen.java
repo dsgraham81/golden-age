@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.gamedev.ld26.goldenage.Globals;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
+import com.gamedev.ld26.goldenage.Globals.Games;
 import com.gamedev.ld26.goldenage.core.Assets;
 import com.gamedev.ld26.goldenage.core.Score;
 import com.gamedev.ld26.goldenage.games.GameState;
@@ -92,8 +93,12 @@ public class PlayScreen implements Screen {
 		Gdx.gl20.glClearColor(0, 0, 0, 1);
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		
-		_gameScreen.render(Gdx.graphics.getDeltaTime());
+		try {
+			_gameScreen.render(Gdx.graphics.getDeltaTime());
+		} catch (Exception e) {
+			// funny, we get to use the glitch
+			transitionGame(Games.glitch);
+		}
 	}
 
 	@Override
