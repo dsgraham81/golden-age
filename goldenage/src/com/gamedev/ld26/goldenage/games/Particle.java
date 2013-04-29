@@ -18,19 +18,19 @@ public class Particle {
 	
 	public Particle(Vector2 pos)
 	{
-		this(pos, Utils.getRandomColor());
+		this(pos, Vector2.Zero);
 	}
 	
-	public Particle(Vector2 pos, Color color) {
-		this(pos, color, Vector2.Zero);
+	public Particle(Vector2 pos, Vector2 vel) {
+		this(pos, vel, Utils.getRandomColor());
 	}
 	
-	public Particle(Vector2 pos, Color color, Vector2 vel)
+	public Particle(Vector2 pos, Vector2 vel, Color color)
 	{
-		this(pos, color, vel, Vector2.Zero);
+		this(pos, vel, color, Vector2.Zero);
 	}
 	
-	public Particle(Vector2 pos, Color color, Vector2 vel, Vector2 accel)
+	public Particle(Vector2 pos, Vector2 vel, Color color, Vector2 accel)
 	{
 		_pos = new Vector2(pos);
 		_color = color;
@@ -48,6 +48,7 @@ public class Particle {
 		_vel.y += _accel.y * dt;
 		_pos.x += _vel.x * dt;
 		_pos.y += _vel.y * dt;
+		
 	}
 	
 	public void Render()

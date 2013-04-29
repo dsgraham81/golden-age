@@ -68,7 +68,9 @@ public class Plane extends GameObject implements IShooter {
 		_hitPoints--;
 		if (_hitPoints <= 0)
 		{
-			Explosion explosion = new Explosion(getLowerLeftPoint(), _color, _gState );
+			float x = (float)Math.cos(_dir / 180.0 * Math.PI);
+			float y = -(float)Math.sin(_dir / 180.0 * Math.PI);
+			Explosion explosion = new Explosion(getCenterPosition(), _color, new Vector2(x*speed, y * speed), _gState);
 			_alive = false;
 			return true;
 		}

@@ -141,6 +141,11 @@ public class GameObject {
 		return new Vector2(_rect.x + _rect.width,  _rect.y);
 	}
 	
+	public Vector2 getCenterPosition()
+	{
+		return new Vector2(_rect.x + _rect.width/2, _rect.y + _rect.height/2);
+	}
+	
 	public Rectangle getRect() { return _rect; }
 	public Color getColor() { return _color; }
 

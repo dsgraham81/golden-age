@@ -129,6 +129,14 @@ public abstract class GameState {
 	protected boolean updateReset(float delta) {
 		_resetTime += delta;
 		
+		for (GameObject object : _gameObjects)
+		{
+			if (object instanceof Explosion)
+			{
+				object.update(delta);
+			}
+		}
+		
 		if (_resetTime > 3f) {
 			_resetTime = 0;
 			resetScreen();

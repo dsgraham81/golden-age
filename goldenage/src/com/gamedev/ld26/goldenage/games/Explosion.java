@@ -11,7 +11,7 @@ public class Explosion extends GameObject {
 
 	ArrayList<Particle> _particles = new ArrayList<Particle>();
 	
-	public Explosion(Vector2 pos, Color color, GameState gs) {
+	public Explosion(Vector2 pos, Color color, Vector2 vel, GameState gs) {
 		super(pos, new Vector2(), color, gs);
 		
 		float angle = 0f;
@@ -25,9 +25,11 @@ public class Explosion extends GameObject {
 			float x = (float)Math.cos(angle / 180.0 * Math.PI) * Assets.random.nextFloat() * 100;
 			float y = -(float)Math.sin(angle / 180.0 * Math.PI) * Assets.random.nextFloat() * 100;
 			
-			_particles.add(new Particle(pos, color, new Vector2(x,y), new Vector2(Assets.random.nextFloat(),Assets.random.nextFloat()*-100)));
+			_particles.add(new Particle(pos, new Vector2(vel.x + x, vel.y + y), color, new Vector2(-vel.x * .3f ,(-vel.y * .3f) + Assets.random.nextFloat() * -50)));
 		}
 	}
+	
+	
 	
 	public void update(float dt)
 	{
