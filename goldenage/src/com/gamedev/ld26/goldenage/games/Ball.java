@@ -64,7 +64,7 @@ public class Ball extends GameObject {
 	
 	public boolean collides(GameObject other)
 	{
-		return (other != null) && Intersector.overlaps(_circle, other._rect);
+		return (other != null) && other.collides(_circle);
 	}
 	
 	public void update(float delta) {
