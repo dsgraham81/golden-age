@@ -1,6 +1,7 @@
 package com.gamedev.ld26.goldenage.games.centipede;
 
 import com.badlogic.gdx.math.Vector2;
+import com.gamedev.ld26.goldenage.Globals;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.games.GameState;
 
@@ -25,4 +26,7 @@ public class CentipedeState extends GameState {
 		
 	}
 
+	public Globals.Games nextScreen() {
+		return Globals.Games.g1942;
+	}
 }

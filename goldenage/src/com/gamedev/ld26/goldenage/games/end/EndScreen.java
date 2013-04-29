@@ -1,11 +1,9 @@
 package com.gamedev.ld26.goldenage.games.end;
 
-import java.util.ArrayList;
-
+import com.gamedev.ld26.goldenage.Globals;
 import com.gamedev.ld26.goldenage.games.GameObject;
 import com.gamedev.ld26.goldenage.games.GameState;
 import com.gamedev.ld26.goldenage.games.PlayerTransition;
-import com.gamedev.ld26.goldenage.games.Transition;
 import com.gamedev.ld26.goldenage.screens.PlayScreen;
 
 public class EndScreen extends GameState {
@@ -41,6 +39,10 @@ public class EndScreen extends GameState {
 		}
 		
 		addTransition(new PlayerTransition(_player,  previousScreen.getPlayer(), _transitionTime, false));
+	}
+	
+	public Globals.Games nextScreen() {
+		return Globals.Games.pong;
 	}
 
 }

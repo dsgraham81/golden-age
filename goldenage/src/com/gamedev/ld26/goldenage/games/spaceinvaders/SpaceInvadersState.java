@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.DeltaTimer;
+import com.gamedev.ld26.goldenage.Globals;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.TimerListener;
 import com.gamedev.ld26.goldenage.core.Assets;
@@ -264,5 +265,9 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 	@Override
 	public void OnTimer() {
 		_alienFire = true;
+	}
+	
+	public Globals.Games nextScreen() {
+		return Globals.Games.g1942;
 	}
 }
