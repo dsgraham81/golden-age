@@ -41,7 +41,7 @@ public class EndScreen extends GameState {
 		int time = (int)Score.getTime();
 		// they need at least one second
 		time = Math.max(time,  1);
-		
+			
 		int t1 = time - 2 - Assets.random.nextInt(300);
 		int t2 = t1 - Assets.random.nextInt(300);
 		
