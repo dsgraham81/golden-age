@@ -77,7 +77,6 @@ public class BreakoutState extends GameState {
 		
 		_transitionTime = (Config.window_height *  Block.BLOCK_AREA) / (_ball.getSpeed() * Math.abs(_ball.getDir().y));
 		_transitionTime = 2;
-		System.out.println("TransitionTime : " + _transitionTime);
 		_windowBounds = new Rectangle(0,-20, Config.window_width, Config.window_height+20);
 		_stageMusic = Assets.breakoutMusic;
 
@@ -210,10 +209,10 @@ public class BreakoutState extends GameState {
 			Assets.shapes.rect(edgeLeft.x * textScale, edgeLeft.y, edgeLeft.width, edgeLeft.height);
 			Assets.shapes.rect(edgeRight.x + ((Config.window_width - edgeRight.x) *(1.0f - textScale)), edgeRight.y, edgeRight.width, edgeRight.height);
 		}
-		
-		
-		Utils.drawText(Score.getScoreString(3), 10, Config.window_height - 40, 20, 20, new Color(1f,1f,1f,1f-textScale), STRING_JUSTIFICATION.LEFT);
-		Utils.drawText(Score.getLivesString(), Config.window_width - 10, Config.window_height - 40, 20, 20, new Color(1f,1f,1f,1f-textScale), STRING_JUSTIFICATION.RIGHT);
+		else {		
+			Utils.drawText(Score.getScoreString(3), 10, Config.window_height - 40, 20, 20, new Color(1f,1f,1f,1f-textScale), STRING_JUSTIFICATION.LEFT);
+			Utils.drawText(Score.getLivesString(), Config.window_width - 10, Config.window_height - 40, 20, 20, new Color(1f,1f,1f,1f-textScale), STRING_JUSTIFICATION.RIGHT);
+		}
 	}
 
 	public Globals.Games nextScreen() {

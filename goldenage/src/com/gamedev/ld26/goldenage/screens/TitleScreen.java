@@ -21,6 +21,7 @@ public class TitleScreen implements Screen {
 	private final GoldenAgeGame game;
 	private float accum = 0.f;
 	private float startGameDelay;
+	private boolean _coinInserted;
 	
 	public TitleScreen(GoldenAgeGame game) {
 		super();
@@ -35,8 +36,8 @@ public class TitleScreen implements Screen {
 			Gdx.app.exit();
 		} else if (Gdx.input.justTouched()) {
 			Assets.coinReturnSound.play();
-			startGameDelay = 1;
-			//game.setGame(Globals.Games.pong);
+			_coinInserted = true;
+			startGameDelay = 1.75f;
 		} else {
 			handleScreen();
 		}
@@ -92,7 +93,7 @@ public class TitleScreen implements Screen {
 		
 		Utils.drawText(testString1, Config.window_half_width, r.height - 300, 50, 50, Color.ORANGE, STRING_JUSTIFICATION.CENTER);
 		Utils.drawText(testString2, Config.window_half_width, 200, 30, 30, Color.GREEN, STRING_JUSTIFICATION.CENTER);
-		if ((int)(accum * 2) % 2 == 0)
+		if (!_coinInserted && (int)(accum * 2) % 2 == 0)
 			Utils.drawText(coinsString, Config.window_half_width, 160, 25, 25, Color.WHITE, STRING_JUSTIFICATION.CENTER);
 	}
 	
