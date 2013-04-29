@@ -10,7 +10,7 @@ public class GlitchState extends GameState {
 
 	public GlitchState(GoldenAgeGame game, GameState previous) {
 		super(game, previous);
-		Assets.buzzSound.loop(1000);
+		Assets.glitchSound.play();
 	}
 
 	@Override
@@ -28,9 +28,9 @@ public class GlitchState extends GameState {
 	private float _time;
 	public void update(float delta) {
 		_time += delta;
-		if (_time > 7) {
+		if (_time > 3) {
 			_gameWon = true;
-			Assets.buzzSound.stop();
+			Assets.glitchSound.stop();
 		}
 	}
 	

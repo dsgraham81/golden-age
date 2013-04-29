@@ -76,13 +76,14 @@ public class BreakoutState extends GameState {
 			}
 		}
 		
-		_transitionTime = (Config.window_height * Block.BLOCK_AREA) / (_ball.getSpeed() * -_ball.getDir().y);
-		
+		_transitionTime = (Config.window_height *  Block.BLOCK_AREA) / (_ball.getSpeed() * Math.abs(_ball.getDir().y));
+		System.out.println("TransitionTime : " + _transitionTime);
 		_windowBounds = new Rectangle(0,-20, Config.window_width, Config.window_height+20);
 		_stageMusic = Assets.breakoutMusic;
 
 
 		String textString = "Welcome to 1976";
+		clearTransitions();
 		addTransition(new TextTransition(textString,
 				new Vector2(Config.window_half_width - (textString.length() * 30 /2.0f), Config.window_half_height), Color.RED, _transitionTime));
 	}
@@ -176,6 +177,7 @@ public class BreakoutState extends GameState {
 	@Override
 	public boolean transitionScreen(float delta)
 	{
+		super.transitionScreen(delta);
 		boolean done = true;
 		float scale = (Config.window_height - (_ball.getCircle().y + _ball.getCircle().radius))/ Config.window_height;
 		scale /= Block.BLOCK_AREA;
@@ -207,7 +209,7 @@ public class BreakoutState extends GameState {
 			Assets.shapes.rect(edgeRight.x + ((Config.window_width - edgeRight.x) *(1.0f - textScale)), edgeRight.y, edgeRight.width, edgeRight.height);
 			
 			String textString = "Welcome to 1976";			
-			Utils.drawText(textString, Config.window_half_width - (textString.length() * 30 /2.0f), Config.window_half_height, 30, 30, new Color(1f,0,0,textScale));
+			//Utils.drawText(textString, Config.window_half_width - (textString.length() * 30 /2.0f), Config.window_half_height, 30, 30, new Color(1f,0,0,textScale));
 		}
 		
 		

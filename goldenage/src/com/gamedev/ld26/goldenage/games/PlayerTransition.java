@@ -67,4 +67,8 @@ public class PlayerTransition extends Transition {
 		if (!_adjustPos) return; 
 		_transitionObject.setPosition(_initX + (_transition * _dx), _initY + (_transition * _dy));
 	}
+	
+	public void Render(){
+		
+	}
 }

@@ -1,11 +1,13 @@
 package com.gamedev.ld26.goldenage.games;
 
+import java.security.ProtectionDomain;
+
 import com.badlogic.gdx.graphics.Color;
 
 public class FadeTransition extends Transition {
 
 	protected float _da;
-	private float _alpha;
+	protected float _alpha;
 	private GameObject _object;
 	
 	public FadeTransition(GameObject obj, boolean fade, float time) {
@@ -26,5 +28,10 @@ public class FadeTransition extends Transition {
 		Color color = new Color(_object.getColor());
 		color.a = _alpha;
 		_object.setColor(color);	
+	}
+	
+	public void Render()
+	{
+	
 	}
 }
