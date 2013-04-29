@@ -281,6 +281,9 @@ public abstract class GameState {
 	private float getSide(float extra) {
 		return -extra + ((_windowBounds.height + (extra*2)) * Assets.random.nextFloat());
 	}
+
+	// For debugging to skip to next game
+	public void setGameWon() { _gameWon = true; }
 	
 	public abstract Globals.Games nextScreen();
 }
