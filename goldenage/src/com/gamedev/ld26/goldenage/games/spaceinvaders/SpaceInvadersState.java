@@ -264,6 +264,8 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 	@Override
 	protected void renderScreen(float delta) {
 		Utils.drawText(Score.getScoreString(4), 10, Config.window_height - 40, 20, 20, new Color(1f,1f,1f,1f), STRING_JUSTIFICATION.LEFT);
+		Utils.drawText(Score.getLivesString(), Config.window_width - 10, Config.window_height - 40, 20, 20, new Color(1f,1f,1f,1f), STRING_JUSTIFICATION.RIGHT);
+
 	}
 
 	private boolean _alienFire = false;

@@ -52,4 +52,9 @@ public class Score {
 		 tempString = "Score: " + tempString;
 		return tempString;
 	}
+	
+	public static String getLivesString()
+	{
+		return "Lives lost: " + _livesLost;
+	}
 }
