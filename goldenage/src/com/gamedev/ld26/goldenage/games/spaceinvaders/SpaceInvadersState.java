@@ -47,7 +47,6 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 	private DeltaTimer _timer;
 	private int _movement = Right;
 	
-	
 	public SpaceInvadersState(GoldenAgeGame game, GameState previous) {
 		super(game, previous);
 		setupScreen();
@@ -56,11 +55,16 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 	}
 	
 	protected Player createPlayer() {
-		Color color = new Color(Color.RED);
-		color.a = 0.75f;
-		Player player = new Player(new Vector2(50, 50), color, this);
-		player.ShootSound = Assets.siPlayerLaser;
-		return player;
+		return new SpacePlayer(this);
+	}
+	
+	private void killMotherShip() {
+		if (_motherShip == null) return;
+		_motherShip.setAlive(false);
+	}
+	
+	public void dispose() {
+		killMotherShip();
 	}
 	
 	private void setupScreen() {
@@ -89,12 +93,34 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 		resetScreen();
 	}
 
+	private float _shipTime;
+	private MotherShip _motherShip;
 	
 	@Override
 	protected void updateScreen(float delta) {	
 		if (_game.input.isButtonDown(0) && !bulletExists()) {
 			_bullet = _bulletFactory.GetBullet(_player);
 		}		
+		
+		if (_motherShip == null) {
+			_shipTime += delta;
+			if (_shipTime > 7 && Assets.random.nextInt(100) < 5) {
+				_shipTime = 0;
+				_motherShip = new MotherShip(this);
+			}
+		} else {
+			if (_bullet != null && _bullet.collides(_motherShip)) {
+				_motherShip.kill();
+				Score.AddToScore(1000);
+			}
+			
+			if (!_motherShip.isAlive()) {
+				_motherShip = null;
+			}
+		}
+		
+		
+		
 		_timer.Update(delta);
 		
 		Vector2 offset = GetOffset(delta);
@@ -258,14 +284,17 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 			if (bullet.getClass() == Bullet.class) {
 				bullet.setAlive(false);
 			}
-		}		
+		}
+		
+		killMotherShip();
 	}
 
 	@Override
 	protected void renderScreen(float delta) {
-		Utils.drawText(Score.getScoreString(4), 10, Config.window_height - 40, 20, 20, new Color(1f,1f,1f,1f), STRING_JUSTIFICATION.LEFT);
-		Utils.drawText(Score.getLivesString(), Config.window_width - 10, Config.window_height - 40, 20, 20, new Color(1f,1f,1f,1f), STRING_JUSTIFICATION.RIGHT);
-
+		if (_motherShip == null) {
+			Utils.drawText(Score.getScoreString(4), 10, Config.window_height - 40, 20, 20, new Color(1f,1f,1f,1f), STRING_JUSTIFICATION.LEFT);
+			Utils.drawText(Score.getLivesString(), Config.window_width - 10, Config.window_height - 40, 20, 20, new Color(1f,1f,1f,1f), STRING_JUSTIFICATION.RIGHT);
+		}
 	}
 
 	private boolean _alienFire = false;

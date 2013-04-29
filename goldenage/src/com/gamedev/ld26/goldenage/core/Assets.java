@@ -37,6 +37,7 @@ public class Assets {
 	
 	public static Sound siPlayerLaser;
 	public static Sound siAlienLaser;
+	public static Sound siMothership;
 	
 	public static Sound planeShot;
 	public static Sound bossShot;
@@ -87,6 +88,7 @@ public class Assets {
 		
 		siPlayerLaser = laserSound;
 		siAlienLaser = laser1Sound;
+		siMothership = beep;
 		
 		planeShot = laserSound;
 		bossShot = missileSound;

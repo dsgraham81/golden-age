@@ -21,7 +21,7 @@ public class PlanePlayer extends Player {
 	private float _dWings;
 	
 	public PlanePlayer(GameState gs) {
-		super(new Vector2(20, 30), Color.BLUE, gs);
+		super(new Vector2(20, 30), Color.BLACK, gs);
 		ShootSound = Assets.g1942PlayerLaser;
 		
 		_left = new Rectangle(0, 0, 10, 1);
