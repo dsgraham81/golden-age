@@ -155,7 +155,7 @@ public class BreakoutState extends GameState {
 		final Rectangle playerRect = _player.getRect();
 		Circle ballCircle = _ball.getCircle();
 		Vector2 ballDir = _ball.getDir();
-		
+		if (!_ball.isAlive()) return;
 		// Intersection tests - ball/paddle
 		if (Intersector.overlaps(ballCircle, playerRect)) {
 			Assets.beep.play();
@@ -165,9 +165,10 @@ public class BreakoutState extends GameState {
 			ballDir.x += hitPos - .5f;
 			_ball.setSpeed(_ball.getSpeed() + 50.f);
 		}
-		if (_ball.getPos().y <= 0 && _ball.isAlive())
+		if (_ball.getPos().y <= 0)
 		{
 			Assets.lifeLostSound.play();
+			Score.loseLife();
 			_ball.setAlive(false);
 			_respawnTime = 3f;
 		}
@@ -212,6 +213,7 @@ public class BreakoutState extends GameState {
 		
 		
 		Utils.drawText(Score.getScoreString(3), 10, Config.window_height - 40, 20, 20, new Color(1f,1f,1f,1f-textScale), STRING_JUSTIFICATION.LEFT);
+		Utils.drawText(Score.getLivesString(), Config.window_width - 10, Config.window_height - 40, 20, 20, new Color(1f,1f,1f,1f-textScale), STRING_JUSTIFICATION.RIGHT);
 	}
 
 	public Globals.Games nextScreen() {

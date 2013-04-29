@@ -201,6 +201,8 @@ public class G1942State extends GameState {
 		back2.render();
 		Assets.shapes.end();
 		Utils.drawText(Score.getScoreString(5), 10, Config.window_height - 40, 20, 20, new Color(1f,1f,1f,1f), STRING_JUSTIFICATION.LEFT);
+		Utils.drawText(Score.getLivesString(), Config.window_width - 10, Config.window_height - 40, 20, 20, new Color(1f,1f,1f,1f), STRING_JUSTIFICATION.RIGHT);
+
 		Assets.shapes.begin(ShapeType.Filled);
 	}
 		

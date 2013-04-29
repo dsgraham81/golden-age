@@ -80,6 +80,7 @@ public class PongState extends GameState {
 		if (_ball.getCircle().y <= 0) {
 			_ball.setAlive(false);
 			_cpuScore++;
+			Score.loseLife();
 		}
 		
 		if (_ball.getCircle().y >= Config.window_height){
