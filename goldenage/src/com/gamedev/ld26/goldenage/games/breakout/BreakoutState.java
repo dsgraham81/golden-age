@@ -87,6 +87,8 @@ public class BreakoutState extends GameState {
 		clearTransitions();
 		addTransition(new TextTransition(textString,
 				new Vector2(Config.window_half_width - (textString.length() * 30 /2.0f), Config.window_half_height), Color.RED, _transitionTime));
+		addTransition(new TextTransition("OMG gray scale!!",
+				new Vector2(Config.window_half_width - (textString.length() * 30 /2.0f), Config.window_half_height + 40), Color.GRAY, 10.f));
 	}
 
 	@Override

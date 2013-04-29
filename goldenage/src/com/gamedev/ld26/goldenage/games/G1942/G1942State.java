@@ -208,7 +208,7 @@ public class G1942State extends GameState {
 		
 	private void setupTransition(GameState previousScreen) {
 		if (previousScreen == null) return;
-		_transitionTime = 1.0f;
+		_transitionTime = 3.0f;
 		_player.setDraw(false);
 				
 		for (GameObject obj : previousScreen.getGameObjects()) {
@@ -224,6 +224,9 @@ public class G1942State extends GameState {
 		String textString = "Welcome to 1984";
 		addTransition(new TextTransition(textString,
 				new Vector2(Config.window_half_width - (textString.length() * 30 /2.0f), Config.window_half_height), Color.RED, _transitionTime));
+		String textString2 = "Gradients?! Witchcraft!!!";
+		addTransition(new TextTransition(textString2,
+				new Vector2(Config.window_half_width - (textString2.length() * 30 /2.0f), Config.window_half_height + 40), Color.GRAY, 20.f));
 	}
 	
 	public Globals.Games nextScreen() {
