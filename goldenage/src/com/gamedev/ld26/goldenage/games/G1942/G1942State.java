@@ -16,6 +16,7 @@ import com.gamedev.ld26.goldenage.games.PlayerTransition;
 import com.gamedev.ld26.goldenage.games.TextTransition;
 import com.gamedev.ld26.goldenage.utils.Config;
 import com.gamedev.ld26.goldenage.utils.Utils;
+import com.gamedev.ld26.goldenage.utils.Utils.STRING_JUSTIFICATION;
 
 public class G1942State extends GameState {
 
@@ -199,7 +200,7 @@ public class G1942State extends GameState {
 		back1.render();
 		back2.render();
 		Assets.shapes.end();
-		Utils.drawText(Score.getScoreString(5), 10, Config.window_height - 40, 20, 20, new Color(1f,1f,1f,1f));
+		Utils.drawText(Score.getScoreString(5), 10, Config.window_height - 40, 20, 20, new Color(1f,1f,1f,1f), STRING_JUSTIFICATION.LEFT);
 		Assets.shapes.begin(ShapeType.Filled);
 	}
 		

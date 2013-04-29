@@ -20,6 +20,7 @@ import com.gamedev.ld26.goldenage.games.TextTransition;
 import com.gamedev.ld26.goldenage.games.pong.PongState;
 import com.gamedev.ld26.goldenage.utils.Config;
 import com.gamedev.ld26.goldenage.utils.Utils;
+import com.gamedev.ld26.goldenage.utils.Utils.STRING_JUSTIFICATION;
 
 public class BreakoutState extends GameState {
 
@@ -203,13 +204,14 @@ public class BreakoutState extends GameState {
 	protected void renderScreen(float delta) {
 		if (transistionOn)
 		{
+			
 			Assets.shapes.setColor(new Color(textScale,textScale,textScale,textScale));
 			Assets.shapes.rect(edgeLeft.x * textScale, edgeLeft.y, edgeLeft.width, edgeLeft.height);
 			Assets.shapes.rect(edgeRight.x + ((Config.window_width - edgeRight.x) *(1.0f - textScale)), edgeRight.y, edgeRight.width, edgeRight.height);
 		}
 		
 		
-		Utils.drawText(Score.getScoreString(3), 10, Config.window_height - 40, 20, 20, new Color(1f,1f,1f,1f-textScale));
+		Utils.drawText(Score.getScoreString(3), 10, Config.window_height - 40, 20, 20, new Color(1f,1f,1f,1f-textScale), STRING_JUSTIFICATION.LEFT);
 	}
 
 	public Globals.Games nextScreen() {

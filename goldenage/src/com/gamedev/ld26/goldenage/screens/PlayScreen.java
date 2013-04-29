@@ -3,6 +3,7 @@ package com.gamedev.ld26.goldenage.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.gamedev.ld26.goldenage.Globals;
@@ -83,8 +84,7 @@ public class PlayScreen implements Screen {
 		
 		Gdx.gl20.glClearColor(0, 0, 0, 1);
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		Gdx.gl20.glEnable(GL20.GL_BLEND);
-	    //Gdx.gl20.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+
 		
 		_gameScreen.render(Gdx.graphics.getDeltaTime());
 	}

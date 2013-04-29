@@ -56,6 +56,7 @@ public class BossPlane extends Plane {
 			playerAngle.nor();
 			Bullet bullet = bFactory.GetBullet(Utils.rectCenter(_rect), 300, Color.RED, new Vector2(playerAngle.x, playerAngle.y), 5); 
 			bullet.setTarget(_gState.getPlayer());
+			Assets.laser1Sound.play();
 		}
 	}
 	
