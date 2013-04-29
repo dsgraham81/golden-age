@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.core.Assets;
+import com.gamedev.ld26.goldenage.games.pong.PongState;
 import com.gamedev.ld26.goldenage.utils.Config;
 import com.gamedev.ld26.goldenage.utils.Utils;
 
@@ -74,6 +75,7 @@ public class Ball extends GameObject {
 	
 	public void update(float delta) {
 		if (!_alive) return;
+		if (_dontUpdate) return;
 		_circle.x += _dir.x * _speed * delta;
 		_circle.y += _dir.y * _speed * delta;
 		
@@ -116,13 +118,20 @@ public class Ball extends GameObject {
 	}
 	
 	protected void keepInsideRect(Rectangle bounds) {
+		boolean pong = _gState instanceof PongState;
 		if ((_circle.x - _circle.radius) < bounds.x) {
 			_circle.x = bounds.x + _circle.radius;
 			_dir.x = -_dir.x;
+			if (pong) { // hackity hack hack hack
+				Assets.pongWallBounceSound.play();
+			}
 		}
 		if ((_circle.x + _circle.radius) > (bounds.x + bounds.width)) {
 			_circle.x = (bounds.x + bounds.width) - _circle.radius;
 			_dir.x = -_dir.x;
+			if (pong) { // hackity hack hack hack
+				Assets.pongWallBounceSound.play();
+			}
 		}
 		if ((_circle.y - _circle.radius) < bounds.y) {
 			_circle.y = bounds.y + _circle.radius;
