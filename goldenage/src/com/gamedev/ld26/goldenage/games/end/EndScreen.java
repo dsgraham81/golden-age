@@ -24,6 +24,7 @@ public class EndScreen extends GameState {
 	
 	public EndScreen(GoldenAgeGame game, GameState previous) {
 		super(game, previous);
+		 _stageMusic= Assets.endScreenMusic;
 		
 		int score = Score.GetScore();
 		int s1 = score + 2 + Assets.random.nextInt(100000);
@@ -31,22 +32,22 @@ public class EndScreen extends GameState {
 		
 		add("VANITY BOARD", 50, Color.WHITE);
 		
-		add("High Score", 40, Color.ORANGE);
+		add("High Scores", 40, Color.ORANGE);
 		add("1) "+ getRandomDev(), "" + s2, 30, Color.WHITE);
 		add("2) "+ getRandomDev(), "" + s1, 30, Color.WHITE);
 		add("3) "+ getRandom(), "" + (score + 1), 30, Color.WHITE);
-		add("Your score " + score, 30, Color.GRAY);
+		add("Your score " + score, 30, Color.RED);
 		
-		float time = Score.getTime();
+		int time = (int)Score.getTime();
 		
-		float t1 = time - 2 - Assets.random.nextInt(300);
-		float t2 = t1 - Assets.random.nextInt(300);
+		int t1 = time - 2 - Assets.random.nextInt(300);
+		int t2 = t1 - Assets.random.nextInt(300);
 	
-		add("Shortest Time", 40, Color.ORANGE);
+		add("Shortest Times", 40, Color.ORANGE);
 		add("1) "+ getRandomDev(), t2 + " seconds", 30, Color.WHITE);
 		add("2) "+ getRandomDev(), t1 + " seconds", 30, Color.WHITE);
 		add("3) "+ getRandom(), (time - 1) + " seconds", 30, Color.WHITE);
-		add("Your time " + time + " seconds", 30, Color.GRAY);
+		add("Your time " + time + " seconds", 30, Color.RED);
 		
 		int lives = Score.getLostLives();
 		int l1 = lives - 1;
@@ -58,7 +59,9 @@ public class EndScreen extends GameState {
 		add("1) "+ getRandomDev(), l3 + " lives", 30, Color.WHITE);
 		add("2) "+ getRandomDev(), l2 + " lives", 30, Color.WHITE);
 		add("3) "+ getRandom(), l1 + " lives", 30, Color.WHITE);
-		add("You lost " + lives + " lives", 30, Color.GRAY);
+		add("You lost " + lives + " lives", 30, Color.RED);
+		
+		add("You almost made it! Better luck next time", 20, Color.WHITE);
 	}
 		
 	private void add(String text, int size, Color color) {
@@ -114,7 +117,7 @@ public class EndScreen extends GameState {
 	}
 	
 	public void render(float delta) {
-		float y = (_windowBounds.y + _windowBounds.height - 80);
+		float y = (_windowBounds.y + _windowBounds.height - 60);
 		float centerx = _windowBounds.x + _windowBounds.width / 2;
 		float leftx = centerx - 375;
 		float rightx = centerx + 375;
