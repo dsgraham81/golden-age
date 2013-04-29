@@ -178,6 +178,7 @@ public class BreakoutState extends GameState {
 			Score.loseLife();
 			_ball.setAlive(false);
 			_respawnTime = 3f;
+			Assets.countdown321.play();
 		}
 	}
 	
@@ -219,6 +220,13 @@ public class BreakoutState extends GameState {
 		else {		
 			Utils.drawText(Score.getScoreString(3), 10, Config.window_height - 40, 20, 20, new Color(1f,1f,1f,1f-textScale), STRING_JUSTIFICATION.LEFT);
 			Utils.drawText(Score.getLivesString(), Config.window_width - 10, Config.window_height - 40, 20, 20, new Color(1f,1f,1f,1f-textScale), STRING_JUSTIFICATION.RIGHT);
+			if (_respawnTime > 2.f) {
+				Utils.drawText("3", Config.window_half_width, 30, 64, 100, new Color(0.5f, 0.5f, 0.5f, 1.f), Utils.STRING_JUSTIFICATION.LEFT);
+			} else if (_respawnTime > 1.f) {
+				Utils.drawText("2", Config.window_half_width, 30, 64, 100, new Color(0.75f, 0.75f, 0.75f, 1.f), Utils.STRING_JUSTIFICATION.LEFT);
+			} else if (_respawnTime > 0.f){
+				Utils.drawText("1", Config.window_half_width, 30, 64, 100, Color.WHITE, Utils.STRING_JUSTIFICATION.LEFT);
+			}
 		}
 	}
 
