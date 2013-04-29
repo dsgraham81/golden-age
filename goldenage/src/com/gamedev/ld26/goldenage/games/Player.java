@@ -48,6 +48,7 @@ public class Player extends GameObject implements IShooter {
 			if (LifeLostSound != null) {
 				LifeLostSound.play();
 				Score.loseLife();
+				Explosion explosion = new Explosion(getLowerLeftPoint(), _color, Vector2.Zero, _gState );
 			}			
 		}
 	}
