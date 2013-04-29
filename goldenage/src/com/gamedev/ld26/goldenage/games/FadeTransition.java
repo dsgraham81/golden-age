@@ -1,7 +1,5 @@
 package com.gamedev.ld26.goldenage.games;
 
-import java.security.ProtectionDomain;
-
 import com.badlogic.gdx.graphics.Color;
 
 public class FadeTransition extends Transition {

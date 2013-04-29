@@ -1,7 +1,5 @@
 package com.gamedev.ld26.goldenage.games.G1942;
 
-import java.util.Random;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
@@ -16,9 +14,6 @@ import com.gamedev.ld26.goldenage.games.GameState;
 import com.gamedev.ld26.goldenage.games.Player;
 import com.gamedev.ld26.goldenage.games.PlayerTransition;
 import com.gamedev.ld26.goldenage.games.TextTransition;
-import com.gamedev.ld26.goldenage.games.breakout.BreakoutState;
-import com.gamedev.ld26.goldenage.games.pong.PongState;
-import com.gamedev.ld26.goldenage.games.spaceinvaders.SpaceInvadersState;
 import com.gamedev.ld26.goldenage.utils.Config;
 import com.gamedev.ld26.goldenage.utils.Utils;
 

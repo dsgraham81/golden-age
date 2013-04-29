@@ -3,8 +3,6 @@ package com.gamedev.ld26.goldenage.games;
 import java.util.ArrayList;
 import java.util.Random;
 
-import javax.xml.bind.annotation.XmlElementDecl.GLOBAL;
-
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -118,7 +116,7 @@ public abstract class GameState {
 		return (_previousGame != null);
 	}
 	
-	protected void dispose() {		
+	public void dispose() {		
 	}
 	
 	protected void updatePlayer(float delta) {

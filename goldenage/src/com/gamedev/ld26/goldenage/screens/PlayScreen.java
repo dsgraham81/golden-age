@@ -61,6 +61,9 @@ public class PlayScreen implements Screen {
 	public void update() {
 		if (game.input.isKeyDown(Keys.ESCAPE)) {
 			game.setScreen(game.title);
+			if (_gameScreen != null) {
+				_gameScreen.dispose();
+			}
 			Utils.PlayMusic(Assets.titleMusic);
 		}
 		

@@ -47,5 +47,8 @@ public class GlitchState extends GameState {
 	public Games nextScreen() {
 		return Games.end;
 	}
-
+	
+	public void dispose() {
+		Assets.glitchSound.stop();
+	}
 }
