@@ -13,7 +13,7 @@ import com.gamedev.ld26.goldenage.utils.Utils;
 public class Block extends GameObject {
 	public static final int BLOCKS_WIDE = 15;
 	public static final int BLOCKS_TALL = 12;
-	public static final float BLOCK_AREA = .4f;
+	public static final float BLOCK_AREA = .5f;
 	public static final int TOP_GAP = 4;
 
 	private final float BLOCK_WIDTH = Config.window_width / BLOCKS_WIDE;

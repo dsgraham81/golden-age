@@ -67,7 +67,7 @@ public class BreakoutState extends GameState {
 		{
 			for (int x = 0; x < Block.BLOCKS_WIDE; x++)
 			{
-				float greyLevel = (float)y/Block.BLOCKS_TALL;
+				float greyLevel = (float)(y-Block.TOP_GAP)/(Block.BLOCKS_TALL-Block.TOP_GAP);
 				Color blockColor = new Color(greyLevel, greyLevel, greyLevel, 1.0f);
 				Block newBlock = new Block(new Vector2(x,y), blockColor, _startPos, this);
 				newBlock.ScoreValue = 2 * (Block.BLOCKS_TALL - y);

@@ -20,24 +20,36 @@ public class TitleScreen implements Screen {
 	private final OrthographicCamera camera = new OrthographicCamera();
 	private final GoldenAgeGame game;
 	private float accum = 0.f;
+	private float startGameDelay;
 	
 	public TitleScreen(GoldenAgeGame game) {
 		super();
 		this.game = game;
 		camera.setToOrtho(false, Config.window_width, Config.window_height);
 		Utils.PlayMusic(Assets.titleMusic);
+		startGameDelay = 0;
 	}
 	
-	public void update() {
+	public void update(float dt) {
 		if (game.input.isKeyDown(Keys.ESCAPE)) {
 			Gdx.app.exit();
 		} else if (Gdx.input.justTouched()) {
-			game.setGame(Globals.Games.pong);
+			Assets.coinReturnSound.play();
+			startGameDelay = 1;
+			//game.setGame(Globals.Games.pong);
 		} else {
 			handleScreen();
 		}
 		
-		accum += Gdx.graphics.getDeltaTime();
+		if (startGameDelay > 0)
+		{
+			startGameDelay -=dt;
+			if (startGameDelay <= 0)
+			{
+				game.setGame(Globals.Games.pong);
+			}
+		}
+		accum += dt;
 	}
 	
 	protected void handleScreen() {	
@@ -56,7 +68,8 @@ public class TitleScreen implements Screen {
 	
 	@Override
 	public void render(float delta) {
-		update();
+		update(delta);
+		
 		
 		Gdx.gl20.glClearColor(0.53f, 0.81f, 0.92f, 1);
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -70,17 +83,15 @@ public class TitleScreen implements Screen {
 		
 		final String testString1 = "Golden Age";
 		final String testString2 = "Relive the classics";
-		final int w = 16, h = 16;
-//		final float speed = 8.f;
-//		final float range = 33.33f;
-//		final float minx = Config.window_width / 2 - w * ((testString1.length() + testString2.length()) / 4);
-//		float x1 = (float) Math.sin(accum * speed) * range + minx;
-//		float x2 = (float) Math.cos(accum * speed / 2) * range + minx;
+		final String coinsString = "INSERT COIN(S)";
+
 
 		Rectangle r = Config.pong_window_bounds;
 		
-		Utils.drawText(testString1, Config.window_half_width, r.height - 200, w, h, Color.GREEN, STRING_JUSTIFICATION.CENTER);
-		Utils.drawText(testString2, Config.window_half_width, 100, w, h, Color.ORANGE, STRING_JUSTIFICATION.CENTER);
+		Utils.drawText(testString1, Config.window_half_width, r.height - 300, 50, 50, Color.ORANGE, STRING_JUSTIFICATION.CENTER);
+		Utils.drawText(testString2, Config.window_half_width, 200, 30, 30, Color.GREEN, STRING_JUSTIFICATION.CENTER);
+		if ((int)(accum * 2) % 2 == 0)
+			Utils.drawText(coinsString, Config.window_half_width, 160, 25, 25, Color.WHITE, STRING_JUSTIFICATION.CENTER);
 	}
 	
 	private float _dr = 0f;
