@@ -277,6 +277,9 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 		String textString = "Welcome to 1978";
 		addTransition(new TextTransition(textString,
 				new Vector2(Config.window_half_width - (textString.length() * 30 /2.0f), Config.window_half_height), Color.RED, _transitionTime));
+		String textString2 = "Color?!  You've got to be kidding me!";
+		addTransition(new TextTransition(textString2,
+				new Vector2(Config.window_half_width - (textString2.length() * 30 /2.0f), Config.window_half_height + 40), Color.GRAY, 20.f));
 	}
 	
 	protected void handleReset(float delta) {
