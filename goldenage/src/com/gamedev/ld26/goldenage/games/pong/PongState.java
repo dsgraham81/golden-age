@@ -45,7 +45,7 @@ public class PongState extends GameState {
 		_cpu.setPosition(Config.window_half_width, Config.window_height - size.y);
 		
 		_ball = new Ball(new Vector2(Config.window_half_width, Config.window_half_height), 10, Color.WHITE, this);
-		
+		_ball.setSquare(true);
 		
 		_playerScore = 0;
 		_cpuScore = 0;
@@ -97,6 +97,7 @@ public class PongState extends GameState {
 		
 		if (!_ball.isAlive()) {
 			_ball = new Ball(new Vector2(Config.window_half_width, Config.window_half_height), 10, Color.WHITE, this);
+			_ball.setSquare(true);
 			_ball.setSpeed(respawn_speed);
 		}
 	}

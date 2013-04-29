@@ -49,6 +49,7 @@ public class BreakoutState extends GameState {
 					_ball.getDir().nor();
 					_ball.setGameState(this);
 					_ball.setSpeed(300);
+					_ball.setSquare(false);
 					_gameObjects.add(_ball);
 				}
 				if (object.getClass() == Player.class && object != previous.getPlayer())
@@ -166,7 +167,7 @@ public class BreakoutState extends GameState {
 		}
 		if (_ball.getPos().y <= 0)
 		{
-			Assets.lifeLostSound.play();
+			//Assets.lifeLostSound.play();
 			Score.loseLife();
 			_ball.setAlive(false);
 			_respawnTime = 3f;
@@ -203,8 +204,7 @@ public class BreakoutState extends GameState {
 	@Override
 	protected void renderScreen(float delta) {
 		if (transistionOn)
-		{
-			
+		{			
 			Assets.shapes.setColor(new Color(textScale,textScale,textScale,textScale));
 			Assets.shapes.rect(edgeLeft.x * textScale, edgeLeft.y, edgeLeft.width, edgeLeft.height);
 			Assets.shapes.rect(edgeRight.x + ((Config.window_width - edgeRight.x) *(1.0f - textScale)), edgeRight.y, edgeRight.width, edgeRight.height);
