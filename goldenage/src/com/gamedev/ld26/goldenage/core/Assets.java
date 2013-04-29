@@ -32,6 +32,8 @@ public class Assets {
 	public static Sound wobbleSound;
 	public static Sound missileSound;
 	public static Sound glitchSound;
+	public static Sound coinReturnSound;
+	public static Sound coinHitSound;
 	
 	public static Sound siPlayerLaser;
 	public static Sound siAlienLaser;
@@ -80,6 +82,8 @@ public class Assets {
 		wobbleSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/wobbledown.wav"));
 		missileSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/missile.wav"));
 		glitchSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/glitch.wav"));
+		coinHitSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/coinhit.wav"));
+		coinReturnSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/coin_return.wav"));
 		
 		siPlayerLaser = laserSound;
 		siAlienLaser = laser1Sound;

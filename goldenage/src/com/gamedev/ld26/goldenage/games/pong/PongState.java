@@ -50,6 +50,7 @@ public class PongState extends GameState {
 		_cpuScore = 0;
 		_stageMusic = Assets.pongMusic;
 		Score.ResetScore();
+		
 	}
 
 	@Override
