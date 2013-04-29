@@ -31,16 +31,18 @@ public class TitleScreen implements Screen {
 		startGameDelay = 0;
 	}
 	
+	private boolean _started;
+	
 	public void update(float dt) {
 		if (game.input.isKeyDown(Keys.ESCAPE)) {
 			Gdx.app.exit();
-		} else if (Gdx.input.justTouched()) {
+		} else if (Gdx.input.justTouched() || startButton()) {
 			Assets.coinReturnSound.play();
 			_coinInserted = true;
 			startGameDelay = 1.75f;
-		} else {
-			handleScreen();
-		}
+		} //else {
+			//handleScreen();
+		//}
 		
 		if (startGameDelay > 0)
 		{
@@ -48,9 +50,19 @@ public class TitleScreen implements Screen {
 			if (startGameDelay <= 0)
 			{
 				game.setGame(Globals.Games.pong);
+				_coinInserted = false;
+				_started = false;
 			}
 		}
 		accum += dt;
+	}
+	
+	private boolean startButton() {
+		if (_started)return false;
+		
+		_started = (game.input.isKeyDown(Keys.ENTER) ||
+				game.input.isKeyDown(Keys.SPACE));
+		return _started;
 	}
 	
 	protected void handleScreen() {	
@@ -93,8 +105,9 @@ public class TitleScreen implements Screen {
 		
 		Utils.drawText(testString1, Config.window_half_width, r.height - 300, 50, 50, Color.ORANGE, STRING_JUSTIFICATION.CENTER);
 		Utils.drawText(testString2, Config.window_half_width, 200, 30, 30, Color.GREEN, STRING_JUSTIFICATION.CENTER);
-		if (!_coinInserted && (int)(accum * 2) % 2 == 0)
+		if (!_coinInserted && (int)(accum * 2) % 2 == 0) {
 			Utils.drawText(coinsString, Config.window_half_width, 160, 25, 25, Color.WHITE, STRING_JUSTIFICATION.CENTER);
+		}
 	}
 	
 	private float _dr = 0f;
