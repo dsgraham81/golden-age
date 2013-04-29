@@ -21,7 +21,7 @@ public class GoldenAgeGame extends Game {
 		
 		input = new Input();
 		Gdx.input.setInputProcessor(input);
-		//Gdx.input.setCursorCatched(true);
+		Gdx.input.setCursorCatched(true);
 
 		title = new TitleScreen(this);
 		play = new PlayScreen(this);
