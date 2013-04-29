@@ -15,6 +15,7 @@ import com.gamedev.ld26.goldenage.games.GameObject;
 import com.gamedev.ld26.goldenage.games.GameState;
 import com.gamedev.ld26.goldenage.games.Player;
 import com.gamedev.ld26.goldenage.games.PlayerTransition;
+import com.gamedev.ld26.goldenage.games.TextTransition;
 import com.gamedev.ld26.goldenage.games.breakout.BreakoutState;
 import com.gamedev.ld26.goldenage.games.pong.PongState;
 import com.gamedev.ld26.goldenage.games.spaceinvaders.SpaceInvadersState;
@@ -222,6 +223,9 @@ public class G1942State extends GameState {
 		}
 		
 		addTransition(new PlayerTransition(_player,  previousScreen.getPlayer(), _transitionTime, false));
+		String textString = "Welcome to 1984";
+		addTransition(new TextTransition(textString,
+				new Vector2(Config.window_half_width - (textString.length() * 30 /2.0f), Config.window_half_height), Color.RED, _transitionTime));
 	}
 	
 	public Globals.Games nextScreen() {

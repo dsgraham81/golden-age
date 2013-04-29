@@ -77,6 +77,7 @@ public class BreakoutState extends GameState {
 		}
 		
 		_transitionTime = (Config.window_height *  Block.BLOCK_AREA) / (_ball.getSpeed() * Math.abs(_ball.getDir().y));
+		_transitionTime = 2;
 		System.out.println("TransitionTime : " + _transitionTime);
 		_windowBounds = new Rectangle(0,-20, Config.window_width, Config.window_height+20);
 		_stageMusic = Assets.breakoutMusic;
