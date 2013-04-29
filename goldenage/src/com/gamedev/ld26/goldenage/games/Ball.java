@@ -80,7 +80,7 @@ public class Ball extends GameObject {
 		_speed = Utils.clamp(_speed, -max_speed, max_speed);
 	}
 
-	public void render() {
+	public void render(float delta) {
 		Assets.shapes.setColor(_color);
 		Assets.shapes.circle(_circle.x, _circle.y, _circle.radius);
 	}

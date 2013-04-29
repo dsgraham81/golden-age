@@ -1,7 +1,5 @@
 package com.gamedev.ld26.goldenage.games.G1942;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Vector2;
 
 public class PlaneSpawnInfo {
 

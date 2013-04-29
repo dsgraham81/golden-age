@@ -10,6 +10,7 @@ import com.gamedev.ld26.goldenage.games.Bullet;
 import com.gamedev.ld26.goldenage.games.BulletFactory;
 import com.gamedev.ld26.goldenage.games.GameObject;
 import com.gamedev.ld26.goldenage.games.GameState;
+import com.gamedev.ld26.goldenage.games.Player;
 import com.gamedev.ld26.goldenage.games.PlayerTransition;
 import com.gamedev.ld26.goldenage.utils.Config;
 import com.gamedev.ld26.goldenage.utils.Utils;
@@ -105,6 +106,10 @@ public class G1942State extends GameState {
 		}
 	}
 	
+	protected Player createPlayer() {
+		return new PlanePlayer(this);
+	}
+	
 	private void spawnCircleShips(float dt)
 	{	
 		if (_leftCircleSpawner.ShouldSpawn(dt))
@@ -192,13 +197,14 @@ public class G1942State extends GameState {
 		
 	private void setupTransition(GameState previousScreen) {
 		if (previousScreen == null) return;
+		_transitionTime = 1.0f;
 		_player.setDraw(false);
 				
 		for (GameObject obj : previousScreen.getGameObjects()) {
 			
 			if (obj.isAlive()) {
 				if ((obj.isTransitionObject())) {
-					addTransition(new PlayerTransition(createScaleTransition(), obj, _transitionTime/3));
+					addTransition(new PlayerTransition(createScaleTransition(), obj, _transitionTime/2));
 				}
 			}
 		}

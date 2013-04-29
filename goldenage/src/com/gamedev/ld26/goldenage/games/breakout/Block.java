@@ -48,7 +48,7 @@ public class Block extends GameObject {
 		
 	}
 	
-	public void render()
+	public void render(float delta)
 	{
 		Assets.shapes.setColor(_color);
 		Assets.shapes.rect(_pos.x, (_pos.y), _width, _height);

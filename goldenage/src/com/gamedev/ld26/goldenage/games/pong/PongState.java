@@ -66,8 +66,8 @@ public class PongState extends GameState {
 
 	@Override
 	protected void renderScreen(float delta) {
-		_cpu.render();
-		_ball.render();
+		_cpu.render(delta);
+		_ball.render(delta);
 		drawExtras();
 		drawScores();
 	}	

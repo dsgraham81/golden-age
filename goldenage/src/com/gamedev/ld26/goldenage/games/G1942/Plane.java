@@ -89,7 +89,7 @@ public class Plane extends GameObject implements IShooter {
 		return new Vector2(x, y);
 	}
 	
-	public void render()
+	public void render(float delta)
 	{
 		Assets.shapes.setColor(_color);
 		Vector2 center = Utils.rectCenter(_rect);
