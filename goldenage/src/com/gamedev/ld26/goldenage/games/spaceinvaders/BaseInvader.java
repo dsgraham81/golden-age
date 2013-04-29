@@ -54,7 +54,7 @@ public class BaseInvader extends GameObject implements IShooter {
 
 	@Override
 	public int getShootSpeed() {
-		return 1000 + Assets.random.nextInt(500);
+		return 400 + Assets.random.nextInt(50);
 	}
 
 	@Override

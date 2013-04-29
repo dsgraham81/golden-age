@@ -33,7 +33,7 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 	private final int Columns = 15;
 	
 	private final int WinCount = 20;
-	private final int MaxSpeed = 600;
+	private final int MaxSpeed = 350;
 	
 	private Bullet _bullet;
 	
@@ -64,7 +64,7 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 	}
 	
 	private void setupScreen() {
-		_bulletFactory = new BulletFactory(this, Color.GRAY, 3);
+		_bulletFactory = new BulletFactory(this, Color.GRAY, 6);
 		_timer = new DeltaTimer(this, 0.5f);
 		
 		Color[] alienColor = new Color[] { Color.CYAN, Utils.blend(Color.CYAN, Color.MAGENTA),
@@ -80,7 +80,7 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 			int score =  rowValue*rowValue;
 			for (int x = 0; x < Columns; x++) {
 				BaseInvader invader = new BaseInvader(this, 35, alienColor[y]);
-				invader.Score = score;
+				invader.ScoreValue = score;
 				invader.Rotation = rotation;
 				_aliens.add(invader);
 			}
@@ -183,7 +183,7 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 		if (bulletExists()) {
 			if (_bullet.collides(alien)) {
 				alien.setAlive(false);
-				Score.AddToScore(alien.Score);
+				Score.AddToScore(alien.ScoreValue);
 				_bullet.setAlive(false);
 				return true;
 			}

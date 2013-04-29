@@ -152,7 +152,7 @@ public class G1942State extends GameState {
 							if (((Plane)tar).gotHit())
 							{
 								_shipsKilled++;
-								Score.AddToScore(tar.Score);
+								Score.AddToScore(tar.ScoreValue);
 							}
 						}
 					}
