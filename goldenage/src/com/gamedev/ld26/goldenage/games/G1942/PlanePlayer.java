@@ -20,6 +20,8 @@ public class PlanePlayer extends Player {
 	
 	private float _dWings;
 	
+	private Color _flameColor = new Color(Color.ORANGE);
+	
 	public PlanePlayer(GameState gs) {
 		super(new Vector2(20, 30), Color.BLACK, gs);
 		ShootSound = Assets.g1942PlayerLaser;
@@ -51,21 +53,39 @@ public class PlanePlayer extends Player {
 			Assets.shapes.line(_left.x, _left.y, _right.x, _right.y);
 			Assets.shapes.end();
 			Assets.shapes.begin(ShapeType.Filled);
+			
+			drawFlame();
 		}
+	}
+	
+	private void drawFlame() {
+		if (_respawnImmunity > 0) return;
+		
+		float dif = (float)Math.sin(6 * _animTime) * 5;
+		
+		_flameColor.b += dif;
+		_flameColor.r += 5* dif;
+		_flameColor.r -= 3* dif;
+		
+		float half = _rect.x + _rect.width/2;
+		Assets.shapes.setColor(_flameColor);
+		Assets.shapes.triangle(half - 4, _rect.y, half, _rect.y + 2, half + 4, _rect.y);
+		Assets.shapes.triangle(half - 4, _rect.y, half, _rect.y - Math.abs(dif * 7), half + 4, _rect.y);
 	}
 	
 	private void animate(float delta) {
 		_animTime += delta;
+		
+	
 		
 		if (_animTime > AnimTime) return;
 		float dt =(_animTime/AnimTime);	
 		
 		_dWings = 5 * dt;
 		
-		_left.height = _right.height = 10 * dt;
+		_left.height = _right.height = 10 * dt;	
 	}
-	
-	
+		
 	private void drawRect(Rectangle rect) {
 		Assets.shapes.triangle(rect.x, rect.y, rect.x + rect.width/2, rect.y + rect.height, rect.x+ rect.width, rect.y);	
 	}
