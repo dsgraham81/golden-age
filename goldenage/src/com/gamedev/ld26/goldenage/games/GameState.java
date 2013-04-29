@@ -152,16 +152,16 @@ public abstract class GameState {
 
 		renderScreen(delta);
 		render(_player, delta);
-		try {
+		//try {
 			for (GameObject object : _gameObjects)
 			{
 				render(object, delta);
 			}
-		} catch (Exception e) { 
+		//} catch (Exception e) { 
 
-			System.out.println(e.getMessage());
+		//	System.out.println(e.getMessage());
 	
-		} 
+		//} 
 		Assets.shapes.end();
 		if(isTransitioning())
 		{

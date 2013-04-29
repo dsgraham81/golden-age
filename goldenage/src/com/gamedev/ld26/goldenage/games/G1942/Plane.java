@@ -7,6 +7,7 @@ import com.gamedev.ld26.goldenage.IShooter;
 import com.gamedev.ld26.goldenage.core.Assets;
 import com.gamedev.ld26.goldenage.games.Bullet;
 import com.gamedev.ld26.goldenage.games.BulletFactory;
+import com.gamedev.ld26.goldenage.games.Explosion;
 import com.gamedev.ld26.goldenage.games.GameObject;
 import com.gamedev.ld26.goldenage.games.GameState;
 import com.gamedev.ld26.goldenage.utils.Config;
@@ -67,6 +68,7 @@ public class Plane extends GameObject implements IShooter {
 		_hitPoints--;
 		if (_hitPoints <= 0)
 		{
+			Explosion explosion = new Explosion(getLowerLeftPoint(), _color, _gState );
 			_alive = false;
 			return true;
 		}

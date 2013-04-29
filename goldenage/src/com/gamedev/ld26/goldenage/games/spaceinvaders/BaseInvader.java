@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.DirectionVector;
 import com.gamedev.ld26.goldenage.IShooter;
 import com.gamedev.ld26.goldenage.core.Assets;
+import com.gamedev.ld26.goldenage.games.Explosion;
 import com.gamedev.ld26.goldenage.games.GameObject;
 import com.gamedev.ld26.goldenage.games.GameState;
 import com.gamedev.ld26.goldenage.utils.Utils;
@@ -20,6 +21,15 @@ public class BaseInvader extends GameObject implements IShooter {
 		super(Vector2.Zero, new Vector2(size, size), color, gs);
 		}
 		
+	public void setAlive(boolean value)
+	{
+		super.setAlive(value);
+		if (!value)
+		{
+			Explosion explosion = new Explosion(getLowerLeftPoint(), _color, _gState );
+		}
+	}
+	
 	private float _dr;
 	
 	public void render(float delta)

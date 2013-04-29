@@ -114,6 +114,7 @@ public class Utils {
 	public static Color getRandomColor(float alpha) {
 		return new Color(Assets.random.nextFloat(), Assets.random.nextFloat(), Assets.random.nextFloat(), alpha);
 	}
+
 	
 	public static Color blend(Color color1, Color color2) {
 		Color returnColor = new Color(color1);
