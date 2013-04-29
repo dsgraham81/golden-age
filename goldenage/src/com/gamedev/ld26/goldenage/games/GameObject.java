@@ -19,6 +19,7 @@ public class GameObject {
 	protected boolean _transitionObject = true;
 	protected float _respawnImmunity;
 	public boolean IsTemporary;
+	public boolean deferred = false;
 	
 	public int ScoreValue = 0;
 	

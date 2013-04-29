@@ -71,6 +71,7 @@ public class Plane extends GameObject implements IShooter {
 			float x = (float)Math.cos(_dir / 180.0 * Math.PI);
 			float y = -(float)Math.sin(_dir / 180.0 * Math.PI);
 			Explosion explosion = new Explosion(getCenterPosition(), _color, new Vector2(x*speed, y * speed), _gState);
+			explosion.deferred = true;
 			_alive = false;
 			return true;
 		}

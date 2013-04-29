@@ -1,6 +1,7 @@
 package com.gamedev.ld26.goldenage.games;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Random;
 
 import com.badlogic.gdx.audio.Music;
@@ -69,6 +70,7 @@ public abstract class GameState {
 	}
 	
 	public ArrayList<GameObject> _newObjects = new ArrayList<GameObject>();
+	public ArrayList<GameObject> _deferredObjects = new ArrayList<GameObject>();
 	
 	public void update(float delta) {
 		if (!_player.isAlive()) {
@@ -100,6 +102,9 @@ public abstract class GameState {
 		{
 			if (obj._alive){
 				_newObjects.add(obj);
+			}
+			if (obj.deferred) {
+				_deferredObjects.add(obj);
 			}
 		}
 		} catch (Exception e){ } 
@@ -155,7 +160,7 @@ public abstract class GameState {
 	
 	protected abstract void updateScreen(float delta);
 	
-	public void render(float delta) {
+	public void render(float delta) {	
 		Assets.shapes.begin(ShapeType.Filled);
 
 		renderScreen(delta);
@@ -163,8 +168,16 @@ public abstract class GameState {
 		//try {
 			for (GameObject object : _gameObjects)
 			{
+				if (object.deferred) {
+					continue;
+				}
 				render(object, delta);
 			}
+			
+			for (GameObject object : _deferredObjects) {
+				render(object, delta);
+			}
+			_deferredObjects = new ArrayList<GameObject>();
 		//} catch (Exception e) { 
 
 		//	System.out.println(e.getMessage());

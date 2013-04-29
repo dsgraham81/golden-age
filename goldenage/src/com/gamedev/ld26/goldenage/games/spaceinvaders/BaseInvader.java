@@ -27,6 +27,7 @@ public class BaseInvader extends GameObject implements IShooter {
 		if (!value)
 		{
 			Explosion explosion = new Explosion(getLowerLeftPoint(), _color, Vector2.Zero, _gState );
+			explosion.deferred = true;
 		}
 	}
 	
