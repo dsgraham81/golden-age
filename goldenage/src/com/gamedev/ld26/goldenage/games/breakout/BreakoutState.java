@@ -70,7 +70,7 @@ public class BreakoutState extends GameState {
 				float greyLevel = (float)y/Block.BLOCKS_TALL;
 				Color blockColor = new Color(greyLevel, greyLevel, greyLevel, 1.0f);
 				Block newBlock = new Block(new Vector2(x,y), blockColor, _startPos, this);
-				newBlock.Score = 2 * (Block.BLOCKS_TALL - y);
+				newBlock.ScoreValue = 2 * (Block.BLOCKS_TALL - y);
 				_blocks.add(newBlock);
 			}
 		}
@@ -105,7 +105,7 @@ public class BreakoutState extends GameState {
 				if (_ball.collides(block))
 				{
 					Assets.bricksSound.play();
-					Score.AddToScore(block.Score);
+					Score.AddToScore(block.ScoreValue);
 					block.setAlive(false);
 					
 					boolean intersectLeft = Intersector.intersectSegmentCircle(block.getUpperLeftPoint(), 

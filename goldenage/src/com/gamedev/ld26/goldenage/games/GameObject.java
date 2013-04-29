@@ -20,7 +20,7 @@ public class GameObject {
 	protected float _respawnImmunity;
 	public boolean IsTemporary;
 	
-	public int Score = 0;
+	public int ScoreValue = 0;
 	
 	public GameObject(GameState gs)
 	{

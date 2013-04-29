@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.DirectionVector;
 import com.gamedev.ld26.goldenage.IShooter;
 import com.gamedev.ld26.goldenage.core.Assets;
+import com.gamedev.ld26.goldenage.core.Score;
 
 public class Player extends GameObject implements IShooter {
 
@@ -38,10 +39,16 @@ public class Player extends GameObject implements IShooter {
 		}
 	}
 	
+	public Sound LifeLostSound = Assets.lifeLostSound;
+	
 	public void setAlive(boolean alive)
 	{
 		super.setAlive(alive);
-		if (!_alive)
-			Assets.lifeLostSound.play();
+		if (!_alive) {
+			if (LifeLostSound != null) {
+				LifeLostSound.play();
+				Score.loseLife();
+			}			
+		}
 	}
 }

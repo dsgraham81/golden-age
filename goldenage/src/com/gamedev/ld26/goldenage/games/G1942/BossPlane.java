@@ -23,7 +23,7 @@ public class BossPlane extends Plane {
 		_hitPoints = TotalHitPoints;
 		ShootSound = null;
 		dying = false;
-		Score = 1000;
+		ScoreValue = 1000;
 	}
 
 	public void update(float dt){
