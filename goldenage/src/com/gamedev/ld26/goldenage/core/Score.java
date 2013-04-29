@@ -40,8 +40,14 @@ public class Score {
 	}
 	
 	public static String getScoreString(int padding){
-		 String tempString = String.format("%0"+padding+"d", _score);
-		 if (tempString.length()> padding)
+		
+		 String tempString = "" + _score;
+		 int numbersToPad = padding - tempString.length();
+		 for (int i =0;i < numbersToPad; i++)
+		 {
+			 tempString = "0"+ tempString;
+		 }
+		 if (tempString.length() > padding)
 		 {
 			 tempString = "";
 			 for(int i =0;i < padding; i++)

@@ -41,8 +41,11 @@ public class BossPlane extends Plane {
 			_rect.x = _targetPosition.x;
 			_rect.y = _targetPosition.y;
 			fireArc(TotalHitPoints - _hitPoints + 10);
+			while ( _targetPosition.dst2(_rect.x, _rect.y) < 500*500)
+			{
 			_targetPosition = new Vector2(Assets.random.nextFloat() * (Config.window_width- 100) + 50,
 										  Assets.random.nextFloat() * (Config.window_height - 100) + 50);
+			}
 		}
 		else {
 			tempAngle.nor();

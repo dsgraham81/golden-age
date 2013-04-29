@@ -15,7 +15,7 @@ public class Explosion extends GameObject {
 		super(pos, new Vector2(), color, gs);
 		
 		float angle = 0f;
-		int count = 30;
+		int count = 50;
 		float angleDelta = 360.0f / count;
 		
 		for (int i =0; i < count; i++)
