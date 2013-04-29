@@ -47,7 +47,7 @@ public class TitleScreen implements Screen {
 		} else if (game.input.isKeyDown(Keys.NUM_3)) {
 			game.setGame(Globals.Games.spaceinvaders);
 		} else if (game.input.isKeyDown(Keys.NUM_4)) {
-			game.setGame(Globals.Games.centipede);
+			game.setGame(Globals.Games.glitch);
 		} else if (game.input.isKeyDown(Keys.NUM_5)) {
 			game.setGame(Globals.Games.g1942);
 		} 
