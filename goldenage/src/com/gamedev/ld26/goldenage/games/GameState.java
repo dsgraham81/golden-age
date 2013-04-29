@@ -149,14 +149,12 @@ public abstract class GameState {
 	public void render(float delta) {
 		Assets.shapes.begin(ShapeType.Filled);
 
-
-		
 		renderScreen(delta);
-		render(_player);
+		render(_player, delta);
 		try {
 			for (GameObject object : _gameObjects)
 			{
-				render(object);
+				render(object, delta);
 			}
 		} catch (Exception e) { 
 
@@ -166,9 +164,9 @@ public abstract class GameState {
 		Assets.shapes.end();
 	}
 	
-	protected void render(GameObject gameObject) {
+	protected void render(GameObject gameObject, float delta) {
 		if (gameObject != null && gameObject.isAlive()) {
-			gameObject.render();
+			gameObject.render(delta);
 		}
 	}
 	

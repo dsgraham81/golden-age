@@ -34,6 +34,7 @@ public class Assets {
 	
 	public static Sound planeShot;
 	public static Sound bossShot;
+	public static Sound g1942PlayerLaser;
 	
 	public static Music pongMusic;
 	public static Music breakoutMusic;
@@ -75,6 +76,7 @@ public class Assets {
 		
 		planeShot = beep;
 		bossShot = beep;
+		g1942PlayerLaser = beep;
 		
 		titleMusic = Gdx.audio.newMusic(Gdx.files.internal("data/audio/title.mp3"));
 		pongMusic = Gdx.audio.newMusic(Gdx.files.internal("data/audio/aces_high.mp3"));

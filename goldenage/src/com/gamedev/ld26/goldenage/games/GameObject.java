@@ -110,6 +110,10 @@ public class GameObject {
 	}
 	
 	public void render() {
+		render(0);
+	}
+	
+	public void render(float delta) {
 		if (!_draw) return;
 		Assets.shapes.setColor(_color);
 		Assets.shapes.rect(_rect.x, _rect.y, _rect.width, _rect.height);

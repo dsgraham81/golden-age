@@ -86,7 +86,7 @@ public class BossPlane extends Plane {
 		return false;
 	}
 	
-	public void render()
+	public void render(float delta)
 	{
 		Assets.shapes.end();
 		Assets.batch.begin();

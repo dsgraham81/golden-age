@@ -22,7 +22,7 @@ public class BaseInvader extends GameObject implements IShooter {
 		
 	private float _dr;
 	
-	public void render()
+	public void render(float delta)
 	{
 		_dr += Rotation;
 		
