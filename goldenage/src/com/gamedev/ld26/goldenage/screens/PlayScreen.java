@@ -3,12 +3,12 @@ package com.gamedev.ld26.goldenage.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.gamedev.ld26.goldenage.Globals;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.core.Assets;
+import com.gamedev.ld26.goldenage.core.Score;
 import com.gamedev.ld26.goldenage.games.GameState;
 import com.gamedev.ld26.goldenage.games.G1942.G1942State;
 import com.gamedev.ld26.goldenage.games.breakout.BreakoutState;
@@ -26,6 +26,8 @@ public class PlayScreen implements Screen {
 	public final GoldenAgeGame game;
 	private GameState _gameScreen;
 	
+	private float _totalTime;
+	
 	public PlayScreen(GoldenAgeGame game) {
 		super();
 		this.game = game;
@@ -35,6 +37,8 @@ public class PlayScreen implements Screen {
 	public void transitionGame(Globals.Games title)	{
 		switch (title) {
 			case pong:
+				_totalTime = 0;
+				Score.setTime(0);
 				_gameScreen = new PongState(game, _gameScreen);
 				break;
 			case breakout:
@@ -50,9 +54,10 @@ public class PlayScreen implements Screen {
 				_gameScreen = new G1942State(game, _gameScreen);
 				break;
 			case end:
-				_gameScreen = new EndScreen(this, _gameScreen);
+				_gameScreen = new EndScreen(game, _gameScreen);
 				break;
 			case glitch:
+				Score.setTime(_totalTime);
 				_gameScreen = new GlitchState(game, _gameScreen);
 				break;
 		}
@@ -81,6 +86,8 @@ public class PlayScreen implements Screen {
 		if (_gameScreen == null) return;
 			
 		update();
+		
+		_totalTime += delta;
 		
 		Gdx.gl20.glClearColor(0, 0, 0, 1);
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
