@@ -34,6 +34,10 @@ public class PongState extends GameState {
 	private int _playerScore;
 	private int _cpuScore;
 	
+	private boolean _countdown;
+	private float _counter;
+	
+	
 	public PongState(GoldenAgeGame game, GameState previous) {
 		super(game, previous);
 		_windowBounds = Config.pong_window_bounds;
@@ -46,6 +50,7 @@ public class PongState extends GameState {
 		
 		_ball = new Ball(new Vector2(Config.window_half_width, Config.window_half_height), 10, Color.WHITE, this);
 		_ball.setSquare(true);
+		_ball._dontUpdate = true; // wait to update till countdown is over
 		
 		_playerScore = 0;
 		_cpuScore = 0;
@@ -53,10 +58,23 @@ public class PongState extends GameState {
 		_transitionTime =0;
 		Score.ResetScore();
 		
+		_countdown = true;
+		_counter = 3.f;
+		Assets.countdown321.play();
 	}
 
 	@Override
 	protected void updateScreen(float delta) {
+		if (_countdown) {
+			_counter -= delta;
+			if (_counter <= 0.f) {
+				_countdown = false;
+				_ball._dontUpdate = false;
+			} else {
+				Utils.constrainToRect(_player, Config.pong_window_bounds);
+				return;
+			}
+		}
 		//_ball.update(Gdx.graphics.getDeltaTime());
 		checkForScore();		
 		
@@ -74,18 +92,29 @@ public class PongState extends GameState {
 		_ball.render(delta);
 		drawExtras();
 		drawScores();
+		if (_countdown) {
+			if (_counter > 2.f) {
+				Utils.drawText("3", Config.window_half_width, Config.window_half_height + 100, 64, 100, Color.WHITE, Utils.STRING_JUSTIFICATION.CENTER);
+			} else if (_counter > 1.f) {
+				Utils.drawText("2", Config.window_half_width, Config.window_half_height + 100, 64, 100, Color.WHITE, Utils.STRING_JUSTIFICATION.CENTER);
+			} else {
+				Utils.drawText("1", Config.window_half_width, Config.window_half_height + 100, 64, 100, Color.WHITE, Utils.STRING_JUSTIFICATION.CENTER);
+			}
+		}
 	}	
 
 	private void checkForScore() {
 		if (_ball.getCircle().y <= 0) {
 			_ball.setAlive(false);
 			_cpuScore++;
+			Assets.pongCpuScoreSound.play();
 			Score.loseLife();
 		}
 		
 		if (_ball.getCircle().y >= Config.window_height){
 			_ball.setAlive(false);
 			_playerScore++;
+			Assets.pongPlayerScoreSound.play();
 			Score.AddToScore(1);
 		}
 		

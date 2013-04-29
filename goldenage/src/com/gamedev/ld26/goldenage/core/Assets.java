@@ -34,6 +34,11 @@ public class Assets {
 	public static Sound glitchSound;
 	public static Sound coinReturnSound;
 	public static Sound coinHitSound;
+	public static Sound countdown321;
+	
+	public static Sound pongCpuScoreSound;
+	public static Sound pongPlayerScoreSound;
+	public static Sound pongWallBounceSound;
 	
 	public static Sound siPlayerLaser;
 	public static Sound siAlienLaser;
@@ -85,6 +90,12 @@ public class Assets {
 		glitchSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/glitch.wav"));
 		coinHitSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/coinhit.wav"));
 		coinReturnSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/coin_return.wav"));
+		countdown321 = Gdx.audio.newSound(Gdx.files.internal("data/audio/countdown-321.mp3"));
+		
+		pongCpuScoreSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/pong-cpu-score.wav"));
+		pongPlayerScoreSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/pong-player-score.wav"));
+		pongWallBounceSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/pong-wall-bounce.wav"));
+//		pongWallBounceSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/pong-wall-bounce-lol.wav"));
 		
 		siPlayerLaser = laserSound;
 		siAlienLaser = laser1Sound;
