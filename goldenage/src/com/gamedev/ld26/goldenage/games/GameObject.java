@@ -24,7 +24,7 @@ public class GameObject {
 	
 	public GameObject(GameState gs)
 	{
-		this(Vector2.Zero,  Vector2.Zero,  Color.WHITE, gs);
+		this(Vector2.Zero, Vector2.Zero, Color.WHITE, gs);
 	}
 	
 	public boolean isTransitionObject() {
