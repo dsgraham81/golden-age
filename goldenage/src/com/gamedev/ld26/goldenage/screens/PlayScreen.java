@@ -59,6 +59,7 @@ public class PlayScreen implements Screen {
 				break;
 			case glitch:
 				Score.setTime(_totalTime);
+				Assets.wat.play();
 				_gameScreen = new GlitchState(game, _gameScreen);
 				break;
 		}
@@ -72,6 +73,12 @@ public class PlayScreen implements Screen {
 				_gameScreen.dispose();
 			}
 			Utils.PlayMusic(Assets.titleMusic);
+		}
+		
+		// For debugging, to skip to next game quickly
+		if (game.input.isKeyDown(Keys.P)) {
+			_gameScreen.setGameWon();
+			game.input.reset();
 		}
 		
 		final float delta = Gdx.graphics.getDeltaTime();

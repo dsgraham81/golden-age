@@ -23,6 +23,7 @@ public class Assets {
 	public static Texture baked_potato;
 	public static Texture glitchTexture;
 	
+	public static Sound wat;
 	public static Sound beep;
 	public static Sound lifeLostSound;
 	public static Sound laserSound;
@@ -79,6 +80,7 @@ public class Assets {
 		glitchTexture = new Texture(Gdx.files.internal("data/glitch.png"));
 		glitchTexture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		
+		wat = Gdx.audio.newSound(Gdx.files.internal("data/audio/wat.wav"));
 		beep = Gdx.audio.newSound(Gdx.files.internal("data/audio/beep.wav"));
 		bricksSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/brickhit.wav"));
 		buzzSound = Gdx.audio.newSound(Gdx.files.internal("data/audio/buzz.wav"));
