@@ -27,6 +27,7 @@ public class CirclePlane extends Plane {
 		hasTurned = false;
 		initialDir = _dir;
 		speed = 300;
+		Score = 35;
 	}
 
 	public void update(float dt){
