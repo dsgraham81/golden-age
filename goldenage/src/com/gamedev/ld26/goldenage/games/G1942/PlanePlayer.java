@@ -40,17 +40,19 @@ public class PlanePlayer extends Player {
 	
 	public void render(float delta) {
 		if (!_draw) return;
-		Assets.shapes.setColor(_color);
-		drawRect(_rect);
+		drawRect(_rect, _color);
 		
 		if (!_gState.isTransitioning()) {
 			animate(delta);
 			
-			drawRect(_left);
-			drawRect(_right);
+			drawRect(_left, Color.BLACK);
+			drawRect(_right, Color.BLACK);
 			Assets.shapes.end();
 			Assets.shapes.begin(ShapeType.Line);
 			Assets.shapes.line(_left.x, _left.y, _right.x, _right.y);
+			drawRect(_left, Color.WHITE);
+			drawRect(_right, Color.WHITE);
+			drawRect(_rect, Color.RED);
 			Assets.shapes.end();
 			Assets.shapes.begin(ShapeType.Filled);
 			
@@ -86,7 +88,8 @@ public class PlanePlayer extends Player {
 		_left.height = _right.height = 10 * dt;	
 	}
 		
-	private void drawRect(Rectangle rect) {
+	private void drawRect(Rectangle rect, Color color) {
+		Assets.shapes.setColor(color);
 		Assets.shapes.triangle(rect.x, rect.y, rect.x + rect.width/2, rect.y + rect.height, rect.x+ rect.width, rect.y);	
 	}
 	
