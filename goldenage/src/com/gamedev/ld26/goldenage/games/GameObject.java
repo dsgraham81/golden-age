@@ -1,6 +1,8 @@
 package com.gamedev.ld26.goldenage.games;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.core.Assets;
@@ -146,4 +148,8 @@ public class GameObject {
 	public void update(float delta) {}
 	
 	public void dispose() {}
+	
+	public boolean collides(Circle circle) {
+		return Intersector.overlaps(circle, _rect);
+	}
 }

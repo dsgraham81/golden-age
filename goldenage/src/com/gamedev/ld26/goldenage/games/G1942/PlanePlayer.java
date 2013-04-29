@@ -2,6 +2,8 @@ package com.gamedev.ld26.goldenage.games.G1942;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.gamedev.ld26.goldenage.core.Assets;
@@ -66,5 +68,10 @@ public class PlanePlayer extends Player {
 	
 	private void drawRect(Rectangle rect) {
 		Assets.shapes.triangle(rect.x, rect.y, rect.x + rect.width/2, rect.y + rect.height, rect.x+ rect.width, rect.y);	
+	}
+	
+	public boolean collides(Circle circle) {
+		return Intersector.overlaps(circle, _rect) || Intersector.overlaps(circle, _left)
+				|| Intersector.overlaps(circle, _right);
 	}
 }
