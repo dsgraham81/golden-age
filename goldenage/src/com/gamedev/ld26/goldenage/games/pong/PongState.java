@@ -14,6 +14,7 @@ import com.gamedev.ld26.goldenage.games.GameState;
 import com.gamedev.ld26.goldenage.games.Player;
 import com.gamedev.ld26.goldenage.utils.Config;
 import com.gamedev.ld26.goldenage.utils.Utils;
+import com.gamedev.ld26.goldenage.utils.Utils.STRING_JUSTIFICATION;
 
 public class PongState extends GameState {
 
@@ -162,8 +163,8 @@ public class PongState extends GameState {
 		float y1 = Config.window_height - ch - 32;
 		float x2 = Config.window_width - x1 - cw;
 		float y2 = ch;
-		Utils.drawText(s1, x1, y1, cw, ch, Color.WHITE);
-		Utils.drawText(s2, x2, y2, cw, ch, Color.WHITE);
+		Utils.drawText(s1, x1, y1, cw, ch, Color.WHITE, STRING_JUSTIFICATION.LEFT);
+		Utils.drawText(s2, x2, y2, cw, ch, Color.WHITE, STRING_JUSTIFICATION.LEFT);
 	}
 
 	public Globals.Games nextScreen() {

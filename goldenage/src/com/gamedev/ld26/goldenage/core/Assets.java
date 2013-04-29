@@ -88,9 +88,9 @@ public class Assets {
 		siPlayerLaser = laserSound;
 		siAlienLaser = laser1Sound;
 		
-		planeShot = beep;
+		planeShot = laserSound;
 		bossShot = missileSound;
-		g1942PlayerLaser = beep;
+		g1942PlayerLaser = laser1Sound;
 		
 		titleMusic = Gdx.audio.newMusic(Gdx.files.internal("data/audio/title.mp3"));
 		pongMusic = Gdx.audio.newMusic(Gdx.files.internal("data/audio/aces_high.mp3"));

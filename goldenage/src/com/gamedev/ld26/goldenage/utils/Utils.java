@@ -11,12 +11,26 @@ public class Utils {
 
 	private static final String symbols = ",.!?'\"-+=/\\%()<>:;";
 	private static Music currentMusic;
+	public static enum STRING_JUSTIFICATION { LEFT, CENTER, RIGHT };
 	
-	public static void drawText(String text, float x, float y, int w, int h, Color color) {
+	public static void drawText(String text, float x, float y, int w, int h, Color color, STRING_JUSTIFICATION justify) {
 		text = text.toUpperCase();
 		int s = 2; // spacing between characters (pixels)
 		com.gamedev.ld26.goldenage.core.Assets.batch.begin();
 		Assets.batch.setColor(color);
+		float totalWidth = text.length() * w;
+		switch (justify)
+		{
+		case LEFT:
+			break;
+		case CENTER:
+			
+			x -= totalWidth/2;
+			break;
+		case RIGHT:
+			 x-= totalWidth;
+			break;
+		}
 		for(int i = 0; i < text.length(); ++i) {
 			char ch = text.charAt(i);
 			float xPos = x + i * w + s;

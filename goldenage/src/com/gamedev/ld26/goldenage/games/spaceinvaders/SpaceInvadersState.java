@@ -20,6 +20,7 @@ import com.gamedev.ld26.goldenage.games.PlayerTransition;
 import com.gamedev.ld26.goldenage.games.TextTransition;
 import com.gamedev.ld26.goldenage.utils.Config;
 import com.gamedev.ld26.goldenage.utils.Utils;
+import com.gamedev.ld26.goldenage.utils.Utils.STRING_JUSTIFICATION;
 
 public class SpaceInvadersState extends GameState implements TimerListener {
 
@@ -262,7 +263,7 @@ public class SpaceInvadersState extends GameState implements TimerListener {
 
 	@Override
 	protected void renderScreen(float delta) {
-		Utils.drawText(Score.getScoreString(4), 10, Config.window_height - 40, 20, 20, new Color(1f,1f,1f,1f));
+		Utils.drawText(Score.getScoreString(4), 10, Config.window_height - 40, 20, 20, new Color(1f,1f,1f,1f), STRING_JUSTIFICATION.LEFT);
 	}
 
 	private boolean _alienFire = false;

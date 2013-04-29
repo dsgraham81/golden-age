@@ -13,6 +13,7 @@ import com.gamedev.ld26.goldenage.GoldenAgeGame;
 import com.gamedev.ld26.goldenage.core.Assets;
 import com.gamedev.ld26.goldenage.utils.Config;
 import com.gamedev.ld26.goldenage.utils.Utils;
+import com.gamedev.ld26.goldenage.utils.Utils.STRING_JUSTIFICATION;
 
 public class TitleScreen implements Screen {
 
@@ -70,16 +71,16 @@ public class TitleScreen implements Screen {
 		final String testString1 = "Golden Age";
 		final String testString2 = "Relive the classics";
 		final int w = 16, h = 16;
-		final float speed = 8.f;
-		final float range = 33.33f;
-		final float minx = Config.window_width / 2 - w * ((testString1.length() + testString2.length()) / 4);
-		float x1 = (float) Math.sin(accum * speed) * range + minx;
-		float x2 = (float) Math.cos(accum * speed / 2) * range + minx;
+//		final float speed = 8.f;
+//		final float range = 33.33f;
+//		final float minx = Config.window_width / 2 - w * ((testString1.length() + testString2.length()) / 4);
+//		float x1 = (float) Math.sin(accum * speed) * range + minx;
+//		float x2 = (float) Math.cos(accum * speed / 2) * range + minx;
 
 		Rectangle r = Config.pong_window_bounds;
 		
-		Utils.drawText(testString1, x1, r.height - 200, w, h, Color.GREEN);
-		Utils.drawText(testString2, x2, 100, w, h, Color.ORANGE);
+		Utils.drawText(testString1, Config.window_half_width, r.height - 200, w, h, Color.GREEN, STRING_JUSTIFICATION.CENTER);
+		Utils.drawText(testString2, Config.window_half_width, 100, w, h, Color.ORANGE, STRING_JUSTIFICATION.CENTER);
 	}
 	
 	private float _dr = 0f;
