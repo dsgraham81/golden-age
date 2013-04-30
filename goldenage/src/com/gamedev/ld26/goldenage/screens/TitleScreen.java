@@ -41,8 +41,8 @@ public class TitleScreen implements Screen {
 			_coinInserted = true;
 			startGameDelay = 1.75f;
 		} //else {
-			//handleScreen();
-		//}
+//			handleScreen();
+//		}
 		
 		if (startGameDelay > 0)
 		{
@@ -66,19 +66,19 @@ public class TitleScreen implements Screen {
 	}
 	
 	protected void handleScreen() {	
-//		if (game.input.isKeyDown(Keys.NUM_1)) {
-//			game.setGame(Globals.Games.pong);
-//		} else if (game.input.isKeyDown(Keys.NUM_2)) {
-//			game.setGame(Globals.Games.breakout);
-//		} else if (game.input.isKeyDown(Keys.NUM_3)) {
-//			game.setGame(Globals.Games.spaceinvaders);
-//		} else if (game.input.isKeyDown(Keys.NUM_4)) {
-//			game.setGame(Globals.Games.glitch);
-//		} else if (game.input.isKeyDown(Keys.NUM_5)) {
-//			game.setGame(Globals.Games.g1942);
-//		} else if (game.input.isKeyDown(Keys.NUM_6)) {
-//			game.setGame(Globals.Games.end);
-//		} 
+		if (game.input.isKeyDown(Keys.NUM_1)) {
+			game.setGame(Globals.Games.pong);
+		} else if (game.input.isKeyDown(Keys.NUM_2)) {
+			game.setGame(Globals.Games.breakout);
+		} else if (game.input.isKeyDown(Keys.NUM_3)) {
+			game.setGame(Globals.Games.spaceinvaders);
+		} else if (game.input.isKeyDown(Keys.NUM_4)) {
+			game.setGame(Globals.Games.glitch);
+		} else if (game.input.isKeyDown(Keys.NUM_5)) {
+			game.setGame(Globals.Games.g1942);
+		} else if (game.input.isKeyDown(Keys.NUM_6)) {
+			game.setGame(Globals.Games.end);
+		} 
 	}
 	
 	@Override
