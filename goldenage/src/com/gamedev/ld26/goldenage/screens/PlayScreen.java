@@ -62,8 +62,17 @@ public class PlayScreen implements Screen {
 				Assets.wat.play();
 				_gameScreen = new GlitchState(game, _gameScreen);
 				break;
+			case title:
+				game.setScreen(game.title);
+				if (_gameScreen != null) {
+					_gameScreen.dispose();
+					
+				}
+				_gameScreen = null;
+				Utils.PlayMusic(Assets.titleMusic);
+				break;
 		}
-		Utils.PlayMusic(_gameScreen.getMusic());
+		if (_gameScreen != null) Utils.PlayMusic(_gameScreen.getMusic());
 	}
 	
 	public void update() {
@@ -101,7 +110,8 @@ public class PlayScreen implements Screen {
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		try {
-			_gameScreen.render(Gdx.graphics.getDeltaTime());
+			if (_gameScreen != null)
+				_gameScreen.render(Gdx.graphics.getDeltaTime());
 		} catch (Exception e) {
 			// funny, we get to use the glitch
 			transitionGame(Games.glitch);

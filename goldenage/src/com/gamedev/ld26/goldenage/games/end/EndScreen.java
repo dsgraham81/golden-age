@@ -2,6 +2,8 @@ package com.gamedev.ld26.goldenage.games.end;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.gamedev.ld26.goldenage.Globals;
 import com.gamedev.ld26.goldenage.GoldenAgeGame;
@@ -18,9 +20,11 @@ public class EndScreen extends GameState {
 		public String Text2;
 		public int Size;
 		public Color Color;
+
 	}
 	
 	private ArrayList<TextInfo> _text = new ArrayList<TextInfo>();
+	private float _exitDelay;
 	
 	public EndScreen(GoldenAgeGame game, GameState previous) {
 		super(game, previous);
@@ -68,6 +72,8 @@ public class EndScreen extends GameState {
 		add("You lost " + lives + " lives", 30, Color.RED);
 		
 		add("You almost made it! Better luck next time", 20, Color.WHITE);
+		
+		_exitDelay = 3f; // Don't want them to miss it if they had the mouse down
 	}
 		
 	private void add(String text, int size, Color color) {
@@ -119,8 +125,14 @@ public class EndScreen extends GameState {
 	}
 	
 	public void update(float delta) {
-		
+		_exitDelay -= delta;
+		if (_game.input.isButtonDown(0) && _exitDelay < 0)
+		{
+			_gameWon = true;
+			
+		}
 	}
+	
 	
 	public void render(float delta) {
 		float y = (_windowBounds.y + _windowBounds.height - 60);
@@ -145,6 +157,6 @@ public class EndScreen extends GameState {
 	}
 	
 	public Globals.Games nextScreen() {
-		return Globals.Games.pong;
+		return Globals.Games.title;
 	}
 }
